@@ -4,6 +4,7 @@ using System.Data;
 using System.Collections;
 using System.IO;
 using System.Text;
+using System.Globalization;
 #endregion
 
 #region License
@@ -956,14 +957,14 @@ namespace SharpHsql
 					return null;
 
 				case ColumnType.Integer:
-					return int.Parse(source);
+                    return int.Parse(source, CultureInfo.InvariantCulture);
 
 				case ColumnType.Float:
 				case ColumnType.Real:
-					return Single.Parse(source);
+                    return Single.Parse(source, CultureInfo.InvariantCulture);
 
 				case ColumnType.DbDouble:
-					return Double.Parse(source);
+                    return Double.Parse(source, CultureInfo.InvariantCulture);
 
 				case ColumnType.VarCharIgnoreCase:
 				case ColumnType.VarChar:
@@ -974,20 +975,20 @@ namespace SharpHsql
 				case ColumnType.Date:
 				case ColumnType.Time:
 				case ColumnType.Timestamp:
-					return DateTime.Parse(source);
+                    return DateTime.Parse(source, CultureInfo.InvariantCulture);
 
 				case ColumnType.Numeric:
 				case ColumnType.DbDecimal:
-					return Decimal.Parse(source);
+                    return Decimal.Parse(source, CultureInfo.InvariantCulture);
 
 				case ColumnType.Bit:
 					return Boolean.Parse(source);
 
 				case ColumnType.TinyInt:
-					return Byte.Parse(source);
+                    return Byte.Parse(source, CultureInfo.InvariantCulture);
 
 				case ColumnType.SmallInt:
-					return Int16.Parse(source);
+                    return Int16.Parse(source, CultureInfo.InvariantCulture);
 
 				case ColumnType.BigInt:
 					return Int64.Parse(source);
@@ -1029,9 +1030,9 @@ namespace SharpHsql
 					if( obj is DateTime )
 						return ((DateTime)obj).ToString("yyyy.MM.dd HH:mm:ss.fffffff");
 					else
-						return obj.ToString();
+                        return Convert.ToString(obj, CultureInfo.InvariantCulture);
 				default:
-					return obj.ToString();
+					return Convert.ToString(obj, CultureInfo.InvariantCulture);
 			}
 		}
 
@@ -1047,7 +1048,7 @@ namespace SharpHsql
 			{
 				return null;
 			}
-			return ConvertString(obj.ToString(), type);
+			return ConvertString(Convert.ToString(obj, CultureInfo.InvariantCulture), type);
 		}
 
 		/// <summary>
@@ -1084,7 +1085,7 @@ namespace SharpHsql
 				case ColumnType.DbDecimal:
 				case ColumnType.Float:
 				case ColumnType.Numeric:
-					return "'" + obj.ToString() + "'";
+					return "'" + Convert.ToString(obj, CultureInfo.InvariantCulture) + "'";
 
 				case ColumnType.VarCharIgnoreCase:
 				case ColumnType.VarChar:

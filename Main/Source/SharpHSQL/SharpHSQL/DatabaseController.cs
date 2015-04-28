@@ -11,13 +11,11 @@ namespace SharpHsql
 	/// <summary>
 	/// Controller class for single point database access.
 	/// </summary>
-	public sealed class DatabaseController 
+	public static class DatabaseController 
 	{
 		private static object SyncRoot = new object();
 		private static Hashtable _dbs = Hashtable.Synchronized( new Hashtable() );
 		private static Timer _checkPoint;
-
-		private DatabaseController(){}
 
 		static DatabaseController()
 		{

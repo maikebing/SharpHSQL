@@ -239,7 +239,7 @@ namespace System.Data.Hsql
 		/// InfoMessage event.
 		/// </summary>
 		public event SharpHsqlInfoMessageEventHandler InfoMessage;
-        public override event StateChangeEventHandler StateChange;
+		public override event StateChangeEventHandler StateChange;
 
 		/// <summary>
 		/// Get a clone of the current instance.
@@ -470,17 +470,17 @@ namespace System.Data.Hsql
 
 		#endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
+		/// <summary>
+		/// 
+		/// </summary>
 		public override string DataSource
 		{
 			get { throw new NotImplementedException(); }
 		}
 
-        /// <summary>
-        /// 
-        /// </summary>
+		/// <summary>
+		/// 
+		/// </summary>
 		public override string ServerVersion
 		{
 			get { throw new NotImplementedException(); }

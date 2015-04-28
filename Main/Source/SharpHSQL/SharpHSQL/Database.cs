@@ -1426,7 +1426,7 @@ namespace SharpHsql
 		/// <summary>
 		/// Class Destructor.
 		/// </summary>
- 		~Database()
+		~Database()
 		{
 			Dispose(true);
 		}
