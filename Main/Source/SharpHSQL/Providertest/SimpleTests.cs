@@ -6,9 +6,9 @@ using System.Data.Hsql;
 namespace Providertest
 {
 	/// <summary>
-	/// Summary description for Class1.
+	/// Summary description for SimpleTests.
 	/// </summary>
-	class Class1
+	class SimpleTests
 	{
 		/// <summary>
 		/// The main entry point for the application.
@@ -39,7 +39,7 @@ namespace Providertest
 					cmd.CommandText = "DROP TABLE IF EXIST \"clients\";CREATE TABLE \"clients\" (\"id\" int NOT NULL IDENTITY PRIMARY KEY, \"DoubleValue\" double, \"nombre\" char, \"photo\" varbinary, \"created\" date );";
 					res = cmd.ExecuteNonQuery();
 
-					SharpHsqlTransaction tran = conn.BeginTransaction();
+					var tran = conn.BeginTransaction();
 
 					cmd = new SharpHsqlCommand("", conn);
 
@@ -72,7 +72,7 @@ namespace Providertest
 				string bulk = Console.ReadLine();
 				if( bulk.ToLower() == "y" )
 				{
-					SharpHsqlTransaction tran = conn.BeginTransaction();
+					var tran = conn.BeginTransaction();
 
 					cmd = new SharpHsqlCommand("", conn);
 

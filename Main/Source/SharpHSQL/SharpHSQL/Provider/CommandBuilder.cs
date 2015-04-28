@@ -90,9 +90,7 @@ namespace System.Data.Hsql
 						if (adapter is SharpHsqlDataAdapter)
 						{
 							sqlhandler = new SharpHsqlRowUpdatingEventHandler(this.SqlRowUpdating);
-							#if !POCKETPC
 							((SharpHsqlDataAdapter)adapter).RowUpdating += sqlhandler;
-							#endif
 							namedParameters = true;
 							return;
 						}
@@ -207,14 +205,12 @@ namespace System.Data.Hsql
 
 		private void ClearHandlers()
 		{
-			#if !POCKETPC
 			if (sqlhandler != null)
 			{
 				((SharpHsqlDataAdapter)adapter).RowUpdating -= sqlhandler;
 				sqlhandler = null;
 				return;
 			}
-			#endif
 		}
 
 		private void ClearState()
@@ -503,11 +499,7 @@ namespace System.Data.Hsql
 
 		private void ApplyParameterInfo(SharpHsqlParameter parameter, int pcount, DataRow row)
 		{
-#if POCKETPC
-				parameter.DbType = (DbType)OpenNETCF.EnumEx.Parse( typeof(DbType), row["ProviderType"].ToString() );
-#else
 			parameter.DbType = (DbType)Enum.Parse(typeof(DbType), row["ProviderType"].ToString() );
-#endif
 
 			parameter.IsNullable = (bool)row["AllowDBNull"];
 			if ((byte)row["Precision"] != byte.MaxValue)
@@ -1325,7 +1317,6 @@ namespace System.Data.Hsql
 			}
 		}
 
-		#if !POCKETPC
 		/// <summary>
 		/// Internal delegate.
 		/// </summary>
@@ -1346,7 +1337,6 @@ namespace System.Data.Hsql
 			}
 			return null;
 		}
-		#endif
 
 		/// <summary>
 		/// Helper routine for nullable objects comparison.

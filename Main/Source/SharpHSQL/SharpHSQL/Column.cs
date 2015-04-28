@@ -1140,12 +1140,9 @@ namespace SharpHsql
 
 			for (int i = 0; i < length; i++) 
 			{
-				#if !POCKETPC
 				ColumnType type = (ColumnType)Enum.Parse( typeof(ColumnType), reader.ReadInt32().ToString() );
-				#else
-				ColumnType type = (ColumnType)OpenNETCF.EnumEx.Parse( typeof(ColumnType), reader.ReadInt32().ToString() );
-				#endif
-				object o = null;
+
+                object o = null;
 				switch (type) 
 				{
 					case ColumnType.Null:
@@ -1176,18 +1173,7 @@ namespace SharpHsql
 
 					case ColumnType.Numeric:
 					case ColumnType.DbDecimal:
-						#if !POCKETPC
 						o = reader.ReadDecimal();
-						#else
-						int l = reader.ReadInt32();
-						byte[] bytes = reader.ReadBytes(l);
-						int[] bits = new int[bytes.Length/4];
-						for(int ix=0;ix<bits.Length;ix++)
-						{
-							bits[ix] = BitConverter.ToInt32(bytes, ix*4);
-						}
-						o = new Decimal( bits );
-						#endif
 						break;
 
 					case ColumnType.Bit:
@@ -1307,19 +1293,7 @@ namespace SharpHsql
 
 						case ColumnType.DbDecimal:
 						case ColumnType.Numeric:
-							#if !POCKETPC
 							writer.Write((Decimal)o);
-							#else
-							int[] bits = Decimal.GetBits( (Decimal)o );
-							byte[] bytes = new byte[bits.Length*4];
-							for( int ix=0;ix<bits.Length;ix++)
-							{
-								byte[] r = BitConverter.GetBytes(bits[ix]);
-								Array.Copy( r, 0, bytes, (ix*4), 4);
-							}
-							writer.Write( bytes.Length );
-							writer.Write( bytes );
-							#endif
 							break;
 
 						case ColumnType.Integer:

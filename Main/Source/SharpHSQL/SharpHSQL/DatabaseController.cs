@@ -3,9 +3,7 @@ using System;
 using System.Collections;
 using System.Reflection;
 using System.Threading;
-#if !POCKETPC
 using log4net;
-#endif
 #endregion
 
 namespace SharpHsql
@@ -26,9 +24,7 @@ namespace SharpHsql
 			try
 			{
 				// try to shutdown gracefully when process exits
-				#if !POCKETPC
 				AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
-				#endif
 
 				// do a checkpoint every minute
 				_checkPoint = new Timer( new TimerCallback(DoCheckPoint), null, 60000, 60000);

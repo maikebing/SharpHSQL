@@ -54,7 +54,7 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlCommand"/>
 	/// <seealso cref="SharpHsqlDataAdapter"/>
 	/// </summary>
-	public sealed class SharpHsqlTransaction : IDbTransaction
+	public sealed class SharpHsqlTransaction : DbTransaction
 	{
 		#region Constructors
 
@@ -76,11 +76,19 @@ namespace System.Data.Hsql
 		#region IDbTransaction Members
 
 		/// <summary>
+		/// 
+		/// </summary>
+		protected override DbConnection DbConnection
+		{
+			get { return this._sqlConnection; }
+		}
+
+		/// <summary>
 		/// Aborts the current active transaction.
 		/// </summary>
-		public void Rollback()
+		public override void Rollback()
 		{
-			if (this._sqlConnection == null)
+			if (this.Connection == null)
 			{
 				throw new InvalidOperationException("Connection is not longer valid.");
 			}
@@ -94,7 +102,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Closes the current transaction applying all changes to the database.
 		/// </summary>
-		public void Commit()
+		public override void Commit()
 		{
 			if (this._sqlConnection.Channel == null)
 			{
@@ -106,21 +114,11 @@ namespace System.Data.Hsql
 			this._sqlConnection = null;
 		}
 
-		/// <summary>
-		/// Gets the connection instance used in the transaction.
-		/// </summary>
-		public IDbConnection Connection
-		{
-			get
-			{
-				return _sqlConnection;
-			}
-		}
 
 		/// <summary>
 		/// Gets the transaction isolation level.
 		/// </summary>
-		public System.Data.IsolationLevel IsolationLevel
+		public override System.Data.IsolationLevel IsolationLevel
 		{
 			get
 			{

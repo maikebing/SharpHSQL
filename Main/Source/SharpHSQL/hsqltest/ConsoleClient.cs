@@ -4,9 +4,9 @@ using SharpHsql;
 namespace Sample
 {
 	/// <summary>
-	/// Summary description for Class1.
+	/// Summary description for ConsoleClient.
 	/// </summary>
-	class Class1
+	class ConsoleClient
 	{
 		/// <summary>
 		/// The main entry point for the application.

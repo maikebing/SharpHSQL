@@ -1199,11 +1199,7 @@ namespace SharpHsql
 				case "wk":
 				case "ww":
 					// Gets the Calendar instance associated with a CultureInfo.
-					#if !POCKETPC
 					CultureInfo ci = Thread.CurrentThread.CurrentCulture;
-					#else
-					CultureInfo ci = CultureInfo.CurrentCulture;
-					#endif
 					Calendar cal = ci.Calendar;
 
 					// Gets the DTFI properties required by GetWeekOfYear.

@@ -350,9 +350,7 @@ namespace SharpHsql
 			} 
 			catch (IOException e) 
 			{
-				#if !POCKETPC
 				Console.WriteLine(e.StackTrace);
-				#endif
 
 				throw Trace.Error(Trace.FILE_IO_ERROR, "reading: " + e);
 			}

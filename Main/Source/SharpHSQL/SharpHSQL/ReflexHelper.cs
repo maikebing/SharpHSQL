@@ -23,7 +23,6 @@ namespace SharpHsql
 	/// </summary>
 	sealed class ReflexHelper
 	{
-		#if !POCKETPC
 		/// <summary>
 		/// Gets the Assembly Configuration Attribute.
 		/// </summary>
@@ -34,9 +33,7 @@ namespace SharpHsql
 			object [] att = assembly.GetCustomAttributes(typeof(AssemblyConfigurationAttribute), false);
 			return ((att.Length > 0) ? ((AssemblyConfigurationAttribute) att [0]).Configuration : String.Empty);
 		}
-		#endif		
 
-		#if !POCKETPC
 		/// <summary>
 		/// Gets an assembly full path and file name.
 		/// </summary>
@@ -47,9 +44,7 @@ namespace SharpHsql
 			Uri uri = new Uri(assembly.CodeBase);
 			return uri.LocalPath;
 		}
-		#endif
 
-		#if !POCKETPC
 		/// <summary>
 		/// Gets the Assembly Title.
 		/// </summary>
@@ -60,9 +55,7 @@ namespace SharpHsql
 			object [] att = assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
 			return ((att.Length > 0) ? ((AssemblyTitleAttribute) att [0]).Title : String.Empty);
 		}
-		#endif
 
-		#if !POCKETPC
 		/// <summary>
 		/// Instructs a compiler to use a specific version number for the Win32 file version resource. 
 		/// The Win32 file version is not required to be the same as the assembly's version number.
@@ -74,9 +67,7 @@ namespace SharpHsql
 			object [] att = assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false);
 			return ((att.Length > 0) ? ((AssemblyFileVersionAttribute) att [0]).Version : String.Empty);
 		}
-		#endif
 
-		#if !POCKETPC
 		/// <summary>
 		/// Gets the Assembly Product.
 		/// </summary>
@@ -87,6 +78,5 @@ namespace SharpHsql
 			object [] att = assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false);
 			return ((att.Length > 0) ? ((AssemblyProductAttribute) att [0]).Product : String.Empty);
 		}
-		#endif
 	}
 }

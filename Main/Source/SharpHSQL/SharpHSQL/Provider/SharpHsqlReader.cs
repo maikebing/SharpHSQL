@@ -5,6 +5,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Data;
 using SharpHsql;
+using System.Data.Common;
 #endregion
 
 #region License
@@ -56,7 +57,7 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlCommand"/>
 	/// <seealso cref="SharpHsqlDataAdapter"/>
 	/// </summary>
-	public sealed class SharpHsqlReader : MarshalByRefObject, IDataReader, IDisposable
+	public sealed class SharpHsqlReader : DbDataReader
 	{
 		#region Class Constructors
 
@@ -80,10 +81,32 @@ namespace System.Data.Hsql
 
 		#region IDataReader Members
 
+
+        public override IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool HasRows
+        {
+            get
+            {
+                if (_first)
+                {
+                    return _rs != null && _rs.Root != null;
+                }
+
+                if (_current == null)
+                    return false;
+                else
+                    return true;
+            }
+        }
+
 		/// <summary>
 		/// Returns the count of recods affected by the last execution.
 		/// </summary>
-		public int RecordsAffected
+		public override int RecordsAffected
 		{
 			get
 			{
@@ -98,7 +121,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Returns True is this reader is in closed state.
 		/// </summary>
-		public bool IsClosed
+		public override bool IsClosed
 		{
 			get
 			{
@@ -111,7 +134,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <remarks>Not currently supported.</remarks>
 		/// <returns>True if the operation was performed sucessfuly.</returns>
-		public bool NextResult()
+		public override bool NextResult()
 		{
 			return false;
 		}
@@ -119,7 +142,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Closed the active open reader and frees any used resources.
 		/// </summary>
-		public void Close()
+		public override void Close()
 		{
 			if (this.IsClosed)
 			{
@@ -132,7 +155,7 @@ namespace System.Data.Hsql
 		/// Read the next row from the results.
 		/// </summary>
 		/// <returns>True if the read operation was sucessful.</returns>
-		public bool Read()
+		public override bool Read()
 		{
 			if( _first )
 			{
@@ -154,7 +177,7 @@ namespace System.Data.Hsql
 		/// Returns the depth of the current results.
 		/// </summary>
 		/// <remarks>Not currently supported.</remarks>
-		public int Depth
+		public override int Depth
 		{
 			get
 			{
@@ -170,26 +193,13 @@ namespace System.Data.Hsql
 		/// Gets the schema table from the reader metadata.
 		/// </summary>
 		/// <returns></returns>
-		public DataTable GetSchemaTable()
+		public override DataTable GetSchemaTable()
 		{
 			if (this._schemaTable == null)
 			{
 				this._schemaTable = this.BuildSchemaTable();
 			}
 			return this._schemaTable;
-		}
-
-		#endregion
-
-		#region IDisposable Members
-
-		/// <summary>
-		/// Cleans any used resources.
-		/// </summary>
-		void System.IDisposable.Dispose()
-		{
-			this.Close();
-			GC.SuppressFinalize(this);
 		}
 
 		#endregion
@@ -201,7 +211,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public int GetInt32(int i)
+		public override int GetInt32(int i)
 		{
 			return (Int32)_current.Data[i];
 		}
@@ -209,7 +219,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get the value of the specified column name.
 		/// </summary>
-		public object this[string name]
+		public override object this[string name]
 		{
 			get
 			{
@@ -224,14 +234,14 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get the value from the specified column index.
 		/// </summary>
-		object System.Data.IDataRecord.this[int i]
+		public override object this[int i]
 		{
 			get
 			{
 				if( _current.Data[i] == null )
 					return DBNull.Value;
 				else
-                    return _current.Data[i];
+					return _current.Data[i];
 			}
 		}
 
@@ -240,7 +250,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public object GetValue(int i)
+		public override object GetValue(int i)
 		{
 			return _current.Data[i];
 		}
@@ -250,7 +260,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns>True if the passed column index contains a null value.</returns>
-		public bool IsDBNull(int i)
+		public override bool IsDBNull(int i)
 		{
 			return (_current.Data[i] == null);
 		}
@@ -268,17 +278,13 @@ namespace System.Data.Hsql
 		/// If passed a null value as buffer, the method will return the total length
 		/// of the data contained in the database field.
 		/// </remarks>
-		public long GetBytes(int i, long fieldOffset, byte[] buffer, int bufferOffset, int length)
+		public override long GetBytes(int i, long fieldOffset, byte[] buffer, int bufferOffset, int length)
 		{
 			byte[] data = (byte[])_current.Data[i];
 
 			if( buffer != null )
 			{
-				#if !POCKETPC
 				Array.Copy(data, fieldOffset, buffer, bufferOffset, length);
-				#else
-				Array.Copy(data, (int)fieldOffset, buffer, (int)bufferOffset, length);
-				#endif
 				return length;
 			}
 			else
@@ -293,7 +299,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public byte GetByte(int i)
+		public override byte GetByte(int i)
 		{
 			return (byte)_current.Data[i];
 		}
@@ -303,7 +309,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public Type GetFieldType(int i)
+		public override Type GetFieldType(int i)
 		{
 			return GetDataType( _rs.Type[i] );
 		}
@@ -313,7 +319,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public decimal GetDecimal(int i)
+		public override decimal GetDecimal(int i)
 		{
 			return (Decimal)_current.Data[i];
 		}
@@ -323,7 +329,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="values">An object array containing the column values.</param>
 		/// <returns>The count of values read.</returns>
-		public int GetValues(object[] values)
+		public override int GetValues(object[] values)
 		{
 			if (this._current == null)
 			{
@@ -346,7 +352,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i">Column index.</param>
 		/// <returns>Column name.</returns>
-		public string GetName(int i)
+		public override string GetName(int i)
 		{
 			return _rs.Label[i];
 		}
@@ -354,7 +360,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Returns the current field count.
 		/// </summary>
-		public int FieldCount
+		public override int FieldCount
 		{
 			get
 			{
@@ -367,7 +373,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public long GetInt64(int i)
+		public override long GetInt64(int i)
 		{
 			return (Int64)_current.Data[i];
 		}
@@ -377,7 +383,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public double GetDouble(int i)
+		public override double GetDouble(int i)
 		{
 			return (Double)_current.Data[i];
 		}
@@ -387,7 +393,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public bool GetBoolean(int i)
+		public override bool GetBoolean(int i)
 		{
 			return (Boolean)_current.Data[i];
 		}
@@ -397,7 +403,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public Guid GetGuid(int i)
+		public override Guid GetGuid(int i)
 		{
 			return (Guid)_current.Data[i];
 		}
@@ -407,7 +413,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public DateTime GetDateTime(int i)
+		public override DateTime GetDateTime(int i)
 		{
 			return (DateTime)_current.Data[i];
 		}
@@ -417,7 +423,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="name">The column name.</param>
 		/// <returns>The column index, or an exception if not found.</returns>
-		public int GetOrdinal(string name)
+		public override int GetOrdinal(string name)
 		{
 			return GetColumnIndex(name);
 		}
@@ -427,7 +433,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public string GetDataTypeName(int i)
+		public override string GetDataTypeName(int i)
 		{
 			return _current.Data[i].GetType().Name;
 		}
@@ -437,7 +443,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public float GetFloat(int i)
+		public override float GetFloat(int i)
 		{
 			return (float)_current.Data[i];
 		}
@@ -447,7 +453,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public IDataReader GetData(int i)
+		protected override DbDataReader GetDbDataReader(int i)
 		{
 			throw new NotSupportedException("GetData method not supported.");
 		}
@@ -465,7 +471,7 @@ namespace System.Data.Hsql
 		/// If passed a null value as buffer, the method will return the total length
 		/// of the data contained in the database field.
 		/// </remarks>
-		public long GetChars(int i, long fieldOffset, char[] buffer, int bufferOffset, int length)
+		public override long GetChars(int i, long fieldOffset, char[] buffer, int bufferOffset, int length)
 		{
 			char[] data = null;
 			
@@ -476,11 +482,7 @@ namespace System.Data.Hsql
 
 			if( buffer != null )
 			{
-				#if !POCKETPC
 				Array.Copy(data, fieldOffset, buffer, bufferOffset, length);
-				#else
-				Array.Copy(data, (int)fieldOffset, buffer, (int)bufferOffset, length);
-				#endif
 				return length;
 			}
 			else
@@ -494,7 +496,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public string GetString(int i)
+		public override string GetString(int i)
 		{
 			return _current.Data[i] as string;
 		}
@@ -504,7 +506,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public char GetChar(int i)
+		public override char GetChar(int i)
 		{
 			return Convert.ToChar(_current.Data[i]);
 		}
@@ -514,7 +516,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="i"></param>
 		/// <returns></returns>
-		public short GetInt16(int i)
+		public override short GetInt16(int i)
 		{
 			return (Int16)_current.Data[i];
 		}

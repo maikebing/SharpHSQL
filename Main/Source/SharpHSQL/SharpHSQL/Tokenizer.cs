@@ -470,9 +470,7 @@ namespace SharpHsql
 					case TokenType.VARIABLE:
 						if ( char.IsWhiteSpace(c) || 
 							char.IsPunctuation(c) || 
-							#if !POCKETPC
 							char.IsSeparator(c) ||
-							#endif
 							iIndex >= iLength ) 
 						{
 							sToken = name.ToString();

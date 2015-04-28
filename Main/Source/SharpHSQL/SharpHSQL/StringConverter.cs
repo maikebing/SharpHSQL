@@ -52,12 +52,10 @@ namespace SharpHsql
 	/// </summary>
 	sealed class StringConverter 
 	{
-		#if !POCKETPC
 		/// <summary>
 		/// Reference to the appropriate logger.
 		/// </summary>
 		static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(typeof(StringConverter));
-		#endif
 
 		private static char[]   HEXCHAR = 
 		{
@@ -114,15 +112,9 @@ namespace SharpHsql
 				writer.Close();
 				stream.Close();
 			} 
-            #if !POCKETPC
             catch (Exception e)
-            #else
-			catch
-            #endif
 			{
-				#if !POCKETPC
 				if( Logger.IsErrorEnabled ) Logger.Error( "Unexpected error on unicodeToHexstring.", e );
-				#endif
 				return null;
 			}
 
@@ -139,15 +131,9 @@ namespace SharpHsql
 			{
 				return writer.ReadString();
 			}
-#if !POCKETPC
             catch (Exception e)
-#else
-			catch
-#endif
 			{
-				#if !POCKETPC
 				if( Logger.IsErrorEnabled ) Logger.Error( "Unexpected error on hexstringToUnicode.", e );
-				#endif
 				return null;
 			}
 		}

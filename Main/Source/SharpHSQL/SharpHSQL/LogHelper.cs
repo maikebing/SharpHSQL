@@ -9,11 +9,9 @@ using System.Security;
 using System.Security.Permissions;
 using System.IO;
 
-#if !POCKETPC
 using log4net;
 using log4net.Config;
-using log4net.spi;
-#endif
+using log4net.Core;
 #endregion
 
 namespace SharpHsql
@@ -44,11 +42,7 @@ namespace SharpHsql
 		/// </summary>
 		public const string RootElement = "log";
 		
-		#if !POCKETPC
 		private static readonly string newLine = Environment.NewLine;
-		#else
-		private const string newLine = "\n\r";
-		#endif
 
 		#endregion Constants
 
@@ -103,7 +97,6 @@ namespace SharpHsql
 
 		static LogHelper()
 		{
-			#if !POCKETPC
 			//Configure log4net
 			try
 			{
@@ -116,7 +109,6 @@ namespace SharpHsql
 			{
 				EventLogHelper.WriteLogEntry(e.Message, EventLogEntryType.Warning);
 			}
-			#endif
 		}
 
 		private static string InternalFormattedMessage(string message, Exception exception, Assembly assembly)
@@ -147,13 +139,8 @@ namespace SharpHsql
 					do
 					{
 						// Write title information for the exception object.
-						#if !POCKETPC
 						strInfo.AppendFormat("{1}) Exception Information{0}{2}", newLine, intExceptionCount.ToString(System.Globalization.CultureInfo.InvariantCulture), TEXT_SEPARATOR);
 						strInfo.AppendFormat("{0}Exception Type: {1}", newLine, currentException.GetType().FullName);
-						#else
-						strInfo.AppendFormat(null, "{1}) Exception Information{0}{2}", newLine, intExceptionCount.ToString(), TEXT_SEPARATOR);
-						strInfo.AppendFormat(null, "{0}Exception Type: {1}", newLine, currentException.GetType().FullName);
-						#endif
 				
 						#region Loop through the public properties of the exception object and record their value
 						// Loop through the public properties of the exception object and record their value.
@@ -173,19 +160,11 @@ namespace SharpHsql
 
 								if (prop == null)
 								{
-									#if !POCKETPC
 									strInfo.AppendFormat("{0}{1}: NULL", newLine, p.Name);
-									#else
-									strInfo.AppendFormat(null, "{0}{1}: NULL", newLine, p.Name);
-									#endif
 								}
 								else
 								{
-									#if !POCKETPC
 									strInfo.AppendFormat("{0}{1}: {2}", newLine, p.Name, p.GetValue(currentException,null));
-									#else
-									strInfo.AppendFormat(null, "{0}{1}: {2}", newLine, p.Name, p.GetValue(currentException,null));
-									#endif
 								}
 							}
 						}
@@ -193,21 +172,15 @@ namespace SharpHsql
 
 						#region Record the Exception StackTrace
 
-						#if !POCKETPC
 						// Record the StackTrace with separate label.
 						if (showStack && currentException.StackTrace != null)
 						{
 							strInfo.AppendFormat("{0}{0}StackTrace Information{0}{1}", newLine, TEXT_SEPARATOR);
 							strInfo.AppendFormat("{0}{1}", newLine, currentException.StackTrace);
 						}
-						#endif
 						#endregion
 
-						#if !POCKETPC
 						strInfo.AppendFormat("{0}{0}", newLine);
-						#else
-						strInfo.AppendFormat(null, "{0}{0}", newLine);
-						#endif
 
 						// Reset the temp exception object and iterate the counter.
 						currentException = currentException.InnerException;
@@ -216,56 +189,37 @@ namespace SharpHsql
 					#endregion
 				}
 
-				#if !POCKETPC
 				strInfo.AppendFormat("{1}Assembly version: {0}{1}RuntimeVersion: {2}{1}Compilation: {3}{1}Assembly file version: {4}", 
 					assembly.GetName().Version.ToString(),
 					newLine,
 					assembly.ImageRuntimeVersion,
 					ReflexHelper.GetAssemblyConfiguration(assembly),
 					ReflexHelper.GetAssemblyFileVersion(assembly));
-				#else
-				strInfo.AppendFormat(null, "{1}Assembly version: {0}", 
-					assembly.GetName().Version.ToString(), newLine);
-				#endif
 			}
 			catch (Exception ex)
 			{
-				#if !POCKETPC
 				strInfo.AppendFormat("{0}{0}Exception in PublishException:{4}{0}{1}{0}Original message:{0}{2}{0}Original Exception:{0}{3}", newLine, ex.Message, message, exception.Message, TEXT_SEPARATOR);
-				#else
-				strInfo.AppendFormat(null, "{0}{0}Exception in PublishException:{4}{0}{1}{0}Original message:{0}{2}{0}Original Exception:{0}{3}", newLine, ex.Message, message, exception.Message, TEXT_SEPARATOR);
-				#endif
 			}
 			return strInfo.ToString();
 		}
 
 		private static void PublishInternal(string message, Exception exception, LogEntryType exceptionTpe)
 		{
-			#if !POCKETPC
 			//Using the StackTrace object may be tricky on release builds because of inlining optimizations.
-			#if !POCKETPC
 			StackTrace stackTrace = new StackTrace();
 			MemberInfo prevMethodInfo = (MemberInfo)stackTrace.GetFrame(2).GetMethod();
 			Type callertype = prevMethodInfo.ReflectedType;
 			ILog Log = LogHelper.GetLogger(callertype.Assembly, callertype);
-			#else
-			Type callertype = typeof(LogHelper);
-			ILog Log = LogHelper.GetLogger(Assembly.GetExecutingAssembly(), callertype);
-			#endif
 
 			switch(exceptionTpe)
 			{
 				case LogEntryType.Audit:
-					if(Log.Logger.IsEnabledFor(Level.NOTICE))
-						Log.Logger.Log(callertype.FullName, Level.NOTICE, 
+					if(Log.Logger.IsEnabledFor(Level.Notice))
+						Log.Logger.Log(callertype, Level.Notice, 
 							InternalFormattedMessage(message, exception, callertype.Assembly), null);
 					else
 						//fallback log
-						#if !POCKETPC
 						EventLogHelper.WriteLogEntry(InternalFormattedMessage(message, exception, callertype.Assembly), EventLogEntryType.SuccessAudit);
-						#else
-						System.Diagnostics.Debug.WriteLine( InternalFormattedMessage(message, exception, callertype.Assembly), "SuccessAudit");
-						#endif
 						
 					break;					
 				case LogEntryType.Error:
@@ -273,22 +227,15 @@ namespace SharpHsql
 						Log.Error(InternalFormattedMessage(message, exception, callertype.Assembly));
 					else
 						//fallback log
-						#if !POCKETPC
 						EventLogHelper.WriteLogEntry(InternalFormattedMessage(message, exception, callertype.Assembly), EventLogEntryType.Error);
-						#else
-						System.Diagnostics.Debug.WriteLine( InternalFormattedMessage(message, exception, callertype.Assembly), "Error");
-						#endif
+
 					break;
 				case LogEntryType.Fatal:
 					if(Log.IsFatalEnabled)
 						Log.Fatal(InternalFormattedMessage(message, exception, callertype.Assembly));
 					else
 						//fallback log
-						#if !POCKETPC
 						EventLogHelper.WriteLogEntry(InternalFormattedMessage(message, exception, callertype.Assembly), EventLogEntryType.Error);
-						#else
-						System.Diagnostics.Debug.WriteLine( InternalFormattedMessage(message, exception, callertype.Assembly), "Error");
-						#endif
 					break;
 				case LogEntryType.Warning:
 					if(Log.IsWarnEnabled) Log.Warn(InternalFormattedMessage(message, exception, callertype.Assembly));
@@ -300,7 +247,6 @@ namespace SharpHsql
 					if(Log.IsInfoEnabled) Log.Info(InternalFormattedMessage(message, exception, callertype.Assembly));
 					break;
 			}
-			#endif
 		}
 
 		#endregion

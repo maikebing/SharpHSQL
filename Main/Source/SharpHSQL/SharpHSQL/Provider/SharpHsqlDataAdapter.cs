@@ -72,7 +72,7 @@ namespace System.Data.Hsql
 		/// <param name="selectCommand"></param>
 		public SharpHsqlDataAdapter(SharpHsqlCommand selectCommand) : this()
 		{
-			_selectCommand = selectCommand;
+			this.SelectCommand = selectCommand;
 		}
 
 		/// <summary>
@@ -89,7 +89,7 @@ namespace System.Data.Hsql
 		/// <param name="selectCommandText"></param>
 		public SharpHsqlDataAdapter(string selectCommandText) : this()
 		{
-			_selectCommand = new SharpHsqlCommand(selectCommandText, new SharpHsqlConnection());
+			this.SelectCommand = new SharpHsqlCommand(selectCommandText, new SharpHsqlConnection());
 		}
 
 		/// <summary>
@@ -99,7 +99,7 @@ namespace System.Data.Hsql
 		/// <param name="selectConnectionString"></param>
 		public SharpHsqlDataAdapter(string selectCommandText, string selectConnectionString)
 		{
-			_selectCommand = new SharpHsqlCommand(selectCommandText, new SharpHsqlConnection(selectConnectionString));
+			this.SelectCommand = new SharpHsqlCommand(selectCommandText, new SharpHsqlConnection(selectConnectionString));
 		}
  
 		/// <summary>
@@ -109,7 +109,7 @@ namespace System.Data.Hsql
 		/// <param name="selectConnection"></param>
 		public SharpHsqlDataAdapter(string selectCommandText, SharpHsqlConnection selectConnection) : this()
 		{
-			_selectCommand = new SharpHsqlCommand(selectCommandText, selectConnection);
+			this.SelectCommand = new SharpHsqlCommand(selectCommandText, selectConnection);
 		}
 
 		#endregion
@@ -148,13 +148,11 @@ namespace System.Data.Hsql
 		/// <param name="value"></param>
 		protected override void OnRowUpdated(RowUpdatedEventArgs value)
 		{
-			#if !POCKETPC
 			SharpHsqlRowUpdatedEventHandler handler = (SharpHsqlRowUpdatedEventHandler) base.Events[EventRowUpdated];
 			if ((handler != null) && (value is SharpHsqlRowUpdatedEventArgs))
 			{
 				handler(this, (SharpHsqlRowUpdatedEventArgs) value);
 			}
-			#endif
 		}
 
 		/// <summary>
@@ -163,53 +161,11 @@ namespace System.Data.Hsql
 		/// <param name="value"></param>
 		protected override void OnRowUpdating(RowUpdatingEventArgs value)
 		{
-			#if !POCKETPC
 			SharpHsqlRowUpdatingEventHandler handler = (SharpHsqlRowUpdatingEventHandler) base.Events[EventRowUpdating];
 			if ((handler != null) && (value is SharpHsqlRowUpdatingEventArgs))
 			{
 				handler(this, (SharpHsqlRowUpdatingEventArgs) value);
 			}
-			#endif
-		}
-
-		#endregion
-
-		#region Public Properties
-
-		/// <summary>
-		/// Get or set the select command used.
-		/// </summary>
-		public SharpHsqlCommand SelectCmd
-		{
-			get { return _selectCommand;  }
-			set { _selectCommand = value; }
-		}
-
-		/// <summary>
-		/// Get or set the update command used.
-		/// </summary>
-		public SharpHsqlCommand UpdateCmd
-		{
-			get { return _updateCommand;  }
-			set { _updateCommand = value; }
-		}
-
-		/// <summary>
-		/// Get or set the insert command used.
-		/// </summary>
-		public SharpHsqlCommand InsertCmd
-		{
-			get { return _insertCommand;  }
-			set { _insertCommand = value; }
-		}
-
-		/// <summary>
-		/// Get or set the delete command used.
-		/// </summary>
-		public SharpHsqlCommand DeleteCmd
-		{
-			get { return _deleteCommand;  }
-			set { _deleteCommand = value; }
 		}
 
 		#endregion
@@ -256,7 +212,6 @@ namespace System.Data.Hsql
 
 		#region Public Events
 
-		#if !POCKETPC
 		/// <summary>
 		/// RowUpdated event.
 		/// </summary>
@@ -297,7 +252,6 @@ namespace System.Data.Hsql
 				base.Events.RemoveHandler(EventRowUpdating, value);
 			}
 		}
-		#endif
 
 		#endregion
 
@@ -306,18 +260,10 @@ namespace System.Data.Hsql
 		internal static readonly object EventRowUpdated = null;
 		internal static readonly object EventRowUpdating = null;
 
-		private SharpHsqlCommand _selectCommand = null;
-		private SharpHsqlCommand _deleteCommand = null;
-		private SharpHsqlCommand _insertCommand = null;
-		private SharpHsqlCommand _updateCommand = null;
 
 		////////////////////
 		// Private Data Members
 		////////////////////
-		//private bool acceptChangesDuringFill;
-		//private bool continueUpdateOnError;
-		//private MissingMappingAction missingMappingAction;
-		//private MissingSchemaAction missingSchemaAction;
 		private DataTableMappingCollection tableMappings;
 
 		#endregion
@@ -330,11 +276,7 @@ namespace System.Data.Hsql
 		/// <returns>A new <see cref="SharpHsqlDataAdapter"/> object clone of the current.</returns>
 		public SharpHsqlDataAdapter Clone()
 		{
-			#if !POCKETPC
 			return new SharpHsqlDataAdapter(this);
-			#else
-			return new SharpHsqlDataAdapter(this);
-			#endif
 		}
 
 		/// <summary>

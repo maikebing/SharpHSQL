@@ -1,6 +1,7 @@
 #region Usings
 using System;
 using System.Collections;
+using System.Runtime.Serialization;
 using System.Text;
 #endregion
 
@@ -55,9 +56,7 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlDataAdapter"/>
 	/// </summary>
 	/// <remarks>Not serializable for Compact Framework 1.0</remarks>
-	#if !POCKETPC
 	[Serializable]
-	#endif
 	public sealed class SharpHsqlException : SystemException
 	{
 		#region Constructors
@@ -67,9 +66,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		internal SharpHsqlException() : base()
 		{
-			#if !POCKETPC
 			base.HResult = -2146232060;
-			#endif
 		}
 
 		/// <summary>
@@ -85,11 +82,7 @@ namespace System.Data.Hsql
 
 			try
 			{
-				#if !POCKETPC
 				if( Char.IsDigit( error, 0 ) )
-				#else
-				if( Char.IsDigit( error.ToCharArray()[0] ) )
-				#endif
 					number = int.Parse(error.Substring(0, 5));
 				else
 					number = int.Parse(error.Substring(1, 4));
@@ -107,7 +100,6 @@ namespace System.Data.Hsql
 
 		#region Serialization methods
 
-		#if !POCKETPC
 		/// <summary>
 		/// Deserialization constructor.
 		/// </summary>
@@ -118,9 +110,7 @@ namespace System.Data.Hsql
 		{
 			this._errors = (SharpHsqlErrorCollection) si.GetValue("Errors", typeof(SharpHsqlErrorCollection));
 		}
-		#endif
 
-		#if !POCKETPC
 		/// <summary>
 		/// Serialization method.
 		/// </summary>
@@ -136,7 +126,6 @@ namespace System.Data.Hsql
 			si.AddValue("Errors", this._errors, typeof(SharpHsqlErrorCollection));
 			base.GetObjectData(si, context);
 		}
-		#endif
 
 		#endregion
 
@@ -199,7 +188,6 @@ namespace System.Data.Hsql
 			}
 		}
 
-		#if !POCKETPC
 		/// <summary>
 		/// Source of the error.
 		/// </summary>
@@ -211,7 +199,6 @@ namespace System.Data.Hsql
 				return this.Errors[0].Source;
 			}
 		}
-		#endif
 
 		#endregion
 

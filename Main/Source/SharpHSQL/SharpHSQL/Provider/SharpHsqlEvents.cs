@@ -123,7 +123,6 @@ namespace System.Data.Hsql
 			}
 		}
 
-		#if !POCKETPC
 		/// <summary>
 		/// Exception Source.
 		/// </summary>
@@ -135,7 +134,6 @@ namespace System.Data.Hsql
 				return this.exception.Source;
 			}
 		}
-		#endif
 
 		// Fields
 		private SharpHsqlException exception;

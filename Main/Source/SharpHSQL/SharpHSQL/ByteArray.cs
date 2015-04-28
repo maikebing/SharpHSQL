@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 #endregion
 
@@ -142,15 +143,11 @@ namespace SharpHsql
 		{
 			try 
 			{
-				#if !POCKETPC
 				MemoryStream ms = new MemoryStream();
 				BinaryFormatter b = new BinaryFormatter();
 				b.Serialize(ms,obj);
 
 				return ms.ToArray();
-				#else
-					throw new NotSupportedException();
-				#endif
 			} 
 			catch (Exception e) 
 			{
@@ -179,14 +176,10 @@ namespace SharpHsql
 		{
 			try 
 			{
-				#if !POCKETPC
 				MemoryStream ms = new MemoryStream(_data);
 				BinaryFormatter b = new BinaryFormatter();
 
 				return b.Deserialize(ms);
-				#else
-					throw new NotSupportedException();
-				#endif
 			} 
 			catch (Exception e) 
 			{
@@ -204,14 +197,10 @@ namespace SharpHsql
 		{
 			try 
 			{
-				#if !POCKETPC
 				MemoryStream ms = new MemoryStream(data);
 				BinaryFormatter b = new BinaryFormatter();
 
 				return b.Deserialize(ms);
-				#else
-				throw new NotSupportedException();
-				#endif
 			} 
 			catch (Exception e) 
 			{

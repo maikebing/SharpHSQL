@@ -105,11 +105,9 @@ namespace SharpHsql
 		private int		           mLastId;
 		private object			   SyncLock = new object();
 		internal Cache		       cCache;
-		#if !POCKETPC
 		private bool			   _running;
 		private Thread	           tRunner;
 		private bool               bNeedFlush;
-		#endif
 
 		/// <summary>
 		/// Default constructor.
@@ -128,7 +126,6 @@ namespace SharpHsql
 			sFileBackup = sName + ".backup";
 		}
 
-		#if !POCKETPC
 		/// <summary>
 		/// Flush the transaction log.
 		/// </summary>
@@ -166,7 +163,6 @@ namespace SharpHsql
 				}
 			}
 		}
-		#endif
 
 		/// <summary>
 		/// Sets the write delay.
@@ -260,7 +256,6 @@ namespace SharpHsql
 		/// </summary>
 		public void Stop() 
 		{
-			#if !POCKETPC
 			if( tRunner == null )
 				return;
 
@@ -273,7 +268,6 @@ namespace SharpHsql
 			catch{}
 
 			tRunner = null;
-			#endif
 		}
 
 		/// <summary>
@@ -387,11 +381,9 @@ namespace SharpHsql
 					{
 						writeLine(wScript, s);
 
-						#if !POCKETPC
 						if (bWriteDelay) 
 							bNeedFlush = true;
 						else 
-						#endif	
 							wScript.Flush();
 					}
 				} 
@@ -827,11 +819,9 @@ namespace SharpHsql
 				// todo: use a compressed stream
 				wScript = new StreamWriter(_file, System.Text.Encoding.UTF8);
 
-				#if !POCKETPC
 				tRunner = new Thread( new ThreadStart( Run ) );
 				tRunner.IsBackground = true;
 				tRunner.Start();
-				#endif
 				
 			} 
 			catch (Exception e) 

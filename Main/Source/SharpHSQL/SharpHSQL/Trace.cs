@@ -378,9 +378,7 @@ namespace SharpHsql
 		{
 			Exception e = new Exception();
 
-			#if !POCKETPC
 			Console.WriteLine(e.StackTrace);
-			#endif
 		}
 
 		/// <summary>
@@ -393,9 +391,7 @@ namespace SharpHsql
 
 			iLine = 0;
 
-			#if !POCKETPC
-				Console.WriteLine(e.StackTrace);
-			#endif
+			Console.WriteLine(e.StackTrace);
 
 			value = string.Concat( sTrace, "\t", value );
 

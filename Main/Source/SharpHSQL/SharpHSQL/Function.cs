@@ -211,11 +211,7 @@ namespace SharpHsql
 				}
 				else
 				{
-					#if !POCKETPC
 					object obj = Activator.CreateInstance( mMethod.DeclaringType, false );
-					#else
-					object obj = Activator.CreateInstance( mMethod.DeclaringType );
-					#endif
 					return mMethod.Invoke( obj, GetParameters() );
 				}
 			}
@@ -225,12 +221,10 @@ namespace SharpHsql
 		{
 			object[] p = new object[eArg.Length];
 
-			for( int i=0;i<eArg.Length;i++ )
-				#if !POCKETPC
-				p[i] = Convert.ChangeType( eArg[i].GetValue(), aArgTypes[i] );
-				#else
-				p[i] = Convert.ChangeType( eArg[i].GetValue(), aArgTypes[i], null );
-				#endif
+            for (int i = 0; i < eArg.Length; i++)
+            {
+                p[i] = Convert.ChangeType(eArg[i].GetValue(), aArgTypes[i]);
+            }
 
 			return p;
 		}

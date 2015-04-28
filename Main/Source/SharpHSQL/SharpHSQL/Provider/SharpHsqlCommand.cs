@@ -6,6 +6,8 @@ using System.Text;
 using System.Xml;
 using System.Collections;
 using SharpHsql;
+using System.Data.Common;
+using System.Globalization;
 #endregion
 
 #region License
@@ -56,7 +58,7 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlParameter"/>
 	/// <seealso cref="SharpHsqlTransaction"/>
 	/// </summary>
-	public sealed class SharpHsqlCommand : Component, IDbCommand, ICloneable, IDisposable
+	public sealed class SharpHsqlCommand : DbCommand, ICloneable
 	{
 		#region Constructors
 
@@ -71,8 +73,8 @@ namespace System.Data.Hsql
 		/// <param name="sCommand"></param>
 		public SharpHsqlCommand(string sCommand)
 		{
-			_commandText = sCommand;
-			_connection = null;
+			this.CommandText = sCommand;
+			this.Connection = null;
 		}
 
 		/// <summary>
@@ -82,11 +84,11 @@ namespace System.Data.Hsql
 		/// <param name="conn"></param>
 		public SharpHsqlCommand(string sCommand, SharpHsqlConnection conn)
 		{
-			_commandText = sCommand;
-			_connection = conn;
+			this.CommandText = sCommand;
+			this.Connection = conn;
 
-			if( _connection.LocalTransaction != null )
-				_transaction = _connection.LocalTransaction;
+			if (conn.LocalTransaction != null)
+				_transaction = conn.LocalTransaction;
 		}
 
 		#endregion
@@ -94,69 +96,9 @@ namespace System.Data.Hsql
 		#region Public Methods
 		
 		/// <summary>
-		/// Command text to be executed.
-		/// </summary>
-		public string CommandText
-		{
-			get { return _commandText;  }
-			set { _commandText = value; }
-		}
-
-		/// <summary>
-		/// Get or set Execution timeout for the command.
-		/// </summary>
-		public int CommandTimeout
-		{
-			get { return _commandTimeout; }
-			set { _commandTimeout = value; }
-		}
-
-		/// <summary>
-		/// Get or set the Type of the current command.
-		/// </summary>
-		public CommandType CommandType
-		{
-			get { return _commandType; }
-			set { _commandType = value; }
-		}
-
-		/// <summary>
-		/// Get or set the Connection being used by the current command.
-		/// </summary>
-		public SharpHsqlConnection Connection
-		{
-			get { return _connection;  }
-			set { _connection = value; }
-		}
-
-		/// <summary>
-		/// Get or set the Connection being used by the current command.
-		/// </summary>
-		IDbConnection IDbCommand.Connection
-		{
-			get { return _connection;  }
-			set { _connection = (SharpHsqlConnection) value; }
-		}
-
-		/// <summary>
 		/// Command parameter collection.
 		/// </summary>
-		IDataParameterCollection IDbCommand.Parameters
-		{
-			get
-			{
-				if (this._parameters == null)
-				{
-					this._parameters = new SharpHsqlParameterCollection(this);
-				}
-				return this._parameters;
-			}
-		}
-
-		/// <summary>
-		/// Command parameter collection.
-		/// </summary>
-		public SharpHsqlParameterCollection Parameters
+		protected override DbParameterCollection DbParameterCollection
 		{
 			get
 			{
@@ -171,31 +113,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the Transaction object for use by this command.
 		/// </summary>
-		public SharpHsqlTransaction Transaction
-		{
-			get
-			{
-				if ((this._transaction != null) && (this._transaction.Connection == null))
-				{
-					this._transaction = null;
-				}
-				return this._transaction;
-			}
-			set
-			{
-				if ((this._connection != null) && (this._connection.Reader != null))
-				{
-					throw new InvalidOperationException("Comand is currently active.");
-				}
-				this._transaction = value;
-			}
-
-		}
-
-		/// <summary>
-		/// Get or set the Transaction object for use by this command.
-		/// </summary>
-		IDbTransaction IDbCommand.Transaction
+		protected override DbTransaction DbTransaction
 		{
 			get
 			{
@@ -219,7 +137,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the <see cref="UpdateRowSource"/> for the command.
 		/// </summary>
-		public UpdateRowSource UpdatedRowSource
+		public override UpdateRowSource UpdatedRowSource
 		{
 			get
 			{
@@ -238,7 +156,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Cancels the current operation.
 		/// </summary>
-		public void Cancel()
+		public override void Cancel()
 		{
 			if( _connection == null || _connection.State != ConnectionState.Open )
 				throw new InvalidOperationException("Can't execute if connection is not open.");
@@ -249,16 +167,7 @@ namespace System.Data.Hsql
 		/// Creates and returns a new <see cref="SharpHsqlParameter"/> object.
 		/// </summary>
 		/// <returns></returns>
-		public SharpHsqlParameter CreateParameter()
-		{
-			return new SharpHsqlParameter();
-		}
-
-		/// <summary>
-		/// Creates and returns a new <see cref="SharpHsqlParameter"/> object.
-		/// </summary>
-		/// <returns></returns>
-		IDbDataParameter IDbCommand.CreateParameter()
+		protected override DbParameter CreateDbParameter()
 		{
 			return new SharpHsqlParameter();
 		}
@@ -267,7 +176,7 @@ namespace System.Data.Hsql
 		/// Executes a query with no results.
 		/// </summary>
 		/// <returns></returns>
-		public int ExecuteNonQuery()
+		public override int ExecuteNonQuery()
 		{
 			this.ValidateCommand("ExecuteNonQuery", true);
 			
@@ -283,37 +192,9 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Executes a query returning an <see cref="SharpHsqlReader"/> object.
 		/// </summary>
-		/// <returns></returns>
-		IDataReader IDbCommand.ExecuteReader()
-		{
-			return this.ExecuteReader();
-		}
-
-		/// <summary>
-		/// Executes a query returning an <see cref="SharpHsqlReader"/> object.
-		/// </summary>
 		/// <param name="behavior"></param>
 		/// <returns></returns>
-		IDataReader IDbCommand.ExecuteReader(CommandBehavior behavior)
-		{
-			return ExecuteReader(behavior);
-		}
-
-		/// <summary>
-		/// Executes a query returning an <see cref="SharpHsqlReader"/> object.
-		/// </summary>
-		/// <returns></returns>
-		public SharpHsqlReader ExecuteReader()
-		{
-			return ExecuteReader(CommandBehavior.Default);
-		}
-
-		/// <summary>
-		/// Executes a query returning an <see cref="SharpHsqlReader"/> object.
-		/// </summary>
-		/// <param name="behavior"></param>
-		/// <returns></returns>
-		public SharpHsqlReader ExecuteReader(CommandBehavior behavior)
+		protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
 		{
 			this.ValidateCommand("ExecuteReader", true);
 
@@ -328,7 +209,7 @@ namespace System.Data.Hsql
 		/// Executes a query returning a single result.
 		/// </summary>
 		/// <returns></returns>
-		public object ExecuteScalar()
+		public override object ExecuteScalar()
 		{
 			this.ValidateCommand("ExecuteScalar", true);
 
@@ -355,18 +236,13 @@ namespace System.Data.Hsql
 		public XmlReader ExecuteXmlReader()
 		{
 			throw new InvalidOperationException("SharpHSql Provider does not support this function");
-			/*
-			SharpHSQLReader reader = this.ExecuteReader(CommandBehavior.SequentialAccess, RunBehavior.ReturnImmediately, true);
-			XmlReader xml = null;
-			reader1.Close();
-			*/
 		}
  
 		/// <summary>
 		/// Prepare a stored procedure on the database.
 		/// </summary>
 		/// <remarks>Not currently supported.</remarks>
-		public void Prepare()
+		public override void Prepare()
 		{
 			throw new InvalidOperationException("SharpHSql Provider does not support this function");
 		}
@@ -424,7 +300,7 @@ namespace System.Data.Hsql
 			{
 				try
 				{
-					SharpHsqlReader reader = command.ExecuteReader();
+					SharpHsqlReader reader = (SharpHsqlReader)command.ExecuteReader();
 					try
 					{
 						SharpHsqlParameter parameter = null;
@@ -499,7 +375,7 @@ namespace System.Data.Hsql
 
 				for(int i=0;i<Parameters.Count;i++ )
 				{
-					SharpHsqlParameter p = Parameters[i];
+					SharpHsqlParameter p = (SharpHsqlParameter)Parameters[i];
 
 					string name = p.ParameterName.ToUpper();
 
@@ -531,17 +407,11 @@ namespace System.Data.Hsql
 
 					if( ShouldSendParameter( p ) )
 					{
-						#if !POCKETPC
 						declares.AppendFormat( "DECLARE {0} {1};", p.ParameterName, GetDataTypeName( p.DbType ) );
 						if( p.Direction == ParameterDirection.Input || 
 							p.Direction == ParameterDirection.InputOutput )
 							declares.AppendFormat(null, "SET {0} = {1};", p.ParameterName, GetParameterValue( p.Value ) );
-						#else
-						declares.AppendFormat(null, "DECLARE {0} {1};", p.ParameterName, GetDataTypeName( p.DbType ) );
-						if( p.Direction == ParameterDirection.Input || 
-							p.Direction == ParameterDirection.InputOutput )
-							declares.AppendFormat(null, "SET {0} = {1};", p.ParameterName, GetParameterValue( p.Value ) );
-						#endif
+						
 						parms.Add( p.ParameterName );
 					}
 					else
@@ -592,6 +462,12 @@ namespace System.Data.Hsql
 					return "'" + value.ToString().Replace('\'', '´') + "'";
 				case "Byte[]":
 					return "'" + new ByteArray( (byte[])value ).ToString() + "'";
+				case "Double":
+					return ((Double)value).ToString(CultureInfo.InvariantCulture);
+				case "Single":
+					return ((Single)value).ToString(CultureInfo.InvariantCulture);
+				case "Decimal":
+					return ((Decimal)value).ToString(CultureInfo.InvariantCulture);
 				default:
 					if( value is ValueType )
 						return value.ToString();
@@ -746,16 +622,80 @@ namespace System.Data.Hsql
  
 		#endregion
 
-		#region IDisposable Members
-
 		/// <summary>
-		/// Dispose the current command.
+		/// 
 		/// </summary>
-		void IDisposable.Dispose()
+		protected override DbConnection DbConnection
 		{
-			base.Dispose( true );
+			get
+			{
+				return _connection;
+			}
+			set
+			{
+				_connection = (SharpHsqlConnection)value;
+			}
 		}
 
-		#endregion
+		/// <summary>
+		/// 
+		/// </summary>
+		public override bool DesignTimeVisible
+		{
+			get
+			{
+				return false;
+			}
+			set
+			{
+				
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public override string CommandText
+		{
+			get
+			{
+				return this._commandText;
+			}
+			set
+			{
+				this._commandText = value;
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public override int CommandTimeout
+		{
+			get
+			{
+				return this._commandTimeout;
+			}
+			set
+			{
+				this._commandTimeout = value;
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public override CommandType CommandType
+		{
+			get
+			{
+				return this._commandType;
+			}
+			set
+			{
+				this._commandType = value;
+			}
+		}
+
 	}
 }

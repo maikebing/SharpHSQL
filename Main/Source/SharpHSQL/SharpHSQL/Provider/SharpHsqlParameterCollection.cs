@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Common;
 using System.Collections;
 using SharpHsql;
+using System.Collections.Generic;
 #endregion
 
 #region License
@@ -53,11 +54,12 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlCommand"/>
 	/// </summary>
 	/// <remarks>Not serializable on Compact Framework 1.0</remarks>
-	#if !POCKETPC
 	[Serializable]
-	#endif
-	public sealed class SharpHsqlParameterCollection : CollectionBase, IDataParameterCollection
+	public sealed class SharpHsqlParameterCollection : DbParameterCollection
 	{
+		private List<DbParameter> innerList = new List<DbParameter>();
+		private static object syncRoot = new object();
+
 		#region Constructors
 
 		/// <summary>
@@ -74,46 +76,59 @@ namespace System.Data.Hsql
 
 		#region IDataParameterCollection Members
 
-		/// <summary>
-		/// Get or set a <see cref="SharpHsqlParameter"/> object by name.
-		/// </summary>
-		public object this[string parameterName]
+		protected override DbParameter GetParameter(string parameterName)
 		{
-			get
-			{
-				int index = GetParameterIndex( parameterName );
+			int index = GetParameterIndex(parameterName);
 
-				if( index > -1 )
-					return base.InnerList[index];
-				else
-					return null;
-			}
-			set
-			{
-				int index = GetParameterIndex( parameterName );
+			if (index > -1)
+				return this.innerList[index];
+			else
+				return null;
+		}
 
-				if( index > -1 )
-					base.InnerList[index] = value;
-				else
-				{
-					index = base.InnerList.Add(value);
-					_names[parameterName] = index;
-				}
+		protected override DbParameter GetParameter(int index)
+		{
+			return this.innerList[index];
+		}
+
+
+
+		protected override void SetParameter(string parameterName, DbParameter value)
+		{
+			int index = GetParameterIndex(parameterName);
+
+			if (index > -1)
+				this.innerList[index] = value;
+			else
+			{
+				this.innerList.Add(value);
+				index = this.innerList.IndexOf(value);
+				_names[parameterName] = index;
 			}
+		}
+
+		protected override void SetParameter(int index, DbParameter value)
+		{
+			this.innerList[index] = value;
 		}
 
 		/// <summary>
 		/// Remove the parameter from the collection.
 		/// </summary>
 		/// <param name="parameterName">The parameter name to remove.</param>
-		public void RemoveAt(string parameterName)
+		public override void RemoveAt(string parameterName)
 		{
 			int index = GetParameterIndex( parameterName );
 
 			if( index > -1 )
-				base.InnerList.RemoveAt(index);
+				this.innerList.RemoveAt(index);
 
 			RebuildNames();
+		}
+
+		public override void RemoveAt(int index)
+		{
+			this.innerList.RemoveAt(index);
 		}
 
 		/// <summary>
@@ -121,7 +136,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="parameterName">The parameter name to remove.</param>
 		/// <returns>True if the parameter is found.</returns>
-		public bool Contains(string parameterName)
+		public override bool Contains(string parameterName)
 		{
 			int index = GetParameterIndex( parameterName );
 
@@ -131,12 +146,17 @@ namespace System.Data.Hsql
 				return false;
 		}
 
+		public override bool Contains(object value)
+		{
+			return this.innerList.Contains((DbParameter)value);
+		}
+
 		/// <summary>
 		/// Obtains the parameter index in the collection.
 		/// </summary>
 		/// <param name="parameterName">The parameter name to found.</param>
 		/// <returns>The index of the parameter.</returns>
-		public int IndexOf(string parameterName)
+		public override int IndexOf(string parameterName)
 		{
 			return GetParameterIndex( parameterName );
 		}
@@ -148,54 +168,12 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get the updatability of the collection.
 		/// </summary>
-		public bool IsReadOnly
+		public override bool IsReadOnly
 		{
 			get
 			{
-				return base.InnerList.IsReadOnly;
+				return false;
 			}
-		}
-
-		/// <summary>
-		/// Get or set parameters by index.
-		/// </summary>
-		object System.Collections.IList.this[int index]
-		{
-			get
-			{
-				return base.InnerList[index];
-			}
-			set
-			{
-				base.InnerList[index] = value;
-				_names[((SharpHsqlParameter)value).ParameterName] = index;
-			}
-		}
-
-		/// <summary>
-		///  Get or set parameters by index.
-		/// </summary>
-		public SharpHsqlParameter this[int index]
-		{
-			get
-			{
-				return (SharpHsqlParameter)base.InnerList[index];
-			}
-			set
-			{
-				base.InnerList[index] = value;
-				_names[((SharpHsqlParameter)value).ParameterName] = index;
-			}
-		}
-
-		/// <summary>
-		/// Removes a parameter by index.
-		/// </summary>
-		/// <param name="index">The parameter index to remove.</param>
-		void System.Collections.IList.RemoveAt(int index)
-		{
-			base.InnerList.RemoveAt(index);
-			RebuildNames();
 		}
 
 		/// <summary>
@@ -203,9 +181,9 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="index"></param>
 		/// <param name="value"></param>
-		public void Insert(int index, object value)
+		public override void Insert(int index, object value)
 		{
-			base.InnerList.Insert(index, value);
+			innerList.Insert(index, (DbParameter)value);
 			RebuildNames();
 		}
 
@@ -213,28 +191,18 @@ namespace System.Data.Hsql
 		/// Remove the passed parameter from the collection.
 		/// </summary>
 		/// <param name="value"></param>
-		public void Remove(object value)
+		public override void Remove(object value)
 		{
-			base.InnerList.Remove(value);
+			innerList.Remove((DbParameter)value);
 			_names.Remove(((SharpHsqlParameter)value).ParameterName);
-		}
-
-		/// <summary>
-		/// Looks for a parameter in the collection.
-		/// </summary>
-		/// <param name="value">The paramerter object to find.</param>
-		/// <returns>True if the parameter is found.</returns>
-		bool System.Collections.IList.Contains(object value)
-		{
-			return base.InnerList.Contains(value);
 		}
 
 		/// <summary>
 		/// Eliminates all parameters from the collection.
 		/// </summary>
-		void System.Collections.IList.Clear()
+		public override void Clear()
 		{
-			base.InnerList.Clear();
+			innerList.Clear();
 			_names.Clear();
 		}
 
@@ -243,9 +211,9 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="value">The paramerter object to find.</param>
 		/// <returns>The index of the parameter.</returns>
-		int System.Collections.IList.IndexOf(object value)
+		public override int IndexOf(object value)
 		{
-			return base.InnerList.IndexOf(value);
+			return innerList.IndexOf((DbParameter)value);
 		}
 
 		/// <summary>
@@ -253,21 +221,31 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>
-		public int Add(object value)
+		public override int Add(object value)
 		{
-			int index = base.InnerList.Add(value);
+			var p = (DbParameter)value;
+			innerList.Add(p);
+			int index = innerList.IndexOf(p);
 			_names[((SharpHsqlParameter)value).ParameterName] = index;
 			return index;
+		}
+
+		public override void AddRange(Array values)
+		{
+			foreach (var item in values)
+			{
+				this.Add(item);
+			}
 		}
 
 		/// <summary>
 		/// Returns the grow policy for this collection.
 		/// </summary>
-		public bool IsFixedSize
+		public override bool IsFixedSize
 		{
 			get
 			{
-				return base.InnerList.IsFixedSize;
+				return false;
 			}
 		}
 
@@ -278,22 +256,22 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Returns the synchronization status of this collection.
 		/// </summary>
-		public bool IsSynchronized
+		public override bool IsSynchronized
 		{
 			get
 			{
-				return base.InnerList.IsSynchronized;
+				return false;
 			}
 		}
 
 		/// <summary>
 		/// Returns the parameter count for this collection.
 		/// </summary>
-		int ICollection.Count
+		public override int Count
 		{
 			get
 			{
-				return base.InnerList.Count;
+				return innerList.Count;
 			}
 		}
 
@@ -302,19 +280,19 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="array"></param>
 		/// <param name="index"></param>
-		public void CopyTo(Array array, int index)
+		public override void CopyTo(Array array, int index)
 		{
-			base.InnerList.CopyTo(array, index);
+			innerList.CopyTo((DbParameter[])array, index);
 		}
 
 		/// <summary>
 		/// Synchronization object.
 		/// </summary>
-		public object SyncRoot
+		public override object SyncRoot
 		{
 			get
 			{
-				return base.InnerList.SyncRoot;
+				return syncRoot;
 			}
 		}
 
@@ -326,9 +304,9 @@ namespace System.Data.Hsql
 		/// Gets the enumerator for this collection.
 		/// </summary>
 		/// <returns></returns>
-		System.Collections.IEnumerator IEnumerable.GetEnumerator()
+		public override System.Collections.IEnumerator GetEnumerator()
 		{
-			return base.GetEnumerator();
+			return innerList.GetEnumerator();
 		}
 
 		#endregion
@@ -350,9 +328,9 @@ namespace System.Data.Hsql
 			{
 				_names.Clear();
 
-				for( int i=0;i<base.InnerList.Count;i++)
+				for( int i=0;i<innerList.Count;i++)
 				{
-					SharpHsqlParameter p = base.InnerList[i] as SharpHsqlParameter;
+					SharpHsqlParameter p = innerList[i] as SharpHsqlParameter;
 					if( p != null )
 					{
 						_names[p.ParameterName] = i;
@@ -369,5 +347,6 @@ namespace System.Data.Hsql
 		private Hashtable _names = null;
 
 		#endregion
+
 	}
 }

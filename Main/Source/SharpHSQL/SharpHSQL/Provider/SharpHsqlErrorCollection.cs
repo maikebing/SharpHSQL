@@ -50,9 +50,7 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlException"/>
 	/// </summary>
 	/// <remarks>Not serializable on Compact Framework 1.0</remarks>
-	#if !POCKETPC
 	[Serializable]
-	#endif
 	public sealed class SharpHsqlErrorCollection : CollectionBase
 	{
 		#region Constructor

@@ -110,11 +110,7 @@ namespace SharpHsql
 
 			try 
 			{
-				#if !POCKETPC
 				_mode = (ResultType)Enum.Parse( typeof(ResultType), din.ReadInt32().ToString() );
-				#else
-				_mode = (ResultType)OpenNETCF.EnumEx.Parse( typeof(ResultType), din.ReadInt32().ToString() );
-				#endif
 
 				if (_mode == ResultType.Error) 
 				{
@@ -134,11 +130,7 @@ namespace SharpHsql
 
 					for (int i = 0; i < l; i++) 
 					{
-						#if !POCKETPC
 						Type[i] = (ColumnType)Enum.Parse(typeof(ColumnType), din.ReadInt32().ToString() );
-						#else
-						Type[i] = (ColumnType)OpenNETCF.EnumEx.Parse(typeof(ColumnType), din.ReadInt32().ToString() );
-						#endif
 
 						Label[i] = din.ReadString();
 						Table[i] = din.ReadString();
