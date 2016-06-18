@@ -1,0 +1,5 @@
+# SharpHSQL
+Fork  SharpHSQL https://sharphsql.codeplex.com/
+
+## Project Description
+Small & embebdded database engine witten in C#. It is a port of the Hypersonic SQL v1.4 (HSQL) Java project and a continuation of the initial work done by Mark Tutt (http://www.codeproject.com/KB/database/sharphsql.aspx) 
