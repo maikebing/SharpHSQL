@@ -108,8 +108,8 @@
       <Name>System.XML</Name>
     </Reference>
     <ProjectReference Include="..\SharpHSQL\SharpHsql.csproj">
-      <Name>SharpHSQL</Name>
-      <Project>{E5291DD4-3B36-11D5-85ED-0010A4E6E139}</Project>
+      <Name>SharpHsql</Name>
+      <Project>{B98F7374-FF00-4BB7-93EC-39763A76BFFF}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
   </ItemGroup>

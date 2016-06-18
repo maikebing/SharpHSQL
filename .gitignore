@@ -43,3 +43,7 @@ JetBrains.ReSharper.CommandLineTools
 # Paket
 .paket/paket.exe
 packages
+
+# NUnit
+
+TestResult.xml
