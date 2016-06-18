@@ -66,9 +66,9 @@ namespace Providertest
 
 				Console.WriteLine();
 
+                #region BulkTests
 
-				
-				Console.Write("Do Bulk INSERTS (y/n)?");
+                Console.Write("Do Bulk INSERTS (y/n)?");
 				string bulk = Console.ReadLine();
 				if( bulk.ToLower() == "y" )
 				{
@@ -88,6 +88,9 @@ namespace Providertest
 					Console.WriteLine();
 				}
 
+                #endregion
+
+                // T1
 				cmd = new SharpHsqlCommand("", conn);
 
 				cmd.CommandText = "SELECT \"clients\".\"id\", \"clients\".\"DoubleValue\", \"clients\".\"nombre\",  \"clients\".\"photo\", \"clients\".\"created\" FROM \"clients\" ORDER BY \"clients\".\"id\" ";
@@ -107,6 +110,7 @@ namespace Providertest
 
 				Console.WriteLine();
 
+                // T2
 				cmd.CommandText = "SELECT * FROM \"books\"";
 				reader = cmd.ExecuteReader();
 
@@ -121,6 +125,7 @@ namespace Providertest
 
 				Console.WriteLine();
 
+                // T3
 				cmd.CommandText = "SELECT * FROM \"books\" ORDER BY \"value\"";
 				reader = cmd.ExecuteReader();
 
@@ -135,6 +140,7 @@ namespace Providertest
 
 				Console.WriteLine();
 
+                // T4
 				cmd.CommandText = "SELECT COUNT(*) as CNT, SUM(\"value\") FROM \"books\" WHERE \"author\" = 'Andy'";
 				reader = cmd.ExecuteReader();
 
@@ -147,6 +153,7 @@ namespace Providertest
 
 				reader.Close();
 
+                // T5
 				cmd.CommandText = "SELECT \"name\", \"author\", SUM(\"value\") FROM \"books\" WHERE \"author\" = 'Andy' GROUP BY \"name\", \"author\";";
 				reader = cmd.ExecuteReader();
 
@@ -159,6 +166,7 @@ namespace Providertest
 
 				reader.Close();
 
+                // T6
 				cmd.CommandText = "SELECT \"name\", SUM(\"value\") FROM \"books\" WHERE \"author\" = 'Andy' GROUP BY \"name\";";
 				reader = cmd.ExecuteReader();
 
@@ -170,12 +178,15 @@ namespace Providertest
 				Console.WriteLine();
 
 				reader.Close();
+
+                // T7
 				cmd.CommandText = "DELETE FROM \"clients\" WHERE \"clients\".\"id\" = 6;";
 				res = cmd.ExecuteNonQuery();
 
 				Console.WriteLine();
 
-				cmd.CommandText = "SELECT MAX(\"clients\".\"id\") FROM \"clients\";";
+                // T8
+                cmd.CommandText = "SELECT MAX(\"clients\".\"id\") FROM \"clients\";";
 				object result = cmd.ExecuteScalar();
 				if( result != null )
 				{
@@ -183,6 +194,7 @@ namespace Providertest
 					Console.WriteLine("MAX=" + res);
 				}
 
+                // T9
 				cmd.CommandText = "SELECT SUM(\"clients\".\"id\") FROM \"clients\";";
 				result = cmd.ExecuteScalar();
 				if( result != null )
@@ -191,6 +203,7 @@ namespace Providertest
 					Console.WriteLine("SUM=" + res);
 				}
 
+                // T10
 				cmd.CommandText = "SELECT COUNT(\"clients\".\"id\") FROM \"clients\";";
 				result = cmd.ExecuteScalar();
 				if( result != null )
@@ -199,6 +212,7 @@ namespace Providertest
 					Console.WriteLine("COUNT=" + res);
 				}
 
+                // T11
 				cmd.CommandText = "SELECT AVG(\"clients\".\"id\") FROM \"clients\";";
 				result = cmd.ExecuteScalar();
 				if( result != null )
@@ -207,6 +221,7 @@ namespace Providertest
 					Console.WriteLine("AVG=" + res);
 				}
 
+                // T12
 				cmd.CommandText = "CALL ABS(-33.5632);";
 				result = cmd.ExecuteScalar();
 				if( result != null )
@@ -215,39 +230,49 @@ namespace Providertest
 					Console.WriteLine("ABS=" + abs);
 				}
 
+                // T12
 				cmd.CommandText = "CREATE ALIAS CALCRATE FOR \"ExternalFunction,ExternalFunction.Simple.calcrate\";";
 				res = cmd.ExecuteNonQuery();
 
+                // T12
 				cmd.CommandText = "CREATE ALIAS EXTTAN FOR \"ExternalFunction,ExternalFunction.Simple.tan\";";
 				res = cmd.ExecuteNonQuery();
 
+                // T12
 				cmd.CommandText = "CALL CALCRATE(100, 21);";
 				Decimal rate = (Decimal)cmd.ExecuteScalar();
 				Console.WriteLine("CALCRATE=" + rate);
 
+                // T12
 				cmd.CommandText = "CALL EXTTAN(23.456);";
 				Double tan = (Double)cmd.ExecuteScalar();
 				Console.WriteLine("EXTTAN=" + tan);
 
+                // T12
 				cmd.CommandText = "CALL SQRT(3);";
 				Double sqrt = (Double)cmd.ExecuteScalar();
 				Console.WriteLine("SQRT=" + sqrt);
-				
+
+                // T12
 				cmd.CommandText = "CALL SUBSTRING('0123456', 3, 2);";
 				string subs = (String)cmd.ExecuteScalar();
 				Console.WriteLine("SUBSTRING=" + subs);
-				
+
+                // T12
 				cmd.CommandText = "CALL ASCII('A');";
 				int ascii = (int)cmd.ExecuteScalar();
 				Console.WriteLine("ASCII=" + ascii);
 
+                // T12
 				cmd.CommandText = "CALL USER();";
 				string user = (string)cmd.ExecuteScalar();
 				Console.WriteLine("USER=" + user);
 
+                // T12 (?)
 				cmd.CommandText = "SELECT \"clients\".\"photo\" FROM \"clients\" WHERE \"clients\".\"id\" = 5;";
 				byte[] b = (byte[])cmd.ExecuteScalar();
 
+                // T12
 				cmd.CommandText = "SELECT \"clients\".\"id\", \"clients\".\"DoubleValue\", \"clients\".\"nombre\" FROM \"clients\" WHERE \"clients\".\"id\" = 5;";
 
 				SharpHsqlDataAdapter adapter = new SharpHsqlDataAdapter(cmd);
@@ -257,7 +282,8 @@ namespace Providertest
 
 				Console.WriteLine();	
 				Console.WriteLine("DataSet.Fill: " + ds.Tables[0].Rows.Count);
-				
+
+                // T12
 				cmd.CommandText = "DECLARE @MyVar CHAR;SET @MyVar = 'Andy';";
 				cmd.ExecuteNonQuery();
 
@@ -268,6 +294,7 @@ namespace Providertest
 
 				Console.WriteLine();
 
+                // T13
 				cmd.CommandText = "SELECT \"name\", \"author\", SUM(\"value\") FROM \"books\" WHERE \"author\" = @MyVar GROUP BY \"name\", \"author\";";
 				reader = cmd.ExecuteReader();
 
@@ -278,7 +305,8 @@ namespace Providertest
 
 				Console.WriteLine();
 				reader.Close();
-				
+
+                // T12
 				cmd.CommandText = "INSERT INTO \"clients\" (\"DoubleValue\", \"nombre\", \"photo\", \"created\") VALUES (1.1, @MyVar, '" + base64photo + "', NOW() );";
 				res = cmd.ExecuteNonQuery();
 				cmd.CommandText = "DECLARE @MyId INT;SET @MyId = IDENTITY();";
@@ -289,6 +317,7 @@ namespace Providertest
 
 				Console.WriteLine();
 
+                // T12
 				cmd.CommandText = "SET @MyId = SELECT MAX(\"clients\".\"id\") + 1 FROM \"clients\";";
 				cmd.ExecuteNonQuery();
 				cmd.CommandText = "SELECT @MyId;";
@@ -298,6 +327,7 @@ namespace Providertest
 				Console.WriteLine();
 				reader.Close();
 
+                // T12
 				DateTime dt = DateTime.Now;
 
 				cmd.CommandText = "INSERT INTO \"clients\" (\"DoubleValue\", \"nombre\", \"photo\", \"created\") VALUES (@DoubleValue, @nombre, @photo, @date );SET @Id = IDENTITY();";
@@ -324,6 +354,7 @@ namespace Providertest
 				Console.WriteLine();
 				reader.Close();
 
+                // T12
 				cmd.CommandText = "SHOW DATABASES;";
 				reader = cmd.ExecuteReader();
 
@@ -347,6 +378,7 @@ namespace Providertest
 				Console.WriteLine();
 				reader.Close();
 
+                // T12
 				// Dataset Fill for SHOW DATABASES
 				adapter = new SharpHsqlDataAdapter(cmd);
 				ds = new DataSet();
@@ -381,6 +413,7 @@ namespace Providertest
 				Console.WriteLine();
 				reader.Close();
 
+                // T12
 				// Dataset Fill for SHOW TABLES
 				adapter = new SharpHsqlDataAdapter(cmd);
 				ds = new DataSet();
@@ -428,8 +461,9 @@ namespace Providertest
 
 
 				Console.WriteLine();
-				reader.Close();			
-	
+				reader.Close();
+
+                // T12
 				cmd.CommandText = "SHOW ALIAS;";
 				reader = cmd.ExecuteReader();
 
@@ -443,6 +477,7 @@ namespace Providertest
 				Console.WriteLine();
 				reader.Close();
 
+                // T12
 				cmd.CommandText = "SHOW PARAMETERS CALCRATE;";
 				reader = cmd.ExecuteReader();
 
@@ -456,6 +491,7 @@ namespace Providertest
 				Console.WriteLine();
 				reader.Close();
 
+                // T12
 				cmd.CommandText = "SHOW COLUMNS \"clients\";";
 				reader = cmd.ExecuteReader();
 

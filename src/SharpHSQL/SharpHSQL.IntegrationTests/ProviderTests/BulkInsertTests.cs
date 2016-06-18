@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Hsql;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace SharpHSQL.IntegrationTests {
+namespace SharpHSQL.IntegrationTests.ProviderTests {
     [TestFixture]
     class BulkInsertTests {
         [Test]

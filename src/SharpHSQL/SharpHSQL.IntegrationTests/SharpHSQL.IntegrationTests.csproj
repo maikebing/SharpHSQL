@@ -39,9 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BulkInsertTests.cs" />
-    <Compile Include="CreateTableTests.cs" />
+    <Compile Include="ProviderTests\BaseQueryTest.cs" />
+    <Compile Include="ProviderTests\BulkInsertTests.cs" />
+    <Compile Include="ProviderTests\CreateTableTests.cs" />
+    <Compile Include="ProviderTests\DataAdapterTests.cs" />
+    <Compile Include="ProviderTests\DeleteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProviderTests\ExternalFunctionsTests.cs" />
+    <Compile Include="ProviderTests\BuiltItFunctionsTests.cs" />
+    <Compile Include="ProviderTests\MetadataQueriesTests.cs" />
+    <Compile Include="ProviderTests\ParameterizedQueryTests.cs" />
+    <Compile Include="ProviderTests\SelectTests.cs" />
+    <Compile Include="ProviderTests\VariablesTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="paket.references" />
