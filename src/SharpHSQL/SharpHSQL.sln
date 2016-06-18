@@ -1,10 +1,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{C6EB796C-12AB-4931-AC6F-C5D087C505F5}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\paket.dependencies = ..\..\..\paket.dependencies
+		..\..\paket.dependencies = ..\..\paket.dependencies
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpHsql", "SharpHSQL\SharpHsql.csproj", "{B98F7374-FF00-4BB7-93EC-39763A76BFFF}"
@@ -16,30 +16,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalFunction", "ExternalFunction\ExternalFunction.csproj", "{7E430EE6-B587-428A-9FB9-C1269A3FE4FD}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs07
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = ExternalFunction\\ExternalFunction.csproj
-		SccProjectName1 = ExternalFunction
-		SccLocalPath1 = ExternalFunction
-		SccProjectUniqueName2 = hsqltest\\hsqltest.csproj
-		SccProjectName2 = hsqltest
-		SccLocalPath2 = hsqltest
-		SccProjectUniqueName3 = Providertest\\Providertest.csproj
-		SccProjectName3 = Providertest
-		SccLocalPath3 = Providertest
-		SccProjectUniqueName4 = SharpHSQL\\SharpHsql.csproj
-		SccProjectName4 = SharpHSQL
-		SccLocalPath4 = SharpHSQL
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B98F7374-FF00-4BB7-93EC-39763A76BFFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B98F7374-FF00-4BB7-93EC-39763A76BFFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B98F7374-FF00-4BB7-93EC-39763A76BFFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{264A06D6-76FB-4652-8619-9B651DF182D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{264A06D6-76FB-4652-8619-9B651DF182D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
