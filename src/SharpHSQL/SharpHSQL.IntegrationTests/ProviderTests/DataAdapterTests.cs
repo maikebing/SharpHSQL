@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Hsql;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,21 +13,22 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
     class DataAdapterTests : BaseQueryTest {
         [Test]
         public void DataAdapterFill_ShouldFillAllRows() {
-            TestQuery(connection => {
-                using (var cmd = new SharpHsqlCommand("", connection)) {
-                    cmd.CommandText =
-                        "SELECT \"clients\".\"id\", \"clients\".\"DoubleValue\", \"clients\".\"nombre\" FROM \"clients\" WHERE \"clients\".\"id\" = 5;";
+            var dbPrototype = new DataSet("mytest");
+            dbPrototype.Tables.Add(GenerateTableClients());
 
-                    using (var adapter = new SharpHsqlDataAdapter(cmd)) {
-                        var ds = new DataSet();
-                        var res = adapter.Fill(ds);
+            TestQuery(dbPrototype, connection => {
+                var commandText = "SELECT \"clients\".\"id\", \"clients\".\"DoubleValue\", \"clients\".\"nombre\" FROM \"clients\" WHERE \"clients\".\"id\" = 5;";
+                using (var cmd = new SharpHsqlCommand(commandText, connection))
+                using (var adapter = new SharpHsqlDataAdapter(cmd)) {
+                    var ds = new DataSet();
+                    var res = adapter.Fill(ds);
 
-                        Assert.AreEqual(1, res);
-                        Assert.AreEqual(1, ds.Tables[0].Rows.Count);
-                        Assert.Pass();
-                    }
+                    // 3. Assertion checking
+                    Assert.AreEqual(1, res);
+                    Assert.AreEqual(1, ds.Tables[0].Rows.Count);
+                    Assert.Pass();
                 }
-            });
+            });           
         }
     }
 }

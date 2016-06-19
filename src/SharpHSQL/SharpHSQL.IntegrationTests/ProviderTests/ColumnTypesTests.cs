@@ -13,7 +13,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
     class ColumnTypesTests : BaseQueryTest {
         [Test]
         public void ObjectColumntTypeTest() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var dataTable = GenerateTableData();
+            dbPrototype.Tables.Add(dataTable);
+
+            TestQuery(dbPrototype, connection => {
                 var myData = new Hashtable {
                     {"1", "ONE"}, 
                     {"2", "TWO"}, 
@@ -23,8 +27,6 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 };
 
                 var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "DELETE FROM \"data\" WHERE \"id\" = 1;";
-                cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "INSERT INTO \"data\" (\"id\", \"MyObject\") VALUES( @id, @MyObject);";
                 cmd.Parameters.Add(new SharpHsqlParameter("@id", DbType.Int32, 0, ParameterDirection.Input, false, 0, 0, null, DataRowVersion.Current, 1));

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.Hsql;
 using NUnit.Framework;
 
@@ -6,20 +7,32 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
     [TestFixture]
     class ExternalFunctionsTests : BaseQueryTest {
         [Test]
-        public void T1() {
-            TestQuery(connection => {
+        public void CallExternFunction() {
+            var dbPrototype = new DataSet("mytest");
+            var connection = GenerateTestDatabase(dbPrototype);
+            try {
+                connection.Open();
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "CREATE ALIAS CALCRATE FOR \"SharpHSQL.IntegrationTests,SharpHSQL.IntegrationTests.Simple.calcrate\";";
                 cmd.ExecuteNonQuery();
                 cmd.CommandText = "CALL CALCRATE(100, 21);";
                 var rate = (Decimal)cmd.ExecuteScalar();
                 Assert.AreEqual(121, rate);
-            });
+            }
+            catch (SharpHsqlException ex) {
+                Assert.Fail(ex.Message);
+            }
+            finally {
+                connection.Close();
+            }
         }
 
         [Test]
         public void ShowParametersExternalFunction() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var connection = GenerateTestDatabase(dbPrototype);
+            try {
+                connection.Open();
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "CREATE ALIAS CALCRATE FOR \"SharpHSQL.IntegrationTests,SharpHSQL.IntegrationTests.Simple.calcrate\";";
                 cmd.ExecuteNonQuery();
@@ -48,7 +61,13 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 Assert.False(reader.Read());
 
                 reader.Close();
-            });
+            }
+            catch (SharpHsqlException ex) {
+                Assert.Fail(ex.Message);
+            }
+            finally {
+                connection.Close();
+            }          
         }
     }
 }

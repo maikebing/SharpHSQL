@@ -13,7 +13,10 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
         [Test]
         [Ignore("Not correct query")]
         public void ParameterizedQuery_ShouldSuccessful() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            dbPrototype.Tables.Add(GenerateTableClients());
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 var dt = DateTime.Now;
                 var photo = new Byte[] { 255, 255, 255, 255, 255, 255, 255, 255, 255, 255 };

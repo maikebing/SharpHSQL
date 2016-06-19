@@ -8,7 +8,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
     class SelectTests : BaseQueryTest {
         [Test]
         public void SimpleSelect() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var booksTable = GenerateTableBooks();
+            dbPrototype.Tables.Add(booksTable);
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SELECT * FROM \"books\"";
                 var reader = cmd.ExecuteReader();
@@ -24,7 +28,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void SelectWithOrder() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var booksTable = GenerateTableBooks();
+            dbPrototype.Tables.Add(booksTable);
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SELECT * FROM \"books\" ORDER BY \"value\"";
                 var reader = cmd.ExecuteReader();
@@ -43,21 +51,29 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void WhereClauseTest() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var booksTable = GenerateTableBooks();
+            dbPrototype.Tables.Add(booksTable);
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SELECT COUNT(*) as CNT, SUM(\"value\") FROM \"books\" WHERE \"author\" = 'Andy'";
                 var reader = cmd.ExecuteReader();
                 reader.Read();
 
                 Assert.AreEqual(2, reader.GetInt32(0));
-                Assert.AreEqual(81.15, reader.GetDecimal(1));
+                Assert.AreEqual(81.15m, reader.GetDecimal(1));
                 reader.Close();
             });
         }
 
         [Test]
         public void GroupByClauseTest() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var booksTable = GenerateTableBooks();
+            dbPrototype.Tables.Add(booksTable);
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SELECT \"author\", SUM(\"value\") FROM \"books\" GROUP BY \"author\";";
                 var reader = cmd.ExecuteReader();
@@ -74,28 +90,6 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
                 reader.Close();
             });
-        }
-
-        protected override void PrepareDatabase(SharpHsqlConnection connection) {
-            base.PrepareDatabase(connection);
-
-            var cmd = new SharpHsqlCommand("", connection);
-            cmd.CommandText = "DROP TABLE IF EXIST \"books\";CREATE TABLE \"books\" (\"id\" INT NOT NULL PRIMARY KEY, \"name\" char, \"author\" char, \"qty\" int, \"value\" numeric);";
-            cmd.ExecuteNonQuery();
-
-            var tran = connection.BeginTransaction();
-            {
-                cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "INSERT INTO \"books\" VALUES (1, 'Book000', 'Any', 1, '23.5');";
-                cmd.ExecuteNonQuery();
-                cmd.CommandText = "INSERT INTO \"books\" VALUES (2, 'Book001', 'Andy', 2, '43.9');";
-                cmd.ExecuteNonQuery();
-                cmd.CommandText = "INSERT INTO \"books\" VALUES (3, 'Book002', 'Andy', 3, '37.25');";
-                cmd.ExecuteNonQuery();
-                cmd.CommandText = "INSERT INTO \"books\" VALUES (4, 'Book003', 'Any', 1, '10.5');";
-                cmd.ExecuteNonQuery();
-            }
-            tran.Commit();
         }
     }
 }

@@ -13,7 +13,8 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
     class MetadataQueriesTests : BaseQueryTest {
         [Test]
         public void ShowDatabases_ShouldReturnCurrentDatabaseName() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SHOW DATABASES;";
                 var reader = cmd.ExecuteReader();
@@ -27,7 +28,8 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test(Description = "Dataset Fill for SHOW DATABASES")]
         public void ShowDatabases_ShouldCorrectFillDataAdapter() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SHOW DATABASES;";
                 var adapter = new SharpHsqlDataAdapter(cmd);
@@ -41,7 +43,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void ShowTables_ShouldReturnTablesList() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            dbPrototype.Tables.Add(GenerateTableData());
+            dbPrototype.Tables.Add(GenerateTableClients());
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SHOW TABLES;";
                 var reader = cmd.ExecuteReader();
@@ -63,7 +69,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test(Description = "Dataset Fill for SHOW TABLES")]
         public void ShowTables_ShouldCorrectFillDataAdapter() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            dbPrototype.Tables.Add(GenerateTableClients());
+            dbPrototype.Tables.Add(GenerateTableData());
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SHOW TABLES;";
                 var adapter = new SharpHsqlDataAdapter(cmd);
@@ -77,7 +87,8 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void ShowAlias_ShouldReturnAliases() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SHOW ALIAS;";
                 var reader = cmd.ExecuteReader();
@@ -94,7 +105,10 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void ShowColumns_ShouldReturnColumnsList() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            dbPrototype.Tables.Add(GenerateTableData());
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SHOW COLUMNS \"data\";";
                 var reader = cmd.ExecuteReader();

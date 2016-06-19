@@ -10,12 +10,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             var conn = new SharpHsqlConnection("Initial Catalog=mytest;User Id=sa;Pwd=;");
             try {
                 conn.Open();
-
                 var cmd = new SharpHsqlCommand("", conn);
-
-                cmd.CommandText = "DROP TABLE IF EXIST \"data\";CREATE TABLE \"data\" (\"id\" int NOT NULL PRIMARY KEY, \"MyObject\" OBJECT);";
-                cmd.ExecuteNonQuery();
-
                 cmd.CommandText = "DROP TABLE IF EXIST \"clients\";CREATE TABLE \"clients\" (\"id\" int NOT NULL IDENTITY PRIMARY KEY, \"DoubleValue\" double, \"nombre\" char, \"photo\" varbinary, \"created\" date );";
                 cmd.ExecuteNonQuery();
 

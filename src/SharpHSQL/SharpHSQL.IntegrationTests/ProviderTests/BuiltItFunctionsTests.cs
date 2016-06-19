@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.Hsql;
 using System.Linq;
 using NUnit.Framework;
@@ -8,7 +9,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
     class BuiltItFunctionsTests : BaseQueryTest {
         [Test]
         public void FunctionMax_ShouldReturnMaximalValue() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var clientsTable = GenerateTableClients();
+            dbPrototype.Tables.Add(clientsTable);
+
+            TestQuery(dbPrototype, connection => {
                 var commandText = "SELECT MAX(\"clients\".\"id\") FROM \"clients\";";
                 var command = new SharpHsqlCommand(commandText, connection);
                 var result = command.ExecuteScalar();
@@ -19,7 +24,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void FunctionSum_ShouldReturnSumValues() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var clientsTable = GenerateTableClients();
+            dbPrototype.Tables.Add(clientsTable);
+
+            TestQuery(dbPrototype, connection => {
                 var commandText = "SELECT SUM(\"clients\".\"id\") FROM \"clients\";";
                 var cmd = new SharpHsqlCommand(commandText, connection);
                 var result = cmd.ExecuteScalar();
@@ -30,7 +39,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void FunctionCountt_ShouldReturnCountValues() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var clientsTable = GenerateTableClients();
+            dbPrototype.Tables.Add(clientsTable);
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SELECT COUNT(\"clients\".\"id\") FROM \"clients\";";
                 var result = cmd.ExecuteScalar();
@@ -41,7 +54,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void FunctionAvg_ShouldReturnAverageValue() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var clientsTable = GenerateTableClients();
+            dbPrototype.Tables.Add(clientsTable);
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SELECT AVG(\"clients\".\"id\") FROM \"clients\";";
                 var result = (Double)cmd.ExecuteScalar();
@@ -53,7 +70,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
         [Test]
         [Ignore("Not correct sql")]
         public void FunctionAbs_ShouldReturnAbsoluteValue() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var clientsTable = GenerateTableClients();
+            dbPrototype.Tables.Add(clientsTable);
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "CALL ABS(-33.5632);";
                 var result = cmd.ExecuteScalar();
@@ -64,7 +85,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void FunctionUser_ShouldReturnUserName() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var clientsTable = GenerateTableClients();
+            dbPrototype.Tables.Add(clientsTable);
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "CALL USER();";
                 var user = (String)cmd.ExecuteScalar();
@@ -74,7 +99,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void FunctionSqrt_ShouldReturnSquareRoot() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var clientsTable = GenerateTableClients();
+            dbPrototype.Tables.Add(clientsTable);
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "CALL SQRT(4);";
                 var sqrt = (Double)cmd.ExecuteScalar();
@@ -84,7 +113,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void FunctionSubstring_ShouldReturnSubstring() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var clientsTable = GenerateTableClients();
+            dbPrototype.Tables.Add(clientsTable);
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "CALL SUBSTRING('0123456', 3, 2);";
                 var subs = (String)cmd.ExecuteScalar();
@@ -94,7 +127,11 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
         [Test]
         public void FunctionAscii_ShouldReturnCharCode() {
-            TestQuery(connection => {
+            var dbPrototype = new DataSet("mytest");
+            var clientsTable = GenerateTableClients();
+            dbPrototype.Tables.Add(clientsTable);
+
+            TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "CALL ASCII('A');";
                 var ascii = (Int32)cmd.ExecuteScalar();
