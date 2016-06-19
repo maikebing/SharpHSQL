@@ -40,14 +40,13 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
         }
 
         [Test]
-        [Ignore("Failed")]
         public void FunctionAvg_ShouldReturnAverageValue() {
             TestQuery(connection => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SELECT AVG(\"clients\".\"id\") FROM \"clients\";";
-                var result = cmd.ExecuteScalar();
+                var result = (Double)cmd.ExecuteScalar();
                 Assert.NotNull(result);
-                Assert.AreEqual(Enumerable.Range(1, 10).Average(), (Int32)result);
+                Assert.AreEqual(Enumerable.Range(1, 10).Average(), result);
             });
         }
 
