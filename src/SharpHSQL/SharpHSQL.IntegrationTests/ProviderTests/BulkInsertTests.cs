@@ -6,8 +6,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
     [TestFixture]
     class BulkInsertTests {
         [Test]
-        public void T1() {
-            // TODO: Удалять БД
+        public void BulInsert_ShouldSuccessed() {
             var conn = new SharpHsqlConnection("Initial Catalog=mytest;User Id=sa;Pwd=;");
             try {
                 conn.Open();
@@ -15,12 +14,10 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 var cmd = new SharpHsqlCommand("", conn);
 
                 cmd.CommandText = "DROP TABLE IF EXIST \"data\";CREATE TABLE \"data\" (\"id\" int NOT NULL PRIMARY KEY, \"MyObject\" OBJECT);";
-                var res = cmd.ExecuteNonQuery();
-                Assert.AreEqual(0, res);
+                cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "DROP TABLE IF EXIST \"clients\";CREATE TABLE \"clients\" (\"id\" int NOT NULL IDENTITY PRIMARY KEY, \"DoubleValue\" double, \"nombre\" char, \"photo\" varbinary, \"created\" date );";
-                res = cmd.ExecuteNonQuery();
-                Assert.AreEqual(0, res);
+                cmd.ExecuteNonQuery();
 
                 var tran = conn.BeginTransaction();
                 {
@@ -31,11 +28,12 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
                     for (var i = 0; i < 1000; i++) {
                         cmd.CommandText = "INSERT INTO \"clients\" (\"DoubleValue\", \"nombre\", \"photo\", \"created\") VALUES ('1.1', 'NOMBRE" + i.ToString() + "', '" + base64Photo + "', NOW() );";
-                        res = cmd.ExecuteNonQuery();
-                        Assert.AreEqual(1, res); // TODO: Или после цикла проверить количество записей? В чем смысл теста?
+                        cmd.ExecuteNonQuery();
                     }
                 }
                 tran.Commit();
+
+                Assert.Pass();
             }
             catch (SharpHsqlException ex) {
                 Assert.Fail(ex.Message);

@@ -1,3 +1,4 @@
+cls
 Task default -depends "Tests"
 
 Task Restore {
@@ -6,10 +7,15 @@ Task Restore {
 }
 
 Task Clean {
-    rm mytest.*    
+    if (Test-Path(".tests")) {  
+        rm -r .tests/
+    }
+    
+    rm mytest.*
+    & git checkout src/SharpHSQL/SharpHSQL/doc
 }
 
-Task Build -depends Restore {
+Task Build {
     & "C:\Program Files (x86)\MSBuild\12.0\Bin\MSBuild.exe" /v:q /nologo src\SharpHSQL\SharpHSQL.sln
 }
 

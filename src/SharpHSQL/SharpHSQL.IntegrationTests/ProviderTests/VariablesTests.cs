@@ -11,42 +11,36 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
     [TestFixture]
     class VariablesTests : BaseQueryTest {
         [Test]
-        [Ignore("Not correct")]
-        public void T1() {
+        public void DeclareVariableTest() {
             TestQuery(connection => {
                 PrepareVariables(connection);
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SELECT @MyVar;";
-                string var = (string)cmd.ExecuteScalar();
-                Console.WriteLine("@MyVar=" + var);
+                var myVar = (String)cmd.ExecuteScalar();
 
-                Console.WriteLine();
-                Assert.Pass();
+                Assert.AreEqual("Andy", myVar);
             });
         }
 
         [Test]
-        [Ignore("Not correct")]
-        public void T2() {
+        public void UsingVariableInQuery() {
             TestQuery(connection => {
                 PrepareVariables(connection);
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SELECT \"name\", \"author\", SUM(\"value\") FROM \"books\" WHERE \"author\" = @MyVar GROUP BY \"name\", \"author\";";
                 var reader = cmd.ExecuteReader();
+                reader.Read();
 
-                while (reader.Read()) {
-                    Console.WriteLine("name={0},\tauthor={1},\tvalue={2}", reader.GetString(0), reader.GetString(1), reader.GetDecimal(2));
-                }
-
-                Console.WriteLine();
+                Assert.AreEqual("Book002", reader.GetString(0));
+                Assert.AreEqual("Andy", reader.GetString(1));
+                Assert.AreEqual(37.25, reader.GetDecimal(2));
+                Assert.False(reader.Read());
                 reader.Close();
-                Assert.Pass();
             });
         }
 
         [Test]
-        [Ignore("Not correct")]
-        public void T3() {
+        public void UsingVariableInInsertStatement() {
             TestQuery(connection => {
                 PrepareVariables(connection);
 
@@ -54,34 +48,49 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 var base64Photo = Convert.ToBase64String(data, 0, data.Length);
 
                 var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "INSERT INTO \"clients\" (\"DoubleValue\", \"nombre\", \"photo\", \"created\") VALUES (1.1, @MyVar, '" + base64Photo + "', NOW() );";
-                var res = cmd.ExecuteNonQuery();
+                cmd.CommandText = "INSERT INTO \"clients\" (\"DoubleValue\", \"nombre\", \"photo\", \"created\") VALUES ('1.1', @MyVar, '" + base64Photo + "', NOW() );";
+                cmd.ExecuteNonQuery();
                 cmd.CommandText = "DECLARE @MyId INT;SET @MyId = IDENTITY();";
                 cmd.ExecuteNonQuery();
                 cmd.CommandText = "SELECT @MyId;";
-                int myid = (int)cmd.ExecuteScalar();
-                Console.WriteLine("Inserted id={0}", myid);
-
-                Console.WriteLine();
-                Assert.Pass();
+                var myid = (Int32)cmd.ExecuteScalar();
+                Assert.AreEqual(11, myid);
             });
         }
 
         [Test]
-        [Ignore("Not correct")]
-        public void T4() {
+        public void AssignVaribleInQuery() {
             TestQuery(connection => {
-                PrepareVariables(connection);
                 var cmd = new SharpHsqlCommand("", connection);
+                cmd.CommandText = "DECLARE @MyId INTEGER;";
+                cmd.ExecuteNonQuery();
                 cmd.CommandText = "SET @MyId = SELECT MAX(\"clients\".\"id\") + 1 FROM \"clients\";";
                 cmd.ExecuteNonQuery();
                 cmd.CommandText = "SELECT @MyId;";
-                var myid = (int)cmd.ExecuteScalar();
-                Console.WriteLine("Next id={0}", myid);
-
-                Console.WriteLine();
-                Assert.Pass();
+                var myid = (Int32)cmd.ExecuteScalar();
+                Assert.AreEqual(11, myid);
             });
+        }
+
+        protected override void PrepareDatabase(SharpHsqlConnection connection)
+        {
+            base.PrepareDatabase(connection);
+
+            var cmd = new SharpHsqlCommand("", connection);
+            cmd.CommandText = "DROP TABLE IF EXIST \"books\";CREATE TABLE \"books\" (\"id\" INT NOT NULL PRIMARY KEY, \"name\" char, \"author\" char, \"qty\" int, \"value\" numeric);";
+            cmd.ExecuteNonQuery();
+
+            var tran = connection.BeginTransaction();
+            {
+                cmd = new SharpHsqlCommand("", connection);
+                cmd.CommandText = "INSERT INTO \"books\" VALUES (1, 'Book000', 'Any', 1, '23.5');";
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = "INSERT INTO \"books\" VALUES (2, 'Book001', 'Andy2', 2, '43.9');";
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = "INSERT INTO \"books\" VALUES (3, 'Book002', 'Andy', 3, '37.25');";
+                cmd.ExecuteNonQuery();
+            }
+            tran.Commit();
         }
 
         private void PrepareVariables(SharpHsqlConnection connection) {

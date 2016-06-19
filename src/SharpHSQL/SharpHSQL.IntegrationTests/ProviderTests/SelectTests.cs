@@ -8,44 +8,20 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
     class SelectTests : BaseQueryTest {
         [Test]
         [Ignore("Not correct")]
-        public void T1() {
-            TestQuery((connection) => {
-                var cmd = new SharpHsqlCommand("", connection);
-
-                cmd.CommandText = "SELECT \"clients\".\"id\", \"clients\".\"DoubleValue\", \"clients\".\"nombre\",  \"clients\".\"photo\", \"clients\".\"created\" FROM \"clients\" ORDER BY \"clients\".\"id\" ";
-                IDataReader reader = cmd.ExecuteReader();
-
-                byte[] photo = null;
-
-                while (reader.Read()) {
-                    var len = reader.GetBytes(3, 0, null, 0, 0);
-                    photo = new byte[len];
-                    reader.GetBytes(3, 0, photo, 0, (int)len);
-                    Console.WriteLine("id={0}, doubleValue={1}, nombre={2}, photo={3}, created={4}", reader.GetInt32(0), reader.GetDouble(1), reader.GetString(2), photo.Length, reader.GetDateTime(4).ToString("yyyy.MM.dd hh:mm:ss.fffffff"));
-                }
-
-                reader.Close();
-                Assert.Pass();
-            });
-        }
-
-        [Test]
-        [Ignore("Not correct")]
         public void T2() {
             TestQuery((connection) => {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "SELECT * FROM \"books\"";
                 var reader = cmd.ExecuteReader();
 
+                var booksCount = 0;
                 while (reader.Read()) {
-                    Console.WriteLine("id={0}book={1},\tauthor={2},\tqty={3},\tvalue={4}", reader.GetInt32(0),
-                        reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetDecimal(4));
+                    booksCount += 1;
+                    //Console.WriteLine("id={0}book={1},\tauthor={2},\tqty={3},\tvalue={4}", reader.GetInt32(0),
+                    //    reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetDecimal(4));
                 }
 
-                Console.WriteLine();
-
-                reader.Close();
-                Assert.Pass();
+                Assert.AreEqual(3, booksCount);
             });
         }
 
@@ -125,6 +101,26 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 reader.Close();
                 Assert.Pass();
             });
+        }
+
+        protected override void PrepareDatabase(SharpHsqlConnection connection) {
+            base.PrepareDatabase(connection);
+
+            var cmd = new SharpHsqlCommand("", connection);
+            cmd.CommandText = "DROP TABLE IF EXIST \"books\";CREATE TABLE \"books\" (\"id\" INT NOT NULL PRIMARY KEY, \"name\" char, \"author\" char, \"qty\" int, \"value\" numeric);";
+            cmd.ExecuteNonQuery();
+
+            var tran = connection.BeginTransaction();
+            {
+                cmd = new SharpHsqlCommand("", connection);
+                cmd.CommandText = "INSERT INTO \"books\" VALUES (1, 'Book000', 'Any', 1, '23.5');";
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = "INSERT INTO \"books\" VALUES (2, 'Book001', 'Andy2', 2, '43.9');";
+                cmd.ExecuteNonQuery();
+                cmd.CommandText = "INSERT INTO \"books\" VALUES (3, 'Book002', 'Andy', 3, '37.25');";
+                cmd.ExecuteNonQuery();
+            }
+            tran.Commit();
         }
     }
 }

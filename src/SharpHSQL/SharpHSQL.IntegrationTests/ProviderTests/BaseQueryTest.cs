@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Data.Hsql;
+using System.IO;
 using NUnit.Framework;
 
 namespace SharpHSQL.IntegrationTests.ProviderTests {
     class BaseQueryTest {
-        protected void TestQuery(Action<SharpHsqlConnection> test) {
-            var conn = new SharpHsqlConnection("Initial Catalog=mytest;User Id=sa;Pwd=;");
+        protected void TestQuery(Action<SharpHsqlConnection> test)
+        {
+            var tempDirectory = Path.Combine(Directory.GetCurrentDirectory(), ".tests", Path.GetRandomFileName());
+            Directory.CreateDirectory(tempDirectory);
+            var conn = new SharpHsqlConnection("Initial Catalog=" + tempDirectory + "/mytest;User Id=sa;Pwd=;");
             try {
                 conn.Open();
                 PrepareDatabase(conn);
@@ -19,7 +23,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             }
         }
 
-        private void PrepareDatabase(SharpHsqlConnection connection) {
+        protected virtual void PrepareDatabase(SharpHsqlConnection connection) {
             var cmd = new SharpHsqlCommand("", connection);
 
             cmd.CommandText = "DROP TABLE IF EXIST \"data\";CREATE TABLE \"data\" (\"id\" int NOT NULL PRIMARY KEY, \"MyObject\" OBJECT);";

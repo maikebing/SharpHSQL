@@ -11,20 +11,21 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
     [TestFixture]
     class DataAdapterTests : BaseQueryTest {
         [Test]
-        [Ignore("Not correct")]
-        public void T1() {
+        public void DataAdapterFill_ShouldFillAllRows() {
             TestQuery(connection => {
-                var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "SELECT \"clients\".\"id\", \"clients\".\"DoubleValue\", \"clients\".\"nombre\" FROM \"clients\" WHERE \"clients\".\"id\" = 5;";
+                using (var cmd = new SharpHsqlCommand("", connection)) {
+                    cmd.CommandText =
+                        "SELECT \"clients\".\"id\", \"clients\".\"DoubleValue\", \"clients\".\"nombre\" FROM \"clients\" WHERE \"clients\".\"id\" = 5;";
 
-                SharpHsqlDataAdapter adapter = new SharpHsqlDataAdapter(cmd);
-                DataSet ds = new DataSet();
-                var res = adapter.Fill(ds);
-                adapter = null;
+                    using (var adapter = new SharpHsqlDataAdapter(cmd)) {
+                        var ds = new DataSet();
+                        var res = adapter.Fill(ds);
 
-                Console.WriteLine();
-                Console.WriteLine("DataSet.Fill: " + ds.Tables[0].Rows.Count);
-                Assert.Pass();
+                        Assert.AreEqual(1, res);
+                        Assert.AreEqual(1, ds.Tables[0].Rows.Count);
+                        Assert.Pass();
+                    }
+                }
             });
         }
     }
