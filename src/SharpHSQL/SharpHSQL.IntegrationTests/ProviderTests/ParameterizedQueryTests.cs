@@ -11,7 +11,6 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
     [TestFixture]
     class ParameterizedQueryTests : BaseQueryTest {
         [Test]
-        [Ignore("Not correct query")]
         public void ParameterizedQuery_ShouldSuccessful() {
             var dbPrototype = new DataSet("mytest");
             dbPrototype.Tables.Add(GenerateTableClients());
@@ -20,7 +19,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 var cmd = new SharpHsqlCommand("", connection);
                 var dt = DateTime.Now;
                 var photo = new Byte[] { 255, 255, 255, 255, 255, 255, 255, 255, 255, 255 };
-                cmd.CommandText = "INSERT INTO \"clients\" (\"DoubleValue\", \"nombre\", \"photo\", \"created\") VALUES (@DoubleValue, @nombre, @photo, @date );SET @Id = IDENTITY();";
+                cmd.CommandText = "INSERT INTO clients (id, DoubleValue, nombre, photo, created) VALUES (11, @DoubleValue, @nombre, @photo, @date); Set @Id = 11;";
                 cmd.Parameters.Add(new SharpHsqlParameter("@Id", DbType.Int32, 0, ParameterDirection.Output, false, 0, 0, null, DataRowVersion.Current, null));
                 cmd.Parameters.Add(new SharpHsqlParameter("@DoubleValue", DbType.Double, 0, ParameterDirection.Input, false, 0, 0, null, DataRowVersion.Current, 1.1));
                 cmd.Parameters.Add(new SharpHsqlParameter("@nombre", DbType.String, 0, ParameterDirection.Input, false, 0, 0, null, DataRowVersion.Current, "Andrйs"));
@@ -33,7 +32,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 Assert.AreEqual(11, myid);
 
                 cmd.Parameters.Clear();
-                cmd.CommandText = "SELECT \"clients\".\"created\" FROM \"clients\" WHERE \"clients\".\"id\" = " + myid + ";";
+                cmd.CommandText = "SELECT created FROM clients WHERE id = " + myid + ";";
 
                 var reader = cmd.ExecuteReader();
                 reader.Read();
