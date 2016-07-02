@@ -62,7 +62,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 var base64Photo = Convert.ToBase64String(data, 0, data.Length);
 
                 var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "INSERT INTO \"clients\" (\"id\", \"DoubleValue\", \"nombre\", \"photo\", \"created\") VALUES (100, '1.1', @MyVar, '" + base64Photo + "', NOW() );";
+                cmd.CommandText = "INSERT INTO \"clients\" (\"id\", \"DoubleValue\", \"nombre\", \"photo\", \"created\") VALUES (100, 1.1, @MyVar, '" + base64Photo + "', NOW() );";
                 var res = cmd.ExecuteNonQuery();
                 Assert.AreEqual(1, res);
             });

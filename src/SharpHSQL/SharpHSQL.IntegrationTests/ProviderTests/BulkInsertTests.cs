@@ -21,7 +21,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
                     var insertCommand = new SharpHsqlCommand("", conn);
                     for (var i = 0; i < 1000; i++) {
-                        insertCommand.CommandText = "INSERT INTO \"clients\" (\"DoubleValue\", \"nombre\", \"photo\", \"created\") VALUES ('1.1', 'NOMBRE" + i.ToString() + "', '" + base64Photo + "', NOW() );";
+                        insertCommand.CommandText = "INSERT INTO \"clients\" (\"DoubleValue\", \"nombre\", \"photo\", \"created\") VALUES (1.1, 'NOMBRE" + i.ToString() + "', '" + base64Photo + "', NOW() );";
                         insertCommand.ExecuteNonQuery();
                     }
                 }

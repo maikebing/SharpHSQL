@@ -74,10 +74,10 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var cmd = new SharpHsqlCommand("CALL ABS(-33);", connection);
+                var cmd = new SharpHsqlCommand("CALL ABS(-33.5);", connection);
                 var result = cmd.ExecuteScalar();
                 Assert.NotNull(result);
-                Assert.AreEqual(33, (Double)result);
+                Assert.AreEqual(33.5, (Double)result);
             });
         }
 

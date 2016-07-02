@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.Hsql;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -168,10 +169,10 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 return value.ToString();
 
             if (type == typeof(Double))
-                return String.Format("'{0}'", value).Replace(',', '.'); // TODO: Bug!
+                return ((Double) value).ToString(NumberFormatInfo.InvariantInfo);
 
             if (type == typeof(Decimal))
-                return String.Format("'{0}'", value).Replace(',', '.'); // TODO: Bug!
+                return ((Decimal)value).ToString(NumberFormatInfo.InvariantInfo);
 
             if (type == typeof(String))
                 return String.Format("'{0}'", value);
