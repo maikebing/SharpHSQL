@@ -14,7 +14,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
             TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "DELETE FROM \"clients\" WHERE \"clients\".\"id\" = 6;";
+                cmd.CommandText = "DELETE FROM clients WHERE id = 6;";
                 var res = cmd.ExecuteNonQuery();
                 Assert.AreEqual(1, res);
             });

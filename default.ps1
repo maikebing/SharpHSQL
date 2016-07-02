@@ -26,3 +26,7 @@ Task Tests -depends Clean, Restore, Build {
 Task Mono {
     & xbuild /v:q /nologo src\SharpHSQL\SharpHSQL.sln
 }
+
+Task Cover -depends Tests {
+    & tools\dotCover.2016.1\dotcover analyse tools\coverage.xml    
+}

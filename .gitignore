@@ -6,8 +6,9 @@
 
 *.suo
 *.user
-*.sln.iml
+*.sln/.iml
 
+/tools
 /src/**/[Bb]in/
 /src/**/[Oo]bj/
 [Dd]ebug

@@ -31,12 +31,12 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 connection.Open();
                 foreach (var table in dbPrototype.Tables.Cast<DataTable>()) {
                     var createTableQueryBuilder = new StringBuilder();
-                    createTableQueryBuilder.AppendFormat("DROP TABLE IF EXIST \"{0}\";", table.TableName);
-                    createTableQueryBuilder.AppendFormat("CREATE TABLE \"{0}\" (", table.TableName);
+                    createTableQueryBuilder.AppendFormat("DROP TABLE IF EXIST {0};", table.TableName);
+                    createTableQueryBuilder.AppendFormat("CREATE TABLE {0} (", table.TableName);
 
                     var counter = 0;
                     foreach (var column in table.Columns.Cast<DataColumn>()) {
-                        var columnDescription = "\"" + column.ColumnName + "\" " + GetDbType(column.DataType);
+                        var columnDescription = column.ColumnName + " " + GetDbType(column.DataType);
 
                         if (!column.AllowDBNull)
                             columnDescription += " NOT NULL";
@@ -62,7 +62,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                             var rowInsertQuery = "INSERT INTO " + table.TableName + "(";
                             var columnIndex = 0;
                             foreach (var column in table.Columns.Cast<DataColumn>()) {
-                                rowInsertQuery += "\"" + column.ColumnName + "\"";
+                                rowInsertQuery += column.ColumnName;
                                 if (columnIndex < table.Columns.Count - 1)
                                     rowInsertQuery += ",";
 

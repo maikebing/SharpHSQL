@@ -17,7 +17,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(GenerateTableClients());
 
             TestQuery(dbPrototype, connection => {
-                var commandText = "SELECT \"clients\".\"id\", \"clients\".\"DoubleValue\", \"clients\".\"nombre\" FROM \"clients\" WHERE \"clients\".\"id\" = 5;";
+                var commandText = "SELECT id, DoubleValue, nombre FROM clients WHERE id = 5;";
                 using (var cmd = new SharpHsqlCommand(commandText, connection))
                 using (var adapter = new SharpHsqlDataAdapter(cmd)) {
                     var ds = new DataSet();

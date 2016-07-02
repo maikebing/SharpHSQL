@@ -32,7 +32,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             TestQuery(dbPrototype, connection => {
                 PrepareVariables(connection);
                 var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "SELECT \"name\", \"author\", SUM(\"value\") FROM \"books\" WHERE \"author\" = @MyVar GROUP BY \"name\", \"author\";";
+                cmd.CommandText = "SELECT name, author, SUM(value) FROM books WHERE author = @MyVar GROUP BY name, author;";
                 var reader = cmd.ExecuteReader();
 
                 reader.Read();
@@ -62,7 +62,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 var base64Photo = Convert.ToBase64String(data, 0, data.Length);
 
                 var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "INSERT INTO \"clients\" (\"id\", \"DoubleValue\", \"nombre\", \"photo\", \"created\") VALUES (100, 1.1, @MyVar, '" + base64Photo + "', NOW() );";
+                cmd.CommandText = "INSERT INTO clients (id, DoubleValue, nombre, photo, created) VALUES (100, 1.1, @MyVar, '" + base64Photo + "', NOW() );";
                 var res = cmd.ExecuteNonQuery();
                 Assert.AreEqual(1, res);
             });
@@ -77,7 +77,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 var cmd = new SharpHsqlCommand("", connection);
                 cmd.CommandText = "DECLARE @MyId INTEGER;";
                 cmd.ExecuteNonQuery();
-                cmd.CommandText = "SET @MyId = SELECT MAX(\"clients\".\"id\") + 1 FROM \"clients\";";
+                cmd.CommandText = "SET @MyId = SELECT MAX(id) + 1 FROM clients;";
                 cmd.ExecuteNonQuery();
                 cmd.CommandText = "SELECT @MyId;";
                 var myid = (Int32)cmd.ExecuteScalar();

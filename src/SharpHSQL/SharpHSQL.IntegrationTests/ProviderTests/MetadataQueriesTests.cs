@@ -58,7 +58,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
                 var expectedTables = new[] { "data", "clients" };
                 var tablesCount = 0;
                 while (reader.Read()) {
-                    Assert.AreEqual(expectedTables[tablesCount], reader.GetString(0));
+                    Assert.AreEqual(expectedTables[tablesCount], reader.GetString(0).ToLowerInvariant());
                     tablesCount += 1;
                 }
 
@@ -110,15 +110,15 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
             TestQuery(dbPrototype, connection => {
                 var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "SHOW COLUMNS \"data\";";
+                cmd.CommandText = "SHOW COLUMNS data;";
                 var reader = cmd.ExecuteReader();
 
                 Console.Write(Environment.NewLine);
 
                 // column id
                 reader.Read();
-                Assert.AreEqual("data", reader.GetString(0));
-                Assert.AreEqual("id", reader.GetString(1));
+                Assert.AreEqual("data", reader.GetString(0).ToLowerInvariant());
+                Assert.AreEqual("id", reader.GetString(1).ToLowerInvariant());
                 Assert.AreEqual("INTEGER", reader.GetString(2));
                 Assert.AreEqual(DbType.Int32, (DbType)reader.GetValue(3));
                 Assert.AreEqual(0, reader.GetInt32(4));
@@ -127,8 +127,8 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
 
                 // column MyObject
                 reader.Read();
-                Assert.AreEqual("data", reader.GetString(0));
-                Assert.AreEqual("MyObject", reader.GetString(1));
+                Assert.AreEqual("data", reader.GetString(0).ToLowerInvariant());
+                Assert.AreEqual("myobject", reader.GetString(1).ToLowerInvariant());
                 Assert.AreEqual("OBJECT", reader.GetString(2));
                 Assert.AreEqual(DbType.Object, (DbType)reader.GetValue(3));
                 Assert.AreEqual(1, reader.GetInt32(4));

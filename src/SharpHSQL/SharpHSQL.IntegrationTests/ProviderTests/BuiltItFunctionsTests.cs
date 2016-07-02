@@ -14,7 +14,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var commandText = "SELECT MAX(\"clients\".\"id\") FROM \"clients\";";
+                var commandText = "SELECT MAX(clients.id) FROM clients;";
                 var command = new SharpHsqlCommand(commandText, connection);
                 var result = command.ExecuteScalar();
                 Assert.NotNull(result);
@@ -29,7 +29,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var commandText = "SELECT SUM(\"clients\".\"id\") FROM \"clients\";";
+                var commandText = "SELECT SUM(id) FROM clients;";
                 var cmd = new SharpHsqlCommand(commandText, connection);
                 var result = cmd.ExecuteScalar();
                 Assert.NotNull(result);
@@ -44,7 +44,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var commandText = "SELECT COUNT(\"clients\".\"id\") FROM \"clients\";";
+                var commandText = "SELECT COUNT(id) FROM clients;";
                 var cmd = new SharpHsqlCommand(commandText, connection);
                 var result = cmd.ExecuteScalar();
                 Assert.NotNull(result);
@@ -59,7 +59,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var commandText = "SELECT AVG(\"clients\".\"id\") FROM \"clients\";";
+                var commandText = "SELECT AVG(id) FROM clients;";
                 var cmd = new SharpHsqlCommand(commandText, connection);
                 var result = (Double)cmd.ExecuteScalar();
                 Assert.NotNull(result);
