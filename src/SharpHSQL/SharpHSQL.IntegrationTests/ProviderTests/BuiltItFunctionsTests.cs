@@ -44,8 +44,8 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "SELECT COUNT(\"clients\".\"id\") FROM \"clients\";";
+                var commandText = "SELECT COUNT(\"clients\".\"id\") FROM \"clients\";";
+                var cmd = new SharpHsqlCommand(commandText, connection);
                 var result = cmd.ExecuteScalar();
                 Assert.NotNull(result);
                 Assert.AreEqual(Enumerable.Range(1, 10).Count(), (Int32)result);
@@ -59,8 +59,8 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "SELECT AVG(\"clients\".\"id\") FROM \"clients\";";
+                var commandText = "SELECT AVG(\"clients\".\"id\") FROM \"clients\";";
+                var cmd = new SharpHsqlCommand(commandText, connection);
                 var result = (Double)cmd.ExecuteScalar();
                 Assert.NotNull(result);
                 Assert.AreEqual(Enumerable.Range(1, 10).Average(), result);
@@ -68,18 +68,16 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
         }
 
         [Test]
-        [Ignore("Not correct sql")]
         public void FunctionAbs_ShouldReturnAbsoluteValue() {
             var dbPrototype = new DataSet("mytest");
             var clientsTable = GenerateTableClients();
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "CALL ABS(-33.5632);";
+                var cmd = new SharpHsqlCommand("CALL ABS(-33);", connection);
                 var result = cmd.ExecuteScalar();
                 Assert.NotNull(result);
-                Assert.AreEqual(33.5632, (Int32)result);
+                Assert.AreEqual(33, (Double)result);
             });
         }
 
@@ -90,8 +88,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "CALL USER();";
+                var cmd = new SharpHsqlCommand("CALL USER();", connection);
                 var user = (String)cmd.ExecuteScalar();
                 Assert.AreEqual("SA", user); // TODO: Why upper register?
             });
@@ -104,8 +101,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "CALL SQRT(4);";
+                var cmd = new SharpHsqlCommand("CALL SQRT(4);", connection);
                 var sqrt = (Double)cmd.ExecuteScalar();
                 Assert.AreEqual(2, sqrt);
             });
@@ -118,8 +114,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "CALL SUBSTRING('0123456', 3, 2);";
+                var cmd = new SharpHsqlCommand("CALL SUBSTRING('0123456', 3, 2);", connection);
                 var subs = (String)cmd.ExecuteScalar();
                 Assert.AreEqual("23", subs);
             });
@@ -132,8 +127,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             dbPrototype.Tables.Add(clientsTable);
 
             TestQuery(dbPrototype, connection => {
-                var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "CALL ASCII('A');";
+                var cmd = new SharpHsqlCommand("CALL ASCII('A');", connection);
                 var ascii = (Int32)cmd.ExecuteScalar();
                 Assert.AreEqual(65, ascii);
             });
