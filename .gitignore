@@ -1,5 +1,6 @@
 .vs/
 .idea/
+.tests/
 
 *.vssscc
 *.vspscc
