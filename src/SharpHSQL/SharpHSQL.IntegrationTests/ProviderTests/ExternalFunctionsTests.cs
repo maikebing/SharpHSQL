@@ -13,7 +13,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             try {
                 connection.Open();
                 var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "CREATE ALIAS CALCRATE FOR \"SharpHSQL.IntegrationTests,SharpHSQL.IntegrationTests.Simple.calcrate\";";
+                cmd.CommandText = "CREATE ALIAS CALCRATE FOR \"SharpHSQL.IntegrationTests,SharpHSQL.IntegrationTests.ExternalFunctionsSample.calcrate\";";
                 cmd.ExecuteNonQuery();
                 cmd.CommandText = "CALL CALCRATE(100, 21);";
                 var rate = (Decimal)cmd.ExecuteScalar();
@@ -34,7 +34,7 @@ namespace SharpHSQL.IntegrationTests.ProviderTests {
             try {
                 connection.Open();
                 var cmd = new SharpHsqlCommand("", connection);
-                cmd.CommandText = "CREATE ALIAS CALCRATE FOR \"SharpHSQL.IntegrationTests,SharpHSQL.IntegrationTests.Simple.calcrate\";";
+                cmd.CommandText = "CREATE ALIAS CALCRATE FOR \"SharpHSQL.IntegrationTests,SharpHSQL.IntegrationTests.ExternalFunctionsSample.calcrate\";";
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "SHOW PARAMETERS CALCRATE;";

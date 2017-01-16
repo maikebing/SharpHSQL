@@ -52,16 +52,12 @@
     <Compile Include="ProviderTests\ParameterizedQueryTests.cs" />
     <Compile Include="ProviderTests\SelectTests.cs" />
     <Compile Include="ProviderTests\VariablesTests.cs" />
-    <Compile Include="Simple.cs" />
+    <Compile Include="ExternalFunctionsSample.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExternalFunction\ExternalFunction.csproj">
-      <Project>{7e430ee6-b587-428a-9fb9-c1269a3fe4fd}</Project>
-      <Name>ExternalFunction</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SharpHSQL\SharpHsql.csproj">
       <Project>{B98F7374-FF00-4BB7-93EC-39763A76BFFF}</Project>
       <Name>SharpHsql</Name>
