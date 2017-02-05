@@ -23,7 +23,7 @@ namespace SharpHSQL.UnitTests.ProviderTests
             catch (ArgumentException aex)
             {
                 Assert.IsTrue(aex.Message.StartsWith("The connection string is invalid."));
-                Assert.AreEqual("connstring", aex.ParamName);
+                Assert.AreEqual("connectionString", aex.ParamName);
             }
         }
 
@@ -39,7 +39,7 @@ namespace SharpHSQL.UnitTests.ProviderTests
             catch (ArgumentException aex)
             {
                 Assert.IsTrue(aex.Message.StartsWith("The connection string has an invalid parameter."));
-                Assert.AreEqual("connstring", aex.ParamName);
+                Assert.AreEqual("connectionString", aex.ParamName);
             }
         }
 
@@ -90,7 +90,7 @@ namespace SharpHSQL.UnitTests.ProviderTests
             catch (ArgumentException aex)
             {
                 Assert.IsTrue(aex.Message.StartsWith("Database parameter is invalid in connection string."));
-                Assert.AreEqual("Database", aex.ParamName);
+                Assert.AreEqual("connectionString", aex.ParamName);
             }
         }
 
@@ -106,7 +106,7 @@ namespace SharpHSQL.UnitTests.ProviderTests
             catch (ArgumentException aex)
             {
                 Assert.IsTrue(aex.Message.StartsWith("UserName parameter is invalid in connection string."));
-                Assert.AreEqual("UserName", aex.ParamName);
+                Assert.AreEqual("connectionString", aex.ParamName);
             }
         }
     }

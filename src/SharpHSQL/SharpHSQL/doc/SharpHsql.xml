@@ -3292,6 +3292,26 @@
             Helper static class for building SharpHsql connection strings.
             </summary>
         </member>
+        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.InvariantComparer">
+            <summary>
+            Class used internally for comparisons.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnectionString.Database">
+            <summary>
+            Database name.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnectionString.UserName">
+            <summary>
+            User name.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnectionString.UserPassword">
+            <summary>
+            User password.
+            </summary>
+        </member>
         <member name="M:System.Data.Hsql.SharpHsqlConnectionString.#cctor">
             <summary>
             Static constructor.
@@ -3302,33 +3322,7 @@
             Creates a new <see cref="T:System.Data.Hsql.SharpHsqlConnectionString"/> object
             using a connection string.
             </summary>
-            <param name="connstring"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnectionString.ToString">
-            <summary>
-            Returns the connection string built.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.Database">
-            <summary>
-            Database name.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.UserName">
-            <summary>
-            User name.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.UserPassword">
-            <summary>
-            User password.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.invariantComparer">
-            <summary>
-            Class used internally for comparisons.
-            </summary>
+            <param name="connectionString"></param>
         </member>
         <member name="T:System.Data.Hsql.SharpHsqlDataAdapter">
             <summary>
