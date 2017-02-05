@@ -329,6 +329,9 @@
     <None Include="KeyPair.snk" />
     <None Include="paket.references" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

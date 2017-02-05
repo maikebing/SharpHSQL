@@ -1,8 +1,3 @@
-#region Usings
-using System;
-using System.Collections;
-#endregion
-
 #region License
 /*
  * Database.cs
@@ -43,6 +38,9 @@ using System.Collections;
  */
 #endregion
 
+using System;
+using System.Collections;
+
 namespace SharpHsql
 {
 	/// <summary>
@@ -57,10 +55,8 @@ namespace SharpHsql
 	/// <seealso cref="System.Data.Hsql.SharpHsqlTransaction"/>
 	/// <seealso cref="System.Data.Hsql.SharpHsqlDataAdapter"/>
 	/// </summary>
-	public sealed class Database : IDisposable
-	{
-		#region Constructor
-
+	public sealed class Database : IDisposable 
+    {
 		/// <summary>
 		/// Database class constructor.
 		/// </summary>
@@ -106,8 +102,6 @@ namespace SharpHsql
 
 			//_access.grant("PUBLIC", "CLASS \"SharpHSQL.Library\"", Access.ALL);
 		}
-
-		#endregion
 
 		#region Public Properties & Methods
 

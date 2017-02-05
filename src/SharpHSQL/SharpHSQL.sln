@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hsqltest", "hsqltest\hsqlte
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ABB5AC13-6281-4689-9C4D-84D9537C7CEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpHSQL.IntegrationTests", "SharpHSQL.IntegrationTests\SharpHSQL.IntegrationTests.csproj", "{60557E91-4298-4804-A117-C459103C9A21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpHSQL.FunctionalTests", "SharpHSQL.IntegrationTests\SharpHSQL.FunctionalTests.csproj", "{60557E91-4298-4804-A117-C459103C9A21}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpHSQL.UnitTests", "SharpHSQL.UnitTests\SharpHSQL.UnitTests.csproj", "{4418022B-AA3E-427B-8817-4C4E5C2581FA}"
 EndProject
