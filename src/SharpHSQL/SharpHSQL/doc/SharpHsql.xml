@@ -168,6 +168,13 @@
             </summary>
             <param name="array"></param>
         </member>
+        <member name="P:SharpHsql.ByteArray.Value">
+            <summary>
+            Value method declaration.
+            Give access to the object's data.
+            </summary>
+            <remarks>The array of bytes representing this objects data.</remarks>
+        </member>
         <member name="M:SharpHsql.ByteArray.CompareTo(SharpHsql.ByteArray)">
             <summary>
             CompareTo method declaration.
@@ -231,13 +238,6 @@
             the ByteArray class.
             </summary>
             <returns></returns>
-        </member>
-        <member name="P:SharpHsql.ByteArray.Value">
-            <summary>
-            Value method declaration.
-            Give access to the object's data.
-            </summary>
-            <remarks>The array of bytes representing this objects data.</remarks>
         </member>
         <member name="T:SharpHsql.Cache">
             <summary>
@@ -407,6 +407,32 @@
             Synchronization object.
             </summary>
         </member>
+        <member name="P:SharpHsql.Channel.Id">
+            <summary>
+            Gets the channel identifier.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Channel.IsClosed">
+            <summary>
+            Return True if the channel is closed.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Channel.UserName">
+            <summary>
+            Gets the current user name.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Channel.IsReadOnly">
+            <summary>
+            Returns True if the channel is in read only mode.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:SharpHsql.Channel.MaxRows">
+            <summary>
+            Gets or sets the maximum count of rows to return.
+            </summary>
+        </member>
         <member name="M:SharpHsql.Channel.Execute(System.String)">
             <summary>
             Executes a SQL query on the current channel.
@@ -466,6 +492,16 @@
             </summary>
             <param name="name"></param>
         </member>
+        <member name="P:SharpHsql.Channel.LastIdentity">
+            <summary>
+            Gets or Sets the last identity value for the current channel.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Channel.Database">
+            <summary>
+            Gets the current channel database.
+            </summary>
+        </member>
         <member name="M:SharpHsql.Channel.SetUser(SharpHsql.User)">
             <summary>
             Sets the current user for the channel.
@@ -520,61 +556,25 @@
             </summary>
             <param name="rollback"></param>
         </member>
-        <member name="M:SharpHsql.Channel.Dispose">
-            <summary>
-            Clean up any used resources.
-            </summary>
-        </member>
-        <member name="M:SharpHsql.Channel.Finalize">
-            <summary>
-            Class Destructor.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Channel.Id">
-            <summary>
-            Gets the channel identifier.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Channel.IsClosed">
-            <summary>
-            Return True if the channel is closed.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Channel.UserName">
-            <summary>
-            Gets the current user name.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Channel.IsReadOnly">
-            <summary>
-            Returns True if the channel is in read only mode.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:SharpHsql.Channel.MaxRows">
-            <summary>
-            Gets or sets the maximum count of rows to return.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Channel.LastIdentity">
-            <summary>
-            Gets or Sets the last identity value for the current channel.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Channel.Database">
-            <summary>
-            Gets the current channel database.
-            </summary>
-        </member>
         <member name="P:SharpHsql.Channel.IsNestedTransaction">
             <summary>
             Returns True if a nested transaction is active.
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SharpHsql.Channel.Dispose">
+            <summary>
+            Clean up any used resources.
+            </summary>
+        </member>
         <member name="P:SharpHsql.Channel.Disposed">
             <summary>
             Get the disposed status.
+            </summary>
+        </member>
+        <member name="M:SharpHsql.Channel.Finalize">
+            <summary>
+            Class Destructor.
             </summary>
         </member>
         <member name="T:SharpHsql.Column">
@@ -596,6 +596,26 @@
             <param name="nullable">Flag indicating if the column supports nulls.</param>
             <param name="type">DataType of the column.</param>
             <param name="identity">Flag indicating if the column is identity.</param>
+        </member>
+        <member name="P:SharpHsql.Column.Name">
+            <summary>
+            Name of the column.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Column.ColumnType">
+            <summary>
+            Internal type of the column.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Column.IsIdentity">
+            <summary>
+            Returns True id the column is identity.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Column.IsNullable">
+            <summary>
+            Returns True if the column accepts null values.
+            </summary>
         </member>
         <member name="M:SharpHsql.Column.GetColumnType(System.String)">
             <summary>
@@ -820,26 +840,6 @@
             <param name="type"></param>
             <param name="name"></param>
         </member>
-        <member name="P:SharpHsql.Column.Name">
-            <summary>
-            Name of the column.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Column.ColumnType">
-            <summary>
-            Internal type of the column.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Column.IsIdentity">
-            <summary>
-            Returns True id the column is identity.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Column.IsNullable">
-            <summary>
-            Returns True if the column accepts null values.
-            </summary>
-        </member>
         <member name="T:SharpHsql.ColumnType">
             <summary>
             Enum that defines all the data types supported.
@@ -985,6 +985,31 @@
             <param name="columnMain"></param>
             <param name="columnRef"></param>
         </member>
+        <member name="P:SharpHsql.Constraint.ConstraintType">
+            <summary>
+            Gets the constraint type.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Constraint.MainTable">
+            <summary>
+            Gets the main table.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Constraint.RefTable">
+            <summary>
+            Gets the reference table.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Constraint.MainTableColumns">
+            <summary>
+            Gets the main table columns.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Constraint.RefTableColumns">
+            <summary>
+            Gets the referenced table columns.
+            </summary>
+        </member>
         <member name="M:SharpHsql.Constraint.ReplaceTable(SharpHsql.Table,SharpHsql.Table)">
             <summary>
             Replaces the main or reference table with a new one.
@@ -1020,31 +1045,6 @@
             <param name="col2"></param>
             <param name="len"></param>
             <returns></returns>
-        </member>
-        <member name="P:SharpHsql.Constraint.ConstraintType">
-            <summary>
-            Gets the constraint type.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Constraint.MainTable">
-            <summary>
-            Gets the main table.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Constraint.RefTable">
-            <summary>
-            Gets the reference table.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Constraint.MainTableColumns">
-            <summary>
-            Gets the main table columns.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Constraint.RefTableColumns">
-            <summary>
-            Gets the referenced table columns.
-            </summary>
         </member>
         <member name="T:SharpHsql.ConstraintType">
             <summary>
@@ -1086,6 +1086,16 @@
             </summary>
             <param name="name">The database name to open or create.</param>
         </member>
+        <member name="P:SharpHsql.Database.Name">
+            <summary>
+            Returns the database name.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Database.IsShutdown">
+            <summary>
+            Returns True if the database is shutdown.
+            </summary>
+        </member>
         <member name="M:SharpHsql.Database.Connect(System.String,System.String)">
             <summary>
             Connects to the database using an user and password.
@@ -1116,32 +1126,6 @@
             Sets the database readonly mode.
             </summary>
         </member>
-        <member name="M:SharpHsql.Database.RegisterChannel(SharpHsql.Channel)">
-            <summary>
-            Register an existing channel in this database.
-            </summary>
-            <param name="channel"></param>
-        </member>
-        <member name="M:SharpHsql.Database.Dispose">
-            <summary>
-            Clean up any used resources.
-            </summary>
-        </member>
-        <member name="M:SharpHsql.Database.Finalize">
-            <summary>
-            Class Destructor.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Database.Name">
-            <summary>
-            Returns the database name.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Database.IsShutdown">
-            <summary>
-            Returns True if the database is shutdown.
-            </summary>
-        </member>
         <member name="P:SharpHsql.Database.IsIgnoreCase">
             <summary>
             True if case must be ignored.
@@ -1152,6 +1136,12 @@
             Gets the tables collection.
             </summary>
         </member>
+        <member name="M:SharpHsql.Database.RegisterChannel(SharpHsql.Channel)">
+            <summary>
+            Register an existing channel in this database.
+            </summary>
+            <param name="channel"></param>
+        </member>
         <member name="P:SharpHsql.Database.IsReferentialIntegrity">
             <summary>
             Gets or sets the referential integrity check.
@@ -1160,6 +1150,16 @@
         <member name="P:SharpHsql.Database.Alias">
             <summary>
             Gets the database alias objects.
+            </summary>
+        </member>
+        <member name="M:SharpHsql.Database.Dispose">
+            <summary>
+            Clean up any used resources.
+            </summary>
+        </member>
+        <member name="M:SharpHsql.Database.Finalize">
+            <summary>
+            Class Destructor.
             </summary>
         </member>
         <member name="T:SharpHsql.DatabaseConfig">
@@ -1239,7 +1239,7 @@
             A more general logger class is <see cref="T:SharpHsql.LogHelper"/> that uses the <see cref="T:log4net.ILog"/> interface 
             used by applications to log messages into the log4net framework. 
             </remarks>
-            <author>Andrés G Vettori</author>
+            <author>Andrйs G Vettori</author>
         </member>
         <member name="M:SharpHsql.EventLogHelper.WriteLogEntry(System.String)">
             <summary>
@@ -1377,6 +1377,72 @@
             <param name="datatype"></param>
             <param name="o"></param>
         </member>
+        <member name="P:SharpHsql.Expression.Type">
+            <summary>
+            Gets or sets the expression type.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Expression.IsAggregate">
+            <summary>
+            Returns True if expression is Aggregate.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Expression.IsVarAssign">
+            <summary>
+            Returns True if expression is a Variable assignation.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Expression.IsDescending">
+            <summary>
+            Gets or sets if expression is ordered.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Expression.Alias">
+            <summary>
+            Gets or sets the expression alias.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Expression.ColumnNumber">
+            <summary>
+            Gets the column index that this expression applies to.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Expression.Arg">
+            <summary>
+            Gets the expression first argument.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Expression.Arg2">
+            <summary>
+            Gets the expression second argument.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Expression.Filter">
+            <summary>
+            Gets the expression filter.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Expression.ColumnType">
+            <summary>
+            Gets or sets the column type.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Expression.IsResolved">
+            <summary>
+            Gets if the current expression is already resolved.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:SharpHsql.Expression.TableName">
+            <summary>
+            Gets the table name for this expression.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.Expression.ColumnName">
+            <summary>
+            Gets the column name for this expression.
+            </summary>
+        </member>
         <member name="M:SharpHsql.Expression.SetLikeEscape(System.Char)">
             <summary>
             Sets the escape character.
@@ -1455,72 +1521,6 @@
             Test condition for True or False value.
             </summary>
             <returns></returns>
-        </member>
-        <member name="P:SharpHsql.Expression.Type">
-            <summary>
-            Gets or sets the expression type.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Expression.IsAggregate">
-            <summary>
-            Returns True if expression is Aggregate.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Expression.IsVarAssign">
-            <summary>
-            Returns True if expression is a Variable assignation.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Expression.IsDescending">
-            <summary>
-            Gets or sets if expression is ordered.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Expression.Alias">
-            <summary>
-            Gets or sets the expression alias.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Expression.ColumnNumber">
-            <summary>
-            Gets the column index that this expression applies to.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Expression.Arg">
-            <summary>
-            Gets the expression first argument.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Expression.Arg2">
-            <summary>
-            Gets the expression second argument.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Expression.Filter">
-            <summary>
-            Gets the expression filter.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Expression.ColumnType">
-            <summary>
-            Gets or sets the column type.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Expression.IsResolved">
-            <summary>
-            Gets if the current expression is already resolved.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:SharpHsql.Expression.TableName">
-            <summary>
-            Gets the table name for this expression.
-            </summary>
-        </member>
-        <member name="P:SharpHsql.Expression.ColumnName">
-            <summary>
-            Gets the column name for this expression.
-            </summary>
         </member>
         <member name="T:SharpHsql.ExpressionType">
             <summary>
@@ -1997,7 +1997,7 @@
             Provides static methods that supply helper utilities for logging data whith the ILog object. 
             This class cannot be inherited. 
             </summary>
-            <author>Andrés G Vettori</author>
+            <author>Andrйs G Vettori</author>
         </member>
         <member name="F:SharpHsql.LogHelper.TargetNamespace">
             <summary>
@@ -2012,6 +2012,51 @@
         <member name="F:SharpHsql.LogHelper.RootElement">
             <summary>
             log.
+            </summary>
+        </member>
+        <member name="T:SharpHsql.LogHelper.LogEntryType">
+            <summary>
+            Specifies the event type of an log entry.
+            </summary>
+            <remarks>
+            The type of an log entry is used to indicate the severity of a log entry.
+            Each log must be of a single type, which the application indicates when it reports the log.
+            </remarks>
+        </member>
+        <member name="F:SharpHsql.LogHelper.LogEntryType.Audit">
+            <summary>
+            An audit log. This indicates a successful audit.
+            </summary>
+        </member>
+        <member name="F:SharpHsql.LogHelper.LogEntryType.Debug">
+            <summary>
+            A debug log. This is for testing and debugging operations.
+            </summary>
+        </member>
+        <member name="F:SharpHsql.LogHelper.LogEntryType.Information">
+            <summary>
+            An information log. This indicates a significant, successful operation.
+            </summary>
+        </member>
+        <member name="F:SharpHsql.LogHelper.LogEntryType.Warning">
+            <summary>
+            A warning log. 
+            This indicates a problem that is not immediately significant, 
+            but that may signify conditions that could cause future problems.
+            </summary>
+        </member>
+        <member name="F:SharpHsql.LogHelper.LogEntryType.Error">
+            <summary>
+            An error log. 
+            This indicates a significant problem the user should know about; 
+            usually a loss of functionality or data.
+            </summary>
+        </member>
+        <member name="F:SharpHsql.LogHelper.LogEntryType.Fatal">
+            <summary>
+            An fatal log. 
+            This indicates a fatal problem the user should know about; 
+            allways a loss of functionality or data.
             </summary>
         </member>
         <member name="M:SharpHsql.LogHelper.Publish(System.String)">
@@ -2125,51 +2170,6 @@
             <param name="exception">Exception object.</param>
             <param name="showStack">True, show all the stack trace inf.</param>
         </member>
-        <member name="T:SharpHsql.LogHelper.LogEntryType">
-            <summary>
-            Specifies the event type of an log entry.
-            </summary>
-            <remarks>
-            The type of an log entry is used to indicate the severity of a log entry.
-            Each log must be of a single type, which the application indicates when it reports the log.
-            </remarks>
-        </member>
-        <member name="F:SharpHsql.LogHelper.LogEntryType.Audit">
-            <summary>
-            An audit log. This indicates a successful audit.
-            </summary>
-        </member>
-        <member name="F:SharpHsql.LogHelper.LogEntryType.Debug">
-            <summary>
-            A debug log. This is for testing and debugging operations.
-            </summary>
-        </member>
-        <member name="F:SharpHsql.LogHelper.LogEntryType.Information">
-            <summary>
-            An information log. This indicates a significant, successful operation.
-            </summary>
-        </member>
-        <member name="F:SharpHsql.LogHelper.LogEntryType.Warning">
-            <summary>
-            A warning log. 
-            This indicates a problem that is not immediately significant, 
-            but that may signify conditions that could cause future problems.
-            </summary>
-        </member>
-        <member name="F:SharpHsql.LogHelper.LogEntryType.Error">
-            <summary>
-            An error log. 
-            This indicates a significant problem the user should know about; 
-            usually a loss of functionality or data.
-            </summary>
-        </member>
-        <member name="F:SharpHsql.LogHelper.LogEntryType.Fatal">
-            <summary>
-            An fatal log. 
-            This indicates a fatal problem the user should know about; 
-            allways a loss of functionality or data.
-            </summary>
-        </member>
         <member name="T:SharpHsql.Node">
             <summary>
             Node class.
@@ -2193,1493 +2193,6 @@
             mechanism that is a part of hsqldb 1.60 and beyond. - Mark Tutt
             </remarks>
             <returns></returns>
-        </member>
-        <member name="T:System.Data.Hsql.CommandBuilder">
-            <summary>
-            Command builder class.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.#ctor">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.Dispose">
-            <summary>
-            Dispose method.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.GetInsertCommand">
-            <summary>
-            Get a command for Insert.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.GetUpdateCommand">
-            <summary>
-            Get a command for Update.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.GetDeleteCommand">
-            <summary>
-            Get a command for Delete.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.RefreshSchema">
-            <summary>
-            Refresh database schema 
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.BuildSchemaTableInfoTableNames(System.String[])">
-            <summary>
-            Build the schema information table.
-            </summary>
-            <param name="columnNameArray"></param>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.GetSortedSchemaRows(System.Data.DataTable)">
-            <summary>
-            Get the schema row.
-            </summary>
-            <param name="dataTable"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.SrcCompare(System.String,System.String)">
-            <summary>
-            Helper routine to compare two strings case sensitive and using the current culture.
-            </summary>
-            <param name="strA"></param>
-            <param name="strB"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.DstCompare(System.String,System.String)">
-            <summary>
-            Helper routine to compare two strings case insensitive and using the current culture
-            </summary>
-            <param name="strA"></param>
-            <param name="strB"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.IsEmpty(System.String)">
-            <summary>
-            Helper routine used for empty strings comparison.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.IsEmpty(System.String[])">
-            <summary>
-            Helper routine used for empty string arrays comparison.
-            </summary>
-            <param name="array"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.FindBuilder(System.MulticastDelegate)">
-            <summary>
-            Internal delegate.
-            </summary>
-            <param name="mcd"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.CommandBuilder.IsNull(System.Object)">
-            <summary>
-            Helper routine for nullable objects comparison.
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="P:System.Data.Hsql.CommandBuilder.DataAdapter">
-            <summary>
-            Get or set the <see cref="T:System.Data.IDbDataAdapter"/> instance.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.CommandBuilder.QuotePrefix">
-            <summary>
-            Get or set the quote prefix to use.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.CommandBuilder.QuoteSuffix">
-            <summary>
-            Get or set the quote suffix to use.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.CommandBuilder.SourceCommand">
-            <summary>
-            Get the source command.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.CommandBuilderBehavior">
-            <summary>
-            Enum describing the command builder behavior.
-            <seealso cref="T:System.Data.Hsql.CommandBuilder"/>
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.CommandBuilderBehavior.Default">
-            <summary>
-            Default behavior.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.CommandBuilderBehavior.UpdateSetSameValue">
-            <summary>
-            When doing update use the original value if not changed.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.CommandBuilderBehavior.UseRowVersionInUpdateWhereClause">
-            <summary>
-            Use row version where doing updates.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.CommandBuilderBehavior.UseRowVersionInDeleteWhereClause">
-            <summary>
-            Use row version where doing deletes.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.CommandBuilderBehavior.UseRowVersionInWhereClause">
-            <summary>
-            Use row version in selects.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.CommandBuilderBehavior.PrimaryKeyOnlyUpdateWhereClause">
-            <summary>
-            Compare matching row using only primary key and not all columns when updating.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.CommandBuilderBehavior.PrimaryKeyOnlyDeleteWhereClause">
-            <summary>
-            Compare matching row using only primary key and not all columns when deleting.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.CommandBuilderBehavior.PrimaryKeyOnlyWhereClause">
-            <summary>
-            Compare matching row using only primary key and not all columns.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlCommand">
-            <summary>
-            Command class for Hsql ADO.NET data provider.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.#ctor">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.#ctor(System.String)">
-            <summary>
-            Constructor using a command text.
-            </summary>
-            <param name="sCommand"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.#ctor(System.String,System.Data.Hsql.SharpHsqlConnection)">
-            <summary>
-            Constructor using a command text and connection.
-            </summary>
-            <param name="sCommand"></param>
-            <param name="conn"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.Cancel">
-            <summary>
-            Cancels the current operation.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.CreateDbParameter">
-            <summary>
-            Creates and returns a new <see cref="T:System.Data.Hsql.SharpHsqlParameter"/> object.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.ExecuteNonQuery">
-            <summary>
-            Executes a query with no results.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.ExecuteDbDataReader(System.Data.CommandBehavior)">
-            <summary>
-            Executes a query returning an <see cref="T:System.Data.Hsql.SharpHsqlReader"/> object.
-            </summary>
-            <param name="behavior"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.ExecuteScalar">
-            <summary>
-            Executes a query returning a single result.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.ExecuteXmlReader">
-            <summary>
-            Executes a query that returns results as XML.
-            </summary>
-            <remarks>Not currently supported.</remarks>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.Prepare">
-            <summary>
-            Prepare a stored procedure on the database.
-            </summary>
-            <remarks>Not currently supported.</remarks>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.Clone">
-            <summary>
-            Makes a clone of the current object.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommand.DeriveParameters">
-            <summary>
-            Derive parameters from a stored procedure.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlCommand._connection">
-            <summary>
-            Connection object used internally.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommand.DbParameterCollection">
-            <summary>
-            Command parameter collection.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommand.DbTransaction">
-            <summary>
-            Get or set the Transaction object for use by this command.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommand.UpdatedRowSource">
-            <summary>
-            Get or set the <see cref="T:System.Data.UpdateRowSource"/> for the command.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommand.Result">
-            <summary>
-            Query results from SharpHsql database.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommand.DbConnection">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommand.DesignTimeVisible">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommand.CommandText">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommand.CommandTimeout">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommand.CommandType">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlCommandBuilder">
-            <summary>
-            CommandBuilder component for design time.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.#ctor(System.ComponentModel.IContainer)">
-            <summary>
-            Component constructor.
-            </summary>
-            <param name="container"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.#ctor">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.#ctor(System.Data.Hsql.SharpHsqlDataAdapter)">
-            <summary>
-            Constructor using an <see cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>.
-            </summary>
-            <param name="adapter"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.Dispose(System.Boolean)">
-            <summary> 
-            Clean up any resources being used.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.DeriveParameters(System.Data.Hsql.SharpHsqlCommand)">
-            <summary>
-            Derive command parameters.
-            </summary>
-            <param name="command"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.GetDeleteCommand">
-            <summary>
-            Gets the delete command.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.GetInsertCommand">
-            <summary>
-            Gets the insert command.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.GetUpdateCommand">
-            <summary>
-            Gets the update command.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.RefreshSchema">
-            <summary>
-            Refresh the database schema.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlCommandBuilder.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommandBuilder.DataAdapter">
-            <summary>
-            Get or set the <see cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/> object used.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommandBuilder.QuotePrefix">
-            <summary>
-            Get or set the quote prefix.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlCommandBuilder.QuoteSuffix">
-            <summary>
-            Get or set the quote suffix.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlConnection">
-            <summary>
-            Class representing a database connection. 
-            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.#ctor">
-            <summary>
-            Default Constructor.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.#ctor(System.String)">
-            <summary>
-            Constructor using a connection string.
-            </summary>
-            <param name="connectionString"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.#ctor(System.Data.Hsql.SharpHsqlConnection)">
-            <summary>
-            Private constructor used internally.
-            </summary>
-            <param name="connection"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.BeginDbTransaction(System.Data.IsolationLevel)">
-            <summary>
-            Starts a new transaction.
-            <seealso cref="T:System.Data.IsolationLevel"/>
-            </summary>
-            <param name="level"></param>
-            <returns>The new <see cref="T:System.Data.Hsql.SharpHsqlTransaction"/> object.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.ChangeDatabase(System.String)">
-            <summary>
-            Changes the current database for this connection.
-            </summary>
-            <remarks>Not currently supported.</remarks>
-            <param name="databaseName"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.Close">
-            <summary>
-            Closes the current connection.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.CreateDbCommand">
-            <summary>
-            Creates a new SharpHsqlCommand object.
-            </summary>
-            <returns>A new SharpHsqlCommand object.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.Open">
-            <summary>
-            Open the current connection.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.Clone">
-            <summary>
-            Get a clone of the current instance.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.System#ICloneable#Clone">
-            <summary>
-            Get a clone of the current instance.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.Dispose(System.Boolean)">
-            <summary>
-            Clean up used resources.
-            </summary>
-            <param name="disposing"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.RollbackDeadTransaction">
-            <summary>
-            Rollbacks any dead transaction before doing something else.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.InternalRollback">
-            <summary>
-            Executes a rollback command on the database.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.CloseDeadReader">
-            <summary>
-            Closes any active reader before doing something else.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnection._connState">
-            <summary>
-            Connection state
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnection._connString">
-            <summary>
-            Connection string
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnection._database">
-            <summary>
-            Database name
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnection.Execute(System.String)">
-            <summary>
-            Executes the sql query and return the results.
-            </summary>
-            <param name="sqlBatch"></param>
-            <returns></returns>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnection.LocalTransaction">
-            <summary>
-            Local transaction object used internally.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlConnection.ConnectionString">
-            <summary>
-            Get or set the connection string.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlConnection.ConnectionTimeout">
-            <summary>
-            Get the current connection timeout.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlConnection.Database">
-            <summary>
-            Get the current database name.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlConnection.State">
-            <summary>
-            Get the current connection state.
-            </summary>
-        </member>
-        <member name="E:System.Data.Hsql.SharpHsqlConnection.InfoMessage">
-            <summary>
-            InfoMessage event.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlConnection.Reader">
-            <summary>
-            Active reader using this connection.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlConnection.InternalDatabase">
-            <summary>
-            Database instance associated with this connection.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlConnection.Channel">
-            <summary>
-            Internal SharpHsql channel associated with this connection.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlConnection.DataSource">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlConnection.ServerVersion">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlConnectionString">
-            <summary>
-            Helper static class for building SharpHsql connection strings.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnectionString.#cctor">
-            <summary>
-            Static constructor.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnectionString.#ctor(System.String)">
-            <summary>
-            Creates a new <see cref="T:System.Data.Hsql.SharpHsqlConnectionString"/> object
-            using a connection string.
-            </summary>
-            <param name="connstring"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlConnectionString.ToString">
-            <summary>
-            Returns the connection string built.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.Database">
-            <summary>
-            Database name.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.UserName">
-            <summary>
-            User name.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.UserPassword">
-            <summary>
-            User password.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.invariantComparer">
-            <summary>
-            Class used internally for comparisons.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlDataAdapter">
-            <summary>
-            Data adapter class for SharpHsql.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor">
-            <summary>
-            Default constructor
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor(System.Data.Hsql.SharpHsqlCommand)">
-            <summary>
-            Constructor using a <see cref="T:System.Data.Hsql.SharpHsqlCommand"/> object.
-            </summary>
-            <param name="selectCommand"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor(System.Data.Common.DbDataAdapter)">
-            <summary>
-            Internal constructor used for cloning.
-            </summary>
-            <param name="adapter"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor(System.String)">
-            <summary>
-            Constructor using a command text string.
-            </summary>
-            <param name="selectCommandText"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor(System.String,System.String)">
-            <summary>
-            Constructor using a command text string and a select connection string.
-            </summary>
-            <param name="selectCommandText"></param>
-            <param name="selectConnectionString"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor(System.String,System.Data.Hsql.SharpHsqlConnection)">
-            <summary>
-            Constructor using a command text string and a select connection object.
-            </summary>
-            <param name="selectCommandText"></param>
-            <param name="selectConnection"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
-            <summary>
-            Creates a new <see cref="T:System.Data.Common.RowUpdatedEventArgs"/> to fire the RowUpdated event.
-            </summary>
-            <param name="dataRow"></param>
-            <param name="command"></param>
-            <param name="statementType"></param>
-            <param name="tableMapping"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
-            <summary>
-            Creates a new <see cref="T:System.Data.Common.RowUpdatingEventArgs"/> to fire the RowUpdating event.
-            </summary>
-            <param name="dataRow"></param>
-            <param name="command"></param>
-            <param name="statementType"></param>
-            <param name="tableMapping"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.OnRowUpdated(System.Data.Common.RowUpdatedEventArgs)">
-            <summary>
-            Fires the RowUpdated event.
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.OnRowUpdating(System.Data.Common.RowUpdatingEventArgs)">
-            <summary>
-            Fires the RowUpdating event.
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.Dispose(System.Boolean)">
-            <summary>
-            Clean up any used resources.
-            </summary>
-            <param name="disposing"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.Clone">
-            <summary>
-            Returns a clone of the current instance.
-            </summary>
-            <returns>A new <see cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/> object clone of the current.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.System#ICloneable#Clone">
-            <summary>
-            Returns a clone of the current instance.
-            </summary>
-            <returns>A new <see cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/> object clone of the current.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.Fill(System.Data.DataSet)">
-            <summary>
-            Fills a <see cref="T:System.Data.DataSet"/> object.
-            </summary>
-            <param name="dataSet"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.GetFillParameters">
-            <summary>
-            Get the fill parameters.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.FillSchema(System.Data.DataSet,System.Data.SchemaType)">
-            <summary>
-            Fills the schema.
-            </summary>
-            <param name="dataSet"></param>
-            <param name="schemaType"></param>
-            <returns>The schema <see cref="T:System.Data.DataTable"/>.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.Update(System.Data.DataSet)">
-            <summary>
-            Update the database using the passed <see cref="T:System.Data.DataSet"/>.
-            </summary>
-            <param name="dataSet"></param>
-            <returns></returns>
-        </member>
-        <member name="E:System.Data.Hsql.SharpHsqlDataAdapter.RowUpdated">
-            <summary>
-            RowUpdated event.
-            </summary>
-            <remarks>Not supportes on Compact Framework 1.0</remarks>
-        </member>
-        <member name="E:System.Data.Hsql.SharpHsqlDataAdapter.RowUpdating">
-            <summary>
-            Row updating event.
-            </summary>
-            <remarks>Not supportes on Compact Framework 1.0</remarks>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlError">
-            <summary>
-            Error object used in <see cref="T:System.Data.Hsql.SharpHsqlException"/>.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlErrorCollection"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlException"/>
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlError.#ctor(System.String,System.Int32,System.String,System.String)">
-            <summary>
-            Default constructor.
-            </summary>
-            <param name="message"></param>
-            <param name="number"></param>
-            <param name="procedure"></param>
-            <param name="source"></param>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlError.Message">
-            <summary>
-            Textual description for this error.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlError.Number">
-            <summary>
-            Error code for this error.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlError.Procedure">
-            <summary>
-            Procedure where this error was waised.
-            </summary>
-        </member>
-        <member name="F:System.Data.Hsql.SharpHsqlError.Source">
-            <summary>
-            Source module of this error.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlErrorCollection">
-            <summary>
-            Strong typed collection of <see cref="T:System.Data.Hsql.SharpHsqlError"/> objects used in <see cref="T:System.Data.Hsql.SharpHsqlException"/>.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlError"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlException"/>
-            </summary>
-            <remarks>Not serializable on Compact Framework 1.0</remarks>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlErrorCollection.#ctor">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlErrorCollection.Add(System.Data.Hsql.SharpHsqlError)">
-            <summary>
-            Strong typed version of the Add method for adding <see cref="T:System.Data.Hsql.SharpHsqlError"/>
-            objects to the collection.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlError"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlException"/>
-            </summary>
-            <param name="error"></param>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlErrorCollection.Item(System.Int32)">
-            <summary>
-            Strong typed version of the Add method for adding <see cref="T:System.Data.Hsql.SharpHsqlError"/>
-            objects to the collection.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlError"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlException"/>
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlInfoMessageEventHandler">
-            <summary>
-            InfoMessage event for Hsql ADO.NET data provider.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlRowUpdatedEventHandler">
-            <summary>
-            Row Updated event for Hsql ADO.NET data provider.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlRowUpdatingEventHandler">
-            <summary>
-            Row Updating event for Hsql ADO.NET data provider.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlInfoMessageEventArgs">
-            <summary>
-            InfoMessage argument class for Hsql ADO.NET data provider.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.#ctor(System.Data.Hsql.SharpHsqlException)">
-            <summary>
-            Internal constructor.
-            </summary>
-            <param name="exception"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.ShouldSerializeErrors">
-            <summary>
-            True if exists eny errors that should be serialized.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.ToString">
-            <summary>
-            Returns a string representation of the object.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.Errors">
-            <summary>
-            Error collection
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.Message">
-            <summary>
-            Message
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.Source">
-            <summary>
-            Exception Source.
-            </summary>
-            <remarks>Not supported on Compact Framwork 1.0.</remarks>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlRowUpdatedEventArgs">
-            <summary>
-            RowUpdated argument class for Hsql ADO.NET data provider.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlRowUpdatedEventArgs.#ctor(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
-            <summary>
-            Default constructor
-            </summary>
-            <param name="row"></param>
-            <param name="command"></param>
-            <param name="statementType"></param>
-            <param name="tableMapping"></param>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlRowUpdatedEventArgs.Command">
-            <summary>
-            Command beign executed.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlRowUpdatingEventArgs">
-            <summary>
-            RowUpdating argument class for Hsql ADO.NET data provider.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlRowUpdatingEventArgs.#ctor(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
-            <summary>
-            Default constructor.
-            </summary>
-            <param name="row"></param>
-            <param name="command"></param>
-            <param name="statementType"></param>
-            <param name="tableMapping"></param>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlRowUpdatingEventArgs.Command">
-            <summary>
-            Command beign executed.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlException">
-            <summary>
-            Exception class for Hsql ADO.NET data provider.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
-            </summary>
-            <remarks>Not serializable for Compact Framework 1.0</remarks>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlException.#ctor">
-            <summary>
-            Internal default constructor.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlException.#ctor(System.String)">
-            <summary>
-            Constructor using an error string.
-            </summary>
-            <param name="error"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Deserialization constructor.
-            </summary>
-            <remarks>Not supported on Compact Framework 1.0</remarks>
-            <param name="si"></param>
-            <param name="sc"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Serialization method.
-            </summary>
-            <remarks>Not supported on Compact Framework 1.0</remarks>
-            <param name="si"></param>
-            <param name="context"></param>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlException.Errors">
-            <summary>
-            Error collection.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlException.Message">
-            <summary>
-            Exception message.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlException.Number">
-            <summary>
-            Exception error number.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlException.Procedure">
-            <summary>
-            Procedure where the exception was generated.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlException.Source">
-            <summary>
-            Source of the error.
-            </summary>
-            <remarks>Not supported on Compact Framework 1.0</remarks>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlParameter">
-            <summary>
-            Parameter class for Hsql ADO.NET data provider.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor(System.String,System.Data.DbType)">
-            <summary>
-            Constructor setting the parameter data type.
-            </summary>
-            <param name="parameterName"></param>
-            <param name="dbType"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor(System.String,System.Object)">
-            <summary>
-            Constructor setting the parameter value and using data type automatic inference.
-            </summary>
-            <param name="parameterName"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor(System.String,System.Data.DbType,System.Int32)">
-            <summary>
-            Constructor setting the data type and size.
-            </summary>
-            <param name="parameterName"></param>
-            <param name="dbType"></param>
-            <param name="size"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor(System.String,System.Data.DbType,System.Int32,System.String)">
-            <summary>
-            Constructor setting the data type, size and source column.
-            </summary>
-            <param name="parameterName"></param>
-            <param name="dbType"></param>
-            <param name="size"></param>
-            <param name="sourceColumn"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor(System.String,System.Data.DbType,System.Int32,System.Data.ParameterDirection,System.Boolean,System.Byte,System.Byte,System.String,System.Data.DataRowVersion,System.Object)">
-            <summary>
-            Constructor setting the data type, size, direction, nullability, precision, scale, source column, row version and value.
-            </summary>
-            <param name="parameterName"></param>
-            <param name="dbType"></param>
-            <param name="size"></param>
-            <param name="direction"></param>
-            <param name="isNullable"></param>
-            <param name="precision"></param>
-            <param name="scale"></param>
-            <param name="sourceColumn"></param>
-            <param name="sourceVersion"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameter.SetProperties(System.String,System.String,System.Data.DataRowVersion,System.Byte,System.Byte,System.Int32,System.Boolean,System.Int32,System.Data.ParameterDirection,System.Object,System.Data.DbType,System.Boolean,System.Boolean)">
-            <summary>
-            Sets the parameter properties.
-            </summary>
-            <param name="name"></param>
-            <param name="column"></param>
-            <param name="version"></param>
-            <param name="precision"></param>
-            <param name="scale"></param>
-            <param name="size"></param>
-            <param name="forceSize"></param>
-            <param name="offset"></param>
-            <param name="direction"></param>
-            <param name="value"></param>
-            <param name="type"></param>
-            <param name="suppress"></param>
-            <param name="inferType"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameter.Clone">
-            <summary>
-            Returns a new cloned instance of the current parameter.
-            </summary>
-            <returns>The cloned <see cref="T:System.Data.Hsql.SharpHsqlParameter"/> instance.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameter.System#ICloneable#Clone">
-            <summary>
-            Returns a new cloned instance of the current parameter.
-            </summary>
-            <returns>The cloned <see cref="T:System.Data.Hsql.SharpHsqlParameter"/> instance.</returns>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.Precision">
-            <summary>
-            Get or set the parameter precision.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.Scale">
-            <summary>
-            Get or set the parameter scale.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.Size">
-            <summary>
-            Get or set the parameter size.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.Direction">
-            <summary>
-            Get or set the parameter direction.
-            <seealso cref="T:System.Data.ParameterDirection"/>
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.DbType">
-            <summary>
-            Get or set the parameter <see cref="P:System.Data.Hsql.SharpHsqlParameter.DbType"/>.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.Value">
-            <summary>
-            Get or set the parameter value.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.IsNullable">
-            <summary>
-            Get or set the parameter nullability.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.SourceVersion">
-            <summary>
-            Get or set the parameter <see cref="T:System.Data.DataRowVersion"/>.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.ParameterName">
-            <summary>
-            Get or set the parameter name.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.SourceColumn">
-            <summary>
-            Get or set the parameter source column name.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.Suppress">
-            <summary>
-            Flag that indicates if this parameter must be excluded.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameter.Parent">
-            <summary>
-            Internal reference to the parent collection.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlParameterCollection">
-            <summary>
-            Parameter Collection class for Hsql ADO.NET data provider.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
-            </summary>
-            <remarks>Not serializable on Compact Framework 1.0</remarks>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.#ctor(System.Data.Hsql.SharpHsqlCommand)">
-            <summary>
-            Internal Constructor.
-            </summary>
-            <param name="command"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.RemoveAt(System.String)">
-            <summary>
-            Remove the parameter from the collection.
-            </summary>
-            <param name="parameterName">The parameter name to remove.</param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.Contains(System.String)">
-            <summary>
-            Look for a parameter in the collection.
-            </summary>
-            <param name="parameterName">The parameter name to remove.</param>
-            <returns>True if the parameter is found.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.IndexOf(System.String)">
-            <summary>
-            Obtains the parameter index in the collection.
-            </summary>
-            <param name="parameterName">The parameter name to found.</param>
-            <returns>The index of the parameter.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.Insert(System.Int32,System.Object)">
-            <summary>
-            Inserts a new parameter at a specific location.
-            </summary>
-            <param name="index"></param>
-            <param name="value"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.Remove(System.Object)">
-            <summary>
-            Remove the passed parameter from the collection.
-            </summary>
-            <param name="value"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.Clear">
-            <summary>
-            Eliminates all parameters from the collection.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.IndexOf(System.Object)">
-            <summary>
-            Get the index of the passed parameter in the collection.
-            </summary>
-            <param name="value">The paramerter object to find.</param>
-            <returns>The index of the parameter.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.Add(System.Object)">
-            <summary>
-            Adds a new parameter to the collection.
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.CopyTo(System.Array,System.Int32)">
-            <summary>
-            Copies the content of this collection to an array.
-            </summary>
-            <param name="array"></param>
-            <param name="index"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.GetEnumerator">
-            <summary>
-            Gets the enumerator for this collection.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameterCollection.IsReadOnly">
-            <summary>
-            Get the updatability of the collection.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameterCollection.IsFixedSize">
-            <summary>
-            Returns the grow policy for this collection.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameterCollection.IsSynchronized">
-            <summary>
-            Returns the synchronization status of this collection.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameterCollection.Count">
-            <summary>
-            Returns the parameter count for this collection.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlParameterCollection.SyncRoot">
-            <summary>
-            Synchronization object.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlReader">
-            <summary>
-            Reader class for Hsql ADO.NET data provider.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.#ctor(System.Data.Hsql.SharpHsqlCommand)">
-            <summary>
-            Internal constructor
-            </summary>
-            <param name="command"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.NextResult">
-            <summary>
-            Fetches the next result set.
-            </summary>
-            <remarks>Not currently supported.</remarks>
-            <returns>True if the operation was performed sucessfuly.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.Close">
-            <summary>
-            Closed the active open reader and frees any used resources.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.Read">
-            <summary>
-            Read the next row from the results.
-            </summary>
-            <returns>True if the read operation was sucessful.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetSchemaTable">
-            <summary>
-            Gets the schema table from the reader metadata.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetInt32(System.Int32)">
-            <summary>
-            Get the Int32 value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetValue(System.Int32)">
-            <summary>
-            Get the value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.IsDBNull(System.Int32)">
-            <summary>
-            Check for null value of a column.
-            </summary>
-            <param name="i"></param>
-            <returns>True if the passed column index contains a null value.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetBytes(System.Int32,System.Int64,System.Byte[],System.Int32,System.Int32)">
-            <summary>
-            Read bytes from a binary column.
-            </summary>
-            <param name="i">Column index.</param>
-            <param name="fieldOffset">Offset of the field where start reading.</param>
-            <param name="buffer">Buffer where read data will be left.</param>
-            <param name="bufferOffset">Offset of the buffer where start writing.</param>
-            <param name="length">Number of bytes to read.</param>
-            <returns>The number of bytes read.</returns>
-            <remarks>
-            If passed a null value as buffer, the method will return the total length
-            of the data contained in the database field.
-            </remarks>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetByte(System.Int32)">
-            <summary>
-            Get the Byte value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetFieldType(System.Int32)">
-            <summary>
-            Get the Type of the data stored on the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetDecimal(System.Int32)">
-            <summary>
-            Get the Decimal value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetValues(System.Object[])">
-            <summary>
-            Get the column values from the row in an array.
-            </summary>
-            <param name="values">An object array containing the column values.</param>
-            <returns>The count of values read.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetName(System.Int32)">
-            <summary>
-            Gets the name of the specified column by index.
-            </summary>
-            <param name="i">Column index.</param>
-            <returns>Column name.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetInt64(System.Int32)">
-            <summary>
-            Get the Int64 value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetDouble(System.Int32)">
-            <summary>
-            Get the Double value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetBoolean(System.Int32)">
-            <summary>
-            Get the Boolean value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetGuid(System.Int32)">
-            <summary>
-            Get the Guid value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetDateTime(System.Int32)">
-            <summary>
-            Get the DateTime value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetOrdinal(System.String)">
-            <summary>
-            Obtinains the column index using the name.
-            </summary>
-            <param name="name">The column name.</param>
-            <returns>The column index, or an exception if not found.</returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetDataTypeName(System.Int32)">
-            <summary>
-            
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetFloat(System.Int32)">
-            <summary>
-            Get the Float value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetDbDataReader(System.Int32)">
-            <summary>
-            GetData method not supported.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetChars(System.Int32,System.Int64,System.Char[],System.Int32,System.Int32)">
-            <summary>
-            Read characters from a string column.
-            </summary>
-            <param name="i">Column index.</param>
-            <param name="fieldOffset">Offset of the field where start reading.</param>
-            <param name="buffer">Buffer where read data will be left.</param>
-            <param name="bufferOffset">Offset of the buffer where start writing.</param>
-            <param name="length">Number of bytes to read.</param>
-            <returns>The number of characters read.</returns>
-            <remarks>
-            If passed a null value as buffer, the method will return the total length
-            of the data contained in the database field.
-            </remarks>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetString(System.Int32)">
-            <summary>
-            Get the String value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetChar(System.Int32)">
-            <summary>
-            Get the Char value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlReader.GetInt16(System.Int32)">
-            <summary>
-            Get the Int16 value from the specified column index.
-            </summary>
-            <param name="i"></param>
-            <returns></returns>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlReader.RecordsAffected">
-            <summary>
-            Returns the count of recods affected by the last execution.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlReader.IsClosed">
-            <summary>
-            Returns True is this reader is in closed state.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlReader.Depth">
-            <summary>
-            Returns the depth of the current results.
-            </summary>
-            <remarks>Not currently supported.</remarks>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlReader.Item(System.String)">
-            <summary>
-            Get the value of the specified column name.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlReader.Item(System.Int32)">
-            <summary>
-            Get the value from the specified column index.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlReader.FieldCount">
-            <summary>
-            Returns the current field count.
-            </summary>
-        </member>
-        <member name="T:System.Data.Hsql.SharpHsqlTransaction">
-            <summary>
-            Transaction class for Hsql ADO.NET data provider.
-            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
-            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlTransaction.#ctor(System.Data.Hsql.SharpHsqlConnection,System.Data.IsolationLevel)">
-            <summary>
-            Transaction class constructor.
-            </summary>
-            <param name="connection"></param>
-            <param name="isoLevel"></param>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlTransaction.Rollback">
-            <summary>
-            Aborts the current active transaction.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlTransaction.Commit">
-            <summary>
-            Closes the current transaction applying all changes to the database.
-            </summary>
-        </member>
-        <member name="M:System.Data.Hsql.SharpHsqlTransaction.Dispose">
-            <summary>
-            Dispose this transaction doing a rollback if needed.
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlTransaction.DbConnection">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:System.Data.Hsql.SharpHsqlTransaction.IsolationLevel">
-            <summary>
-            Gets the transaction isolation level.
-            </summary>
         </member>
         <member name="T:SharpHsql.Record">
             <summary>
@@ -3769,42 +2282,6 @@
             </summary>
             <param name="b"></param>
         </member>
-        <member name="M:SharpHsql.Result.SetRoot(SharpHsql.Record)">
-            <summary>
-            Sets the result root record.
-            </summary>
-            <param name="root"></param>
-        </member>
-        <member name="M:SharpHsql.Result.SetUpdateCount(System.Int32)">
-            <summary>
-            Sets the update count.
-            </summary>
-            <param name="count"></param>
-        </member>
-        <member name="M:SharpHsql.Result.SetColumnCount(System.Int32)">
-            <summary>
-            Sets the column count.
-            </summary>
-            <param name="count"></param>
-        </member>
-        <member name="M:SharpHsql.Result.Append(SharpHsql.Result)">
-            <summary>
-            Append a result to this results.
-            </summary>
-            <param name="result"></param>
-        </member>
-        <member name="M:SharpHsql.Result.Add(System.Object[])">
-            <summary>
-            Add a row to this results.
-            </summary>
-            <param name="d"></param>
-        </member>
-        <member name="M:SharpHsql.Result.GetBytes">
-            <summary>
-            Serializes the result into a byte array.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:SharpHsql.Result.Name">
             <summary>
             Get the column names in the result.
@@ -3854,6 +2331,42 @@
             <summary>
             Get the column count in the result.
             </summary>
+        </member>
+        <member name="M:SharpHsql.Result.SetRoot(SharpHsql.Record)">
+            <summary>
+            Sets the result root record.
+            </summary>
+            <param name="root"></param>
+        </member>
+        <member name="M:SharpHsql.Result.SetUpdateCount(System.Int32)">
+            <summary>
+            Sets the update count.
+            </summary>
+            <param name="count"></param>
+        </member>
+        <member name="M:SharpHsql.Result.SetColumnCount(System.Int32)">
+            <summary>
+            Sets the column count.
+            </summary>
+            <param name="count"></param>
+        </member>
+        <member name="M:SharpHsql.Result.Append(SharpHsql.Result)">
+            <summary>
+            Append a result to this results.
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:SharpHsql.Result.Add(System.Object[])">
+            <summary>
+            Add a row to this results.
+            </summary>
+            <param name="d"></param>
+        </member>
+        <member name="M:SharpHsql.Result.GetBytes">
+            <summary>
+            Serializes the result into a byte array.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:SharpHsql.ResultType">
             <summary>
@@ -4168,6 +2681,26 @@
             <param name="admin"></param>
             <param name="pub"></param>
         </member>
+        <member name="P:SharpHsql.User.IsAdmin">
+            <summary>
+            True if the user is an administrator.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.User.Name">
+            <summary>
+            Gets the user name.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.User.Password">
+            <summary>
+            Get or set the user password.
+            </summary>
+        </member>
+        <member name="P:SharpHsql.User.Rights">
+            <summary>
+            Get the user rights.
+            </summary>
+        </member>
         <member name="M:SharpHsql.User.CheckPassword(System.String)">
             <summary>
             Checks the user password.
@@ -4205,24 +2738,1491 @@
             Check if the user has administrative priviledges.
             </summary>
         </member>
-        <member name="P:SharpHsql.User.IsAdmin">
+        <member name="T:System.Data.Hsql.CommandBuilder">
             <summary>
-            True if the user is an administrator.
+            Command builder class.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
             </summary>
         </member>
-        <member name="P:SharpHsql.User.Name">
+        <member name="M:System.Data.Hsql.CommandBuilder.#ctor">
             <summary>
-            Gets the user name.
+            Default constructor.
             </summary>
         </member>
-        <member name="P:SharpHsql.User.Password">
+        <member name="P:System.Data.Hsql.CommandBuilder.DataAdapter">
             <summary>
-            Get or set the user password.
+            Get or set the <see cref="T:System.Data.IDbDataAdapter"/> instance.
             </summary>
         </member>
-        <member name="P:SharpHsql.User.Rights">
+        <member name="P:System.Data.Hsql.CommandBuilder.QuotePrefix">
             <summary>
-            Get the user rights.
+            Get or set the quote prefix to use.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.CommandBuilder.QuoteSuffix">
+            <summary>
+            Get or set the quote suffix to use.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.CommandBuilder.SourceCommand">
+            <summary>
+            Get the source command.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.Dispose">
+            <summary>
+            Dispose method.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.GetInsertCommand">
+            <summary>
+            Get a command for Insert.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.GetUpdateCommand">
+            <summary>
+            Get a command for Update.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.GetDeleteCommand">
+            <summary>
+            Get a command for Delete.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.RefreshSchema">
+            <summary>
+            Refresh database schema 
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.BuildSchemaTableInfoTableNames(System.String[])">
+            <summary>
+            Build the schema information table.
+            </summary>
+            <param name="columnNameArray"></param>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.GetSortedSchemaRows(System.Data.DataTable)">
+            <summary>
+            Get the schema row.
+            </summary>
+            <param name="dataTable"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.SrcCompare(System.String,System.String)">
+            <summary>
+            Helper routine to compare two strings case sensitive and using the current culture.
+            </summary>
+            <param name="strA"></param>
+            <param name="strB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.DstCompare(System.String,System.String)">
+            <summary>
+            Helper routine to compare two strings case insensitive and using the current culture
+            </summary>
+            <param name="strA"></param>
+            <param name="strB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.IsEmpty(System.String)">
+            <summary>
+            Helper routine used for empty strings comparison.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.IsEmpty(System.String[])">
+            <summary>
+            Helper routine used for empty string arrays comparison.
+            </summary>
+            <param name="array"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.FindBuilder(System.MulticastDelegate)">
+            <summary>
+            Internal delegate.
+            </summary>
+            <param name="mcd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.CommandBuilder.IsNull(System.Object)">
+            <summary>
+            Helper routine for nullable objects comparison.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Data.Hsql.CommandBuilderBehavior">
+            <summary>
+            Enum describing the command builder behavior.
+            <seealso cref="T:System.Data.Hsql.CommandBuilder"/>
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.CommandBuilderBehavior.Default">
+            <summary>
+            Default behavior.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.CommandBuilderBehavior.UpdateSetSameValue">
+            <summary>
+            When doing update use the original value if not changed.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.CommandBuilderBehavior.UseRowVersionInUpdateWhereClause">
+            <summary>
+            Use row version where doing updates.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.CommandBuilderBehavior.UseRowVersionInDeleteWhereClause">
+            <summary>
+            Use row version where doing deletes.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.CommandBuilderBehavior.UseRowVersionInWhereClause">
+            <summary>
+            Use row version in selects.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.CommandBuilderBehavior.PrimaryKeyOnlyUpdateWhereClause">
+            <summary>
+            Compare matching row using only primary key and not all columns when updating.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.CommandBuilderBehavior.PrimaryKeyOnlyDeleteWhereClause">
+            <summary>
+            Compare matching row using only primary key and not all columns when deleting.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.CommandBuilderBehavior.PrimaryKeyOnlyWhereClause">
+            <summary>
+            Compare matching row using only primary key and not all columns.
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlCommand">
+            <summary>
+            Command class for Hsql ADO.NET data provider.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.#ctor(System.String)">
+            <summary>
+            Constructor using a command text.
+            </summary>
+            <param name="sCommand"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.#ctor(System.String,System.Data.Hsql.SharpHsqlConnection)">
+            <summary>
+            Constructor using a command text and connection.
+            </summary>
+            <param name="sCommand"></param>
+            <param name="conn"></param>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommand.DbParameterCollection">
+            <summary>
+            Command parameter collection.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommand.DbTransaction">
+            <summary>
+            Get or set the Transaction object for use by this command.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommand.UpdatedRowSource">
+            <summary>
+            Get or set the <see cref="T:System.Data.UpdateRowSource"/> for the command.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.Cancel">
+            <summary>
+            Cancels the current operation.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.CreateDbParameter">
+            <summary>
+            Creates and returns a new <see cref="T:System.Data.Hsql.SharpHsqlParameter"/> object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.ExecuteNonQuery">
+            <summary>
+            Executes a query with no results.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.ExecuteDbDataReader(System.Data.CommandBehavior)">
+            <summary>
+            Executes a query returning an <see cref="T:System.Data.Hsql.SharpHsqlReader"/> object.
+            </summary>
+            <param name="behavior"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.ExecuteScalar">
+            <summary>
+            Executes a query returning a single result.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.ExecuteXmlReader">
+            <summary>
+            Executes a query that returns results as XML.
+            </summary>
+            <remarks>Not currently supported.</remarks>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.Prepare">
+            <summary>
+            Prepare a stored procedure on the database.
+            </summary>
+            <remarks>Not currently supported.</remarks>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.Clone">
+            <summary>
+            Makes a clone of the current object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommand.DeriveParameters">
+            <summary>
+            Derive parameters from a stored procedure.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommand.Result">
+            <summary>
+            Query results from SharpHsql database.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlCommand._connection">
+            <summary>
+            Connection object used internally.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommand.DbConnection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommand.DesignTimeVisible">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommand.CommandText">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommand.CommandTimeout">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommand.CommandType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlCommandBuilder">
+            <summary>
+            CommandBuilder component for design time.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            Component constructor.
+            </summary>
+            <param name="container"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.#ctor(System.Data.Hsql.SharpHsqlDataAdapter)">
+            <summary>
+            Constructor using an <see cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>.
+            </summary>
+            <param name="adapter"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.DeriveParameters(System.Data.Hsql.SharpHsqlCommand)">
+            <summary>
+            Derive command parameters.
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.GetDeleteCommand">
+            <summary>
+            Gets the delete command.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.GetInsertCommand">
+            <summary>
+            Gets the insert command.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.GetUpdateCommand">
+            <summary>
+            Gets the update command.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.RefreshSchema">
+            <summary>
+            Refresh the database schema.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommandBuilder.DataAdapter">
+            <summary>
+            Get or set the <see cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/> object used.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommandBuilder.QuotePrefix">
+            <summary>
+            Get or set the quote prefix.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlCommandBuilder.QuoteSuffix">
+            <summary>
+            Get or set the quote suffix.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlCommandBuilder.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlCommandBuilder.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlConnection">
+            <summary>
+            Class representing a database connection. 
+            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.#ctor">
+            <summary>
+            Default Constructor.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.#ctor(System.String)">
+            <summary>
+            Constructor using a connection string.
+            </summary>
+            <param name="connectionString"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.#ctor(System.Data.Hsql.SharpHsqlConnection)">
+            <summary>
+            Private constructor used internally.
+            </summary>
+            <param name="connection"></param>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnection.ConnectionString">
+            <summary>
+            Get or set the connection string.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnection.ConnectionTimeout">
+            <summary>
+            Get the current connection timeout.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnection.Database">
+            <summary>
+            Get the current database name.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnection.State">
+            <summary>
+            Get the current connection state.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.BeginDbTransaction(System.Data.IsolationLevel)">
+            <summary>
+            Starts a new transaction.
+            <seealso cref="T:System.Data.IsolationLevel"/>
+            </summary>
+            <param name="level"></param>
+            <returns>The new <see cref="T:System.Data.Hsql.SharpHsqlTransaction"/> object.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.ChangeDatabase(System.String)">
+            <summary>
+            Changes the current database for this connection.
+            </summary>
+            <remarks>Not currently supported.</remarks>
+            <param name="databaseName"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.Close">
+            <summary>
+            Closes the current connection.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.CreateDbCommand">
+            <summary>
+            Creates a new SharpHsqlCommand object.
+            </summary>
+            <returns>A new SharpHsqlCommand object.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.Open">
+            <summary>
+            Open the current connection.
+            </summary>
+        </member>
+        <member name="E:System.Data.Hsql.SharpHsqlConnection.InfoMessage">
+            <summary>
+            InfoMessage event.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.Clone">
+            <summary>
+            Get a clone of the current instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.System#ICloneable#Clone">
+            <summary>
+            Get a clone of the current instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.Dispose(System.Boolean)">
+            <summary>
+            Clean up used resources.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.RollbackDeadTransaction">
+            <summary>
+            Rollbacks any dead transaction before doing something else.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.InternalRollback">
+            <summary>
+            Executes a rollback command on the database.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.CloseDeadReader">
+            <summary>
+            Closes any active reader before doing something else.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlConnection._connState">
+            <summary>
+            Connection state
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlConnection._connString">
+            <summary>
+            Connection string
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlConnection._database">
+            <summary>
+            Database name
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnection.Reader">
+            <summary>
+            Active reader using this connection.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnection.InternalDatabase">
+            <summary>
+            Database instance associated with this connection.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnection.Channel">
+            <summary>
+            Internal SharpHsql channel associated with this connection.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnection.Execute(System.String)">
+            <summary>
+            Executes the sql query and return the results.
+            </summary>
+            <param name="sqlBatch"></param>
+            <returns></returns>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlConnection.LocalTransaction">
+            <summary>
+            Local transaction object used internally.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnection.DataSource">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlConnection.ServerVersion">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlConnectionString">
+            <summary>
+            Helper static class for building SharpHsql connection strings.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnectionString.#cctor">
+            <summary>
+            Static constructor.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnectionString.#ctor(System.String)">
+            <summary>
+            Creates a new <see cref="T:System.Data.Hsql.SharpHsqlConnectionString"/> object
+            using a connection string.
+            </summary>
+            <param name="connstring"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlConnectionString.ToString">
+            <summary>
+            Returns the connection string built.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.Database">
+            <summary>
+            Database name.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.UserName">
+            <summary>
+            User name.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.UserPassword">
+            <summary>
+            User password.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlConnectionString.invariantComparer">
+            <summary>
+            Class used internally for comparisons.
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlDataAdapter">
+            <summary>
+            Data adapter class for SharpHsql.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor(System.Data.Hsql.SharpHsqlCommand)">
+            <summary>
+            Constructor using a <see cref="T:System.Data.Hsql.SharpHsqlCommand"/> object.
+            </summary>
+            <param name="selectCommand"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor(System.Data.Common.DbDataAdapter)">
+            <summary>
+            Internal constructor used for cloning.
+            </summary>
+            <param name="adapter"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor(System.String)">
+            <summary>
+            Constructor using a command text string.
+            </summary>
+            <param name="selectCommandText"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor(System.String,System.String)">
+            <summary>
+            Constructor using a command text string and a select connection string.
+            </summary>
+            <param name="selectCommandText"></param>
+            <param name="selectConnectionString"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.#ctor(System.String,System.Data.Hsql.SharpHsqlConnection)">
+            <summary>
+            Constructor using a command text string and a select connection object.
+            </summary>
+            <param name="selectCommandText"></param>
+            <param name="selectConnection"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.CreateRowUpdatedEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
+            <summary>
+            Creates a new <see cref="T:System.Data.Common.RowUpdatedEventArgs"/> to fire the RowUpdated event.
+            </summary>
+            <param name="dataRow"></param>
+            <param name="command"></param>
+            <param name="statementType"></param>
+            <param name="tableMapping"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.CreateRowUpdatingEvent(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
+            <summary>
+            Creates a new <see cref="T:System.Data.Common.RowUpdatingEventArgs"/> to fire the RowUpdating event.
+            </summary>
+            <param name="dataRow"></param>
+            <param name="command"></param>
+            <param name="statementType"></param>
+            <param name="tableMapping"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.OnRowUpdated(System.Data.Common.RowUpdatedEventArgs)">
+            <summary>
+            Fires the RowUpdated event.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.OnRowUpdating(System.Data.Common.RowUpdatingEventArgs)">
+            <summary>
+            Fires the RowUpdating event.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.Dispose(System.Boolean)">
+            <summary>
+            Clean up any used resources.
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="E:System.Data.Hsql.SharpHsqlDataAdapter.RowUpdated">
+            <summary>
+            RowUpdated event.
+            </summary>
+            <remarks>Not supportes on Compact Framework 1.0</remarks>
+        </member>
+        <member name="E:System.Data.Hsql.SharpHsqlDataAdapter.RowUpdating">
+            <summary>
+            Row updating event.
+            </summary>
+            <remarks>Not supportes on Compact Framework 1.0</remarks>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.Clone">
+            <summary>
+            Returns a clone of the current instance.
+            </summary>
+            <returns>A new <see cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/> object clone of the current.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.System#ICloneable#Clone">
+            <summary>
+            Returns a clone of the current instance.
+            </summary>
+            <returns>A new <see cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/> object clone of the current.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.Fill(System.Data.DataSet)">
+            <summary>
+            Fills a <see cref="T:System.Data.DataSet"/> object.
+            </summary>
+            <param name="dataSet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.GetFillParameters">
+            <summary>
+            Get the fill parameters.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.FillSchema(System.Data.DataSet,System.Data.SchemaType)">
+            <summary>
+            Fills the schema.
+            </summary>
+            <param name="dataSet"></param>
+            <param name="schemaType"></param>
+            <returns>The schema <see cref="T:System.Data.DataTable"/>.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlDataAdapter.Update(System.Data.DataSet)">
+            <summary>
+            Update the database using the passed <see cref="T:System.Data.DataSet"/>.
+            </summary>
+            <param name="dataSet"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlError">
+            <summary>
+            Error object used in <see cref="T:System.Data.Hsql.SharpHsqlException"/>.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlErrorCollection"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlException"/>
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlError.#ctor(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Default constructor.
+            </summary>
+            <param name="message"></param>
+            <param name="number"></param>
+            <param name="procedure"></param>
+            <param name="source"></param>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlError.Message">
+            <summary>
+            Textual description for this error.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlError.Number">
+            <summary>
+            Error code for this error.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlError.Procedure">
+            <summary>
+            Procedure where this error was waised.
+            </summary>
+        </member>
+        <member name="F:System.Data.Hsql.SharpHsqlError.Source">
+            <summary>
+            Source module of this error.
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlErrorCollection">
+            <summary>
+            Strong typed collection of <see cref="T:System.Data.Hsql.SharpHsqlError"/> objects used in <see cref="T:System.Data.Hsql.SharpHsqlException"/>.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlError"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlException"/>
+            </summary>
+            <remarks>Not serializable on Compact Framework 1.0</remarks>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlErrorCollection.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlErrorCollection.Add(System.Data.Hsql.SharpHsqlError)">
+            <summary>
+            Strong typed version of the Add method for adding <see cref="T:System.Data.Hsql.SharpHsqlError"/>
+            objects to the collection.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlError"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlException"/>
+            </summary>
+            <param name="error"></param>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlErrorCollection.Item(System.Int32)">
+            <summary>
+            Strong typed version of the Add method for adding <see cref="T:System.Data.Hsql.SharpHsqlError"/>
+            objects to the collection.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlError"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlException"/>
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlInfoMessageEventHandler">
+            <summary>
+            InfoMessage event for Hsql ADO.NET data provider.
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlRowUpdatedEventHandler">
+            <summary>
+            Row Updated event for Hsql ADO.NET data provider.
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlRowUpdatingEventHandler">
+            <summary>
+            Row Updating event for Hsql ADO.NET data provider.
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlInfoMessageEventArgs">
+            <summary>
+            InfoMessage argument class for Hsql ADO.NET data provider.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.#ctor(System.Data.Hsql.SharpHsqlException)">
+            <summary>
+            Internal constructor.
+            </summary>
+            <param name="exception"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.ShouldSerializeErrors">
+            <summary>
+            True if exists eny errors that should be serialized.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.ToString">
+            <summary>
+            Returns a string representation of the object.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.Errors">
+            <summary>
+            Error collection
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.Message">
+            <summary>
+            Message
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlInfoMessageEventArgs.Source">
+            <summary>
+            Exception Source.
+            </summary>
+            <remarks>Not supported on Compact Framwork 1.0.</remarks>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlRowUpdatedEventArgs">
+            <summary>
+            RowUpdated argument class for Hsql ADO.NET data provider.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlRowUpdatedEventArgs.#ctor(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="row"></param>
+            <param name="command"></param>
+            <param name="statementType"></param>
+            <param name="tableMapping"></param>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlRowUpdatedEventArgs.Command">
+            <summary>
+            Command beign executed.
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlRowUpdatingEventArgs">
+            <summary>
+            RowUpdating argument class for Hsql ADO.NET data provider.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlRowUpdatingEventArgs.#ctor(System.Data.DataRow,System.Data.IDbCommand,System.Data.StatementType,System.Data.Common.DataTableMapping)">
+            <summary>
+            Default constructor.
+            </summary>
+            <param name="row"></param>
+            <param name="command"></param>
+            <param name="statementType"></param>
+            <param name="tableMapping"></param>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlRowUpdatingEventArgs.Command">
+            <summary>
+            Command beign executed.
+            </summary>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlException">
+            <summary>
+            Exception class for Hsql ADO.NET data provider.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
+            </summary>
+            <remarks>Not serializable for Compact Framework 1.0</remarks>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlException.#ctor">
+            <summary>
+            Internal default constructor.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlException.#ctor(System.String)">
+            <summary>
+            Constructor using an error string.
+            </summary>
+            <param name="error"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <remarks>Not supported on Compact Framework 1.0</remarks>
+            <param name="si"></param>
+            <param name="sc"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Serialization method.
+            </summary>
+            <remarks>Not supported on Compact Framework 1.0</remarks>
+            <param name="si"></param>
+            <param name="context"></param>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlException.Errors">
+            <summary>
+            Error collection.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlException.Message">
+            <summary>
+            Exception message.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlException.Number">
+            <summary>
+            Exception error number.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlException.Procedure">
+            <summary>
+            Procedure where the exception was generated.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlException.Source">
+            <summary>
+            Source of the error.
+            </summary>
+            <remarks>Not supported on Compact Framework 1.0</remarks>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlParameter">
+            <summary>
+            Parameter class for Hsql ADO.NET data provider.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor(System.String,System.Data.DbType)">
+            <summary>
+            Constructor setting the parameter data type.
+            </summary>
+            <param name="parameterName"></param>
+            <param name="dbType"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor(System.String,System.Object)">
+            <summary>
+            Constructor setting the parameter value and using data type automatic inference.
+            </summary>
+            <param name="parameterName"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor(System.String,System.Data.DbType,System.Int32)">
+            <summary>
+            Constructor setting the data type and size.
+            </summary>
+            <param name="parameterName"></param>
+            <param name="dbType"></param>
+            <param name="size"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor(System.String,System.Data.DbType,System.Int32,System.String)">
+            <summary>
+            Constructor setting the data type, size and source column.
+            </summary>
+            <param name="parameterName"></param>
+            <param name="dbType"></param>
+            <param name="size"></param>
+            <param name="sourceColumn"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameter.#ctor(System.String,System.Data.DbType,System.Int32,System.Data.ParameterDirection,System.Boolean,System.Byte,System.Byte,System.String,System.Data.DataRowVersion,System.Object)">
+            <summary>
+            Constructor setting the data type, size, direction, nullability, precision, scale, source column, row version and value.
+            </summary>
+            <param name="parameterName"></param>
+            <param name="dbType"></param>
+            <param name="size"></param>
+            <param name="direction"></param>
+            <param name="isNullable"></param>
+            <param name="precision"></param>
+            <param name="scale"></param>
+            <param name="sourceColumn"></param>
+            <param name="sourceVersion"></param>
+            <param name="value"></param>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.Precision">
+            <summary>
+            Get or set the parameter precision.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.Scale">
+            <summary>
+            Get or set the parameter scale.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.Size">
+            <summary>
+            Get or set the parameter size.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.Direction">
+            <summary>
+            Get or set the parameter direction.
+            <seealso cref="T:System.Data.ParameterDirection"/>
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.DbType">
+            <summary>
+            Get or set the parameter <see cref="P:System.Data.Hsql.SharpHsqlParameter.DbType"/>.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.Value">
+            <summary>
+            Get or set the parameter value.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.IsNullable">
+            <summary>
+            Get or set the parameter nullability.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.SourceVersion">
+            <summary>
+            Get or set the parameter <see cref="T:System.Data.DataRowVersion"/>.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.ParameterName">
+            <summary>
+            Get or set the parameter name.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.SourceColumn">
+            <summary>
+            Get or set the parameter source column name.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.Suppress">
+            <summary>
+            Flag that indicates if this parameter must be excluded.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameter.Parent">
+            <summary>
+            Internal reference to the parent collection.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameter.SetProperties(System.String,System.String,System.Data.DataRowVersion,System.Byte,System.Byte,System.Int32,System.Boolean,System.Int32,System.Data.ParameterDirection,System.Object,System.Data.DbType,System.Boolean,System.Boolean)">
+            <summary>
+            Sets the parameter properties.
+            </summary>
+            <param name="name"></param>
+            <param name="column"></param>
+            <param name="version"></param>
+            <param name="precision"></param>
+            <param name="scale"></param>
+            <param name="size"></param>
+            <param name="forceSize"></param>
+            <param name="offset"></param>
+            <param name="direction"></param>
+            <param name="value"></param>
+            <param name="type"></param>
+            <param name="suppress"></param>
+            <param name="inferType"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameter.Clone">
+            <summary>
+            Returns a new cloned instance of the current parameter.
+            </summary>
+            <returns>The cloned <see cref="T:System.Data.Hsql.SharpHsqlParameter"/> instance.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameter.System#ICloneable#Clone">
+            <summary>
+            Returns a new cloned instance of the current parameter.
+            </summary>
+            <returns>The cloned <see cref="T:System.Data.Hsql.SharpHsqlParameter"/> instance.</returns>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlParameterCollection">
+            <summary>
+            Parameter Collection class for Hsql ADO.NET data provider.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
+            </summary>
+            <remarks>Not serializable on Compact Framework 1.0</remarks>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.#ctor(System.Data.Hsql.SharpHsqlCommand)">
+            <summary>
+            Internal Constructor.
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.RemoveAt(System.String)">
+            <summary>
+            Remove the parameter from the collection.
+            </summary>
+            <param name="parameterName">The parameter name to remove.</param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.Contains(System.String)">
+            <summary>
+            Look for a parameter in the collection.
+            </summary>
+            <param name="parameterName">The parameter name to remove.</param>
+            <returns>True if the parameter is found.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.IndexOf(System.String)">
+            <summary>
+            Obtains the parameter index in the collection.
+            </summary>
+            <param name="parameterName">The parameter name to found.</param>
+            <returns>The index of the parameter.</returns>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameterCollection.IsReadOnly">
+            <summary>
+            Get the updatability of the collection.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.Insert(System.Int32,System.Object)">
+            <summary>
+            Inserts a new parameter at a specific location.
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.Remove(System.Object)">
+            <summary>
+            Remove the passed parameter from the collection.
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.Clear">
+            <summary>
+            Eliminates all parameters from the collection.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.IndexOf(System.Object)">
+            <summary>
+            Get the index of the passed parameter in the collection.
+            </summary>
+            <param name="value">The paramerter object to find.</param>
+            <returns>The index of the parameter.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.Add(System.Object)">
+            <summary>
+            Adds a new parameter to the collection.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameterCollection.IsFixedSize">
+            <summary>
+            Returns the grow policy for this collection.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameterCollection.IsSynchronized">
+            <summary>
+            Returns the synchronization status of this collection.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameterCollection.Count">
+            <summary>
+            Returns the parameter count for this collection.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.CopyTo(System.Array,System.Int32)">
+            <summary>
+            Copies the content of this collection to an array.
+            </summary>
+            <param name="array"></param>
+            <param name="index"></param>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlParameterCollection.SyncRoot">
+            <summary>
+            Synchronization object.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlParameterCollection.GetEnumerator">
+            <summary>
+            Gets the enumerator for this collection.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlReader">
+            <summary>
+            Reader class for Hsql ADO.NET data provider.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlTransaction"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.#ctor(System.Data.Hsql.SharpHsqlCommand)">
+            <summary>
+            Internal constructor
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlReader.RecordsAffected">
+            <summary>
+            Returns the count of recods affected by the last execution.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlReader.IsClosed">
+            <summary>
+            Returns True is this reader is in closed state.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.NextResult">
+            <summary>
+            Fetches the next result set.
+            </summary>
+            <remarks>Not currently supported.</remarks>
+            <returns>True if the operation was performed sucessfuly.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.Close">
+            <summary>
+            Closed the active open reader and frees any used resources.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.Read">
+            <summary>
+            Read the next row from the results.
+            </summary>
+            <returns>True if the read operation was sucessful.</returns>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlReader.Depth">
+            <summary>
+            Returns the depth of the current results.
+            </summary>
+            <remarks>Not currently supported.</remarks>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetSchemaTable">
+            <summary>
+            Gets the schema table from the reader metadata.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetInt32(System.Int32)">
+            <summary>
+            Get the Int32 value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlReader.Item(System.String)">
+            <summary>
+            Get the value of the specified column name.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlReader.Item(System.Int32)">
+            <summary>
+            Get the value from the specified column index.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetValue(System.Int32)">
+            <summary>
+            Get the value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.IsDBNull(System.Int32)">
+            <summary>
+            Check for null value of a column.
+            </summary>
+            <param name="i"></param>
+            <returns>True if the passed column index contains a null value.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetBytes(System.Int32,System.Int64,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Read bytes from a binary column.
+            </summary>
+            <param name="i">Column index.</param>
+            <param name="fieldOffset">Offset of the field where start reading.</param>
+            <param name="buffer">Buffer where read data will be left.</param>
+            <param name="bufferOffset">Offset of the buffer where start writing.</param>
+            <param name="length">Number of bytes to read.</param>
+            <returns>The number of bytes read.</returns>
+            <remarks>
+            If passed a null value as buffer, the method will return the total length
+            of the data contained in the database field.
+            </remarks>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetByte(System.Int32)">
+            <summary>
+            Get the Byte value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetFieldType(System.Int32)">
+            <summary>
+            Get the Type of the data stored on the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetDecimal(System.Int32)">
+            <summary>
+            Get the Decimal value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetValues(System.Object[])">
+            <summary>
+            Get the column values from the row in an array.
+            </summary>
+            <param name="values">An object array containing the column values.</param>
+            <returns>The count of values read.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetName(System.Int32)">
+            <summary>
+            Gets the name of the specified column by index.
+            </summary>
+            <param name="i">Column index.</param>
+            <returns>Column name.</returns>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlReader.FieldCount">
+            <summary>
+            Returns the current field count.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetInt64(System.Int32)">
+            <summary>
+            Get the Int64 value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetDouble(System.Int32)">
+            <summary>
+            Get the Double value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetBoolean(System.Int32)">
+            <summary>
+            Get the Boolean value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetGuid(System.Int32)">
+            <summary>
+            Get the Guid value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetDateTime(System.Int32)">
+            <summary>
+            Get the DateTime value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetOrdinal(System.String)">
+            <summary>
+            Obtinains the column index using the name.
+            </summary>
+            <param name="name">The column name.</param>
+            <returns>The column index, or an exception if not found.</returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetDataTypeName(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetFloat(System.Int32)">
+            <summary>
+            Get the Float value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetDbDataReader(System.Int32)">
+            <summary>
+            GetData method not supported.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetChars(System.Int32,System.Int64,System.Char[],System.Int32,System.Int32)">
+            <summary>
+            Read characters from a string column.
+            </summary>
+            <param name="i">Column index.</param>
+            <param name="fieldOffset">Offset of the field where start reading.</param>
+            <param name="buffer">Buffer where read data will be left.</param>
+            <param name="bufferOffset">Offset of the buffer where start writing.</param>
+            <param name="length">Number of bytes to read.</param>
+            <returns>The number of characters read.</returns>
+            <remarks>
+            If passed a null value as buffer, the method will return the total length
+            of the data contained in the database field.
+            </remarks>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetString(System.Int32)">
+            <summary>
+            Get the String value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetChar(System.Int32)">
+            <summary>
+            Get the Char value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlReader.GetInt16(System.Int32)">
+            <summary>
+            Get the Int16 value from the specified column index.
+            </summary>
+            <param name="i"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Data.Hsql.SharpHsqlTransaction">
+            <summary>
+            Transaction class for Hsql ADO.NET data provider.
+            <seealso cref="T:System.Data.Hsql.SharpHsqlConnection"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlReader"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlParameter"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlCommand"/>
+            <seealso cref="T:System.Data.Hsql.SharpHsqlDataAdapter"/>
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlTransaction.#ctor(System.Data.Hsql.SharpHsqlConnection,System.Data.IsolationLevel)">
+            <summary>
+            Transaction class constructor.
+            </summary>
+            <param name="connection"></param>
+            <param name="isoLevel"></param>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlTransaction.DbConnection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlTransaction.Rollback">
+            <summary>
+            Aborts the current active transaction.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlTransaction.Commit">
+            <summary>
+            Closes the current transaction applying all changes to the database.
+            </summary>
+        </member>
+        <member name="P:System.Data.Hsql.SharpHsqlTransaction.IsolationLevel">
+            <summary>
+            Gets the transaction isolation level.
+            </summary>
+        </member>
+        <member name="M:System.Data.Hsql.SharpHsqlTransaction.Dispose">
+            <summary>
+            Dispose this transaction doing a rollback if needed.
             </summary>
         </member>
     </members>

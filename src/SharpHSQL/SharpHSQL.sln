@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ABB5AC13
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpHSQL.IntegrationTests", "SharpHSQL.IntegrationTests\SharpHSQL.IntegrationTests.csproj", "{60557E91-4298-4804-A117-C459103C9A21}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpHSQL.UnitTests", "SharpHSQL.UnitTests\SharpHSQL.UnitTests.csproj", "{4418022B-AA3E-427B-8817-4C4E5C2581FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,12 +35,17 @@ Global
 		{60557E91-4298-4804-A117-C459103C9A21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60557E91-4298-4804-A117-C459103C9A21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60557E91-4298-4804-A117-C459103C9A21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4418022B-AA3E-427B-8817-4C4E5C2581FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4418022B-AA3E-427B-8817-4C4E5C2581FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4418022B-AA3E-427B-8817-4C4E5C2581FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4418022B-AA3E-427B-8817-4C4E5C2581FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{60557E91-4298-4804-A117-C459103C9A21} = {ABB5AC13-6281-4689-9C4D-84D9537C7CEF}
+		{4418022B-AA3E-427B-8817-4C4E5C2581FA} = {ABB5AC13-6281-4689-9C4D-84D9537C7CEF}
 	EndGlobalSection
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}

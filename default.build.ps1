@@ -1,4 +1,5 @@
 use 14.0 MSBuild
+use ".\packages\NUnit.ConsoleRunner\tools" nunit3-console
 
 cls
 task . Tests
@@ -26,7 +27,8 @@ task Build {
 
 # Synopsis: Building and running tests.
 task Tests Clean, Restore, Build, {
-    & packages\NUnit.ConsoleRunner\tools\nunit3-console.exe src\SharpHSQL\SharpHSQL.IntegrationTests\bin\Debug\SharpHSQL.IntegrationTests.dll
+    exec { nunit3-console src\SharpHSQL\SharpHSQL.UnitTests\bin\Debug\SharpHSQL.UnitTests.dll }
+    exec { nunit3-console src\SharpHSQL\SharpHSQL.IntegrationTests\bin\Debug\SharpHSQL.IntegrationTests.dll }
 }
 
 # Synopsis: Building for Mono platform (using xbuild).
