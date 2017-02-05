@@ -1,9 +1,3 @@
-#region Usings
-using System;
-using System.Collections;
-using System.Text;
-#endregion
-
 #region License
 /*
  * Access.cs
@@ -43,6 +37,10 @@ using System.Text;
  * http://workspaces.gotdotnet.com/sharphsql
  */
 #endregion
+
+using System;
+using System.Collections;
+using System.Text;
 
 namespace SharpHsql
 {

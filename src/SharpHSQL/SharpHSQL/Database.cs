@@ -1,8 +1,3 @@
-#region Usings
-using System;
-using System.Collections;
-#endregion
-
 #region License
 /*
  * Database.cs
@@ -43,6 +38,9 @@ using System.Collections;
  */
 #endregion
 
+using System;
+using System.Collections;
+
 namespace SharpHsql
 {
 	/// <summary>
@@ -57,10 +55,8 @@ namespace SharpHsql
 	/// <seealso cref="System.Data.Hsql.SharpHsqlTransaction"/>
 	/// <seealso cref="System.Data.Hsql.SharpHsqlDataAdapter"/>
 	/// </summary>
-	public sealed class Database : IDisposable
-	{
-		#region Constructor
-
+	public sealed class Database : IDisposable 
+    {
 		/// <summary>
 		/// Database class constructor.
 		/// </summary>
@@ -106,8 +102,6 @@ namespace SharpHsql
 
 			//_access.grant("PUBLIC", "CLASS \"SharpHSQL.Library\"", Access.ALL);
 		}
-
-		#endregion
 
 		#region Public Properties & Methods
 
@@ -915,28 +909,28 @@ namespace SharpHsql
 
 		private Result ProcessShow(Tokenizer tokenizer, Channel channel)
 		{
-			Result r = new Result(1);
+			Result result = new Result(1);
 
 			string sToken = tokenizer.GetString();
 
 			if (sToken.Equals("TABLES"))
 			{
 				System.Collections.ArrayList al = channel.Database.Tables;
-				r.Label[0]="TABLE";
-				r.Type[0] = ColumnType.VarChar;
+				result.Label[0]="TABLE";
+				result.Type[0] = ColumnType.VarChar;
 				for(int x=0;x<al.Count;x++)
 				{
 					Table table = (Table)al[x];
 					string[] tablename = new string [1];
 					tablename[0]=table.Name;
-					r.Add(tablename);
+					result.Add(tablename);
 				}
 				channel.Commit();
 			}
 			else if (sToken.Equals("DATABASES"))
 			{
-				r.Label[0]="DATABASE";
-				r.Type[0] = ColumnType.VarChar;
+				result.Label[0]="DATABASE";
+				result.Type[0] = ColumnType.VarChar;
 
 				System.IO.DirectoryInfo di = new 
 					System.IO.DirectoryInfo(System.IO.Directory.GetCurrentDirectory());
@@ -946,25 +940,25 @@ namespace SharpHsql
 
 					string[] databaseName = new string [1];
 					databaseName[0]=fi.Name.ToUpper().Replace(".DATA","");
-					r.Add(databaseName);
+					result.Add(databaseName);
 				}
 
 				channel.Commit();
 			}
 			else if (sToken.Equals("ALIAS"))
 			{
-				r = new Result(2);
-				r.Label[0]="NAME";
-				r.Type[0] = ColumnType.VarChar;
-				r.Label[1]="LIBRARY";
-				r.Type[1] = ColumnType.VarChar;
+				result = new Result(2);
+				result.Label[0]="NAME";
+				result.Type[0] = ColumnType.VarChar;
+				result.Label[1]="LIBRARY";
+				result.Type[1] = ColumnType.VarChar;
 
 				foreach( DictionaryEntry entry in _alias )
 				{
 					string[] alias = new string [2];
 					alias[0] = entry.Key.ToString();
 					alias[1] = entry.Value.ToString();
-					r.Add(alias);
+					result.Add(alias);
 				}
 
 				channel.Commit();
@@ -982,15 +976,15 @@ namespace SharpHsql
 
 				System.Reflection.MethodInfo mi = f.GetMethodInfo( fqn );
 
-				r = new Result(4);
-				r.Label[0]="ALIAS";
-				r.Type[0] = ColumnType.VarChar;
-				r.Label[1]="PARAMETER";
-				r.Type[1] = ColumnType.VarChar;
-				r.Label[2]="TYPE";
-				r.Type[2] = ColumnType.VarChar;
-				r.Label[3]="POSITION";
-				r.Type[3] = ColumnType.Integer;
+				result = new Result(4);
+				result.Label[0]="ALIAS";
+				result.Type[0] = ColumnType.VarChar;
+				result.Label[1]="PARAMETER";
+				result.Type[1] = ColumnType.VarChar;
+				result.Label[2]="TYPE";
+				result.Type[2] = ColumnType.VarChar;
+				result.Label[3]="POSITION";
+				result.Type[3] = ColumnType.Integer;
 
 				System.Reflection.ParameterInfo[] parms = mi.GetParameters();
 
@@ -1003,7 +997,7 @@ namespace SharpHsql
 					p[1] = "RETURN_VALUE";
 					p[2] = Column.GetColumnTypeString( Function.GetDataType( mi.ReturnType ) );
 					p[3] = 0;
-					r.Add(p);
+					result.Add(p);
 					rt = 1;
 				}
 
@@ -1014,7 +1008,7 @@ namespace SharpHsql
 					p[1] = pi.Name;
 					p[2] = Column.GetColumnTypeString( Function.GetDataType( pi.ParameterType ) );
 					p[3] = (pi.Position + rt);
-					r.Add(p);
+					result.Add(p);
 				}
 
 				channel.Commit();
@@ -1036,21 +1030,21 @@ namespace SharpHsql
 				if( theTable == null )
 					throw Trace.Error(Trace.TABLE_NOT_FOUND, t);
 
-				r = new Result(7);
-				r.Label[0]="TABLE";
-				r.Type[0] = ColumnType.VarChar;
-				r.Label[1]="COLUMN";
-				r.Type[1] = ColumnType.VarChar;
-				r.Label[2]="NATIVETYPE";
-				r.Type[2] = ColumnType.VarChar;
-				r.Label[3]="DBTYPE";
-				r.Type[3] = ColumnType.Integer;
-				r.Label[4]="POSITION";
-				r.Type[4] = ColumnType.Integer;
-				r.Label[5]="NULLABLE";
-				r.Type[5] = ColumnType.Bit;
-				r.Label[6]="IDENTITY";
-				r.Type[6] = ColumnType.Bit;
+				result = new Result(7);
+				result.Label[0]="TABLE";
+				result.Type[0] = ColumnType.VarChar;
+				result.Label[1]="COLUMN";
+				result.Type[1] = ColumnType.VarChar;
+				result.Label[2]="NATIVETYPE";
+				result.Type[2] = ColumnType.VarChar;
+				result.Label[3]="DBTYPE";
+				result.Type[3] = ColumnType.Integer;
+				result.Label[4]="POSITION";
+				result.Type[4] = ColumnType.Integer;
+				result.Label[5]="NULLABLE";
+				result.Type[5] = ColumnType.Bit;
+				result.Label[6]="IDENTITY";
+				result.Type[6] = ColumnType.Bit;
 
 				for(int ix=0;ix<theTable.ColumnCount;ix++)
 				{
@@ -1063,7 +1057,7 @@ namespace SharpHsql
 					coldata[4] = ix;
 					coldata[5] = col.IsNullable;
 					coldata[6] = col.IsIdentity;
-					r.Add(coldata);
+					result.Add(coldata);
 				}
 				channel.Commit();
 			}
@@ -1072,7 +1066,7 @@ namespace SharpHsql
 				throw Trace.Error(Trace.UnexpectedToken, sToken);
 			}
 
-			return r;
+			return result;
 		}
 
 		private Result ProcessGrantOrRevoke(Tokenizer c, Channel channel, bool grant) 

@@ -732,8 +732,10 @@ namespace SharpHsql
 		/// <param name="type"></param>
 		/// <param name="count"></param>
 		/// <returns></returns>
-		internal static object Avg(object data, ColumnType type, int count) 
+		internal static object Avg(object data, ColumnType type, int count)
 		{
+		    var correctCount = Convert.ToDouble(count);
+
 			if (data == null || count == 0) 
 			{
 				return null;
@@ -746,27 +748,27 @@ namespace SharpHsql
 					return null;
 
 				case ColumnType.Integer:
-					return ((int)data / count);
+                    return ((int)data / correctCount);
 
 				case ColumnType.Float:
 				case ColumnType.Real:
-					return ((float) data / count);
+                    return ((float)data / correctCount);
 
 				case ColumnType.DbDouble:
-					return ((double) data / count);
+                    return ((double)data / correctCount);
 
 				case ColumnType.Numeric:
 				case ColumnType.DbDecimal:
-					return ((decimal) data / (decimal)count);
+                    return ((decimal)data / (decimal)correctCount);
 
 				case ColumnType.TinyInt:
-					return ((byte) data / count);
+                    return ((byte)data / correctCount);
 
 				case ColumnType.SmallInt:
-					return ((short) data / count);
+                    return ((short)data / correctCount);
 
 				case ColumnType.BigInt:
-					return ((long) data / count);
+                    return ((long)data / correctCount);
 
 				default:
 					Trace.Error(Trace.SUM_OF_NON_NUMERIC);

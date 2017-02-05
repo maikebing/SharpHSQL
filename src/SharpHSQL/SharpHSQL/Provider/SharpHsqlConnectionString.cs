@@ -1,13 +1,5 @@
-#region Usings
-using System;
-using System.Data;
-using System.Data.Common;
-using System.Collections;
-using System.Collections.Specialized;
-using System.Globalization;
-#endregion
-
 #region License
+
 /*
  * SharpHsqlConnectionString.cs
  *
@@ -44,135 +36,117 @@ using System.Globalization;
  * C# SharpHsql ADO.NET Provider by Andrés G Vettori.
  * http://workspaces.gotdotnet.com/sharphsql
  */
+
 #endregion
+
+using System;
+using System.Globalization;
 
 namespace System.Data.Hsql
 {
-	/// <summary>
-	/// Helper static class for building SharpHsql connection strings.
-	/// </summary>
-	internal sealed class SharpHsqlConnectionString
-	{
-		#region Constructors
+    /// <summary>
+    /// Helper static class for building SharpHsql connection strings.
+    /// </summary>
+    internal sealed class SharpHsqlConnectionString
+    {
+        private readonly string _connectionString;
 
-		/// <summary>
-		/// Static constructor.
-		/// </summary>
-		static SharpHsqlConnectionString()
-		{
-			invariantComparer = CultureInfo.InvariantCulture.CompareInfo;
-		}
+        /// <summary>
+        /// Class used internally for comparisons.
+        /// </summary>
+        private static readonly CompareInfo InvariantComparer;
 
-		/// <summary>
-		/// Creates a new <see cref="SharpHsqlConnectionString"/> object
-		/// using a connection string.
-		/// </summary>
-		/// <param name="connstring"></param>
-		internal SharpHsqlConnectionString( string connstring )
-		{
-			if( connstring == null || connstring.Length == 0 || connstring.Trim().Length == 0 )
-				throw new ArgumentNullException("connstring");
+        internal const string initialCatalogKey = "initial catalog";
+        internal const string databaseKey = "database";
+        internal const string userIdKey = "user id";
+        internal const string uidKey = "uid";
+        internal const string pwdKey = "pwd";
+        internal const string passwordKey = "password";
 
-			string[] pairs = connstring.Split(';');
-			
-			if( pairs.Length < 3 )
-				throw new ArgumentException("The connection string is invalid.", "connstring");
+        /// <summary>
+        /// Database name.
+        /// </summary>
+        public string Database { get; private set; }
 
-			for( int i=0;i<pairs.Length;i++)
-			{
-				if( pairs[i].Trim() == String.Empty )
-					continue;
+        /// <summary>
+        /// User name.
+        /// </summary>
+        public string UserName { get; private set; }
 
-				string[] pair = pairs[i].Split('=');
-				
-				if( pair.Length != 2 )
-					throw new ArgumentException("The connection string has an invalid parameter.", "connstring");
+        /// <summary>
+        /// User password.
+        /// </summary>
+        public string UserPassword { get; private set; }
 
-				string key = pair[0].ToLower().Trim();
-				string value = pair[1].ToLower().Trim();
+        /// <summary>
+        /// Static constructor.
+        /// </summary>
+        static SharpHsqlConnectionString()
+        {
+            InvariantComparer = CultureInfo.InvariantCulture.CompareInfo;
+        }
 
-				if( invariantComparer.Compare( key, Initial_Catalog) == 0 ||  
-					invariantComparer.Compare( key, DB ) == 0 )
-				{
-					Database = value;
-				}
-				if( invariantComparer.Compare( key, User_ID) == 0 ||  
-					invariantComparer.Compare( key, UID ) == 0 )
-				{
-					UserName = value;
-				}
-				if( invariantComparer.Compare( key, Password) == 0 ||  
-					invariantComparer.Compare( key, Pwd ) == 0 )
-				{
-					UserPassword = value;
-				}
-			}
+        /// <summary>
+        /// Creates a new <see cref="SharpHsqlConnectionString"/> object
+        /// using a connection string.
+        /// </summary>
+        /// <param name="connectionString"></param>
+        internal SharpHsqlConnectionString(string connectionString)
+        {
+            _connectionString = string.Empty;
+            Database = string.Empty;
+            UserName = string.Empty;
+            UserPassword = string.Empty;
 
-			if( Database == string.Empty )
-				throw new ArgumentException("Database parameter is invalid in connection string.", "Database");
+            if (string.IsNullOrEmpty(connectionString) || connectionString.Trim().Length == 0)
+                throw new ArgumentNullException(nameof(connectionString));
 
-			if( UserName == string.Empty )
-				throw new ArgumentException("UserName parameter is invalid in connection string.", "UserName");
+            var pairs = connectionString.Split(';');
 
-			_connstring = connstring;
-		}
+            if (pairs.Length < 3)
+                throw new ArgumentException("The connection string is invalid.", nameof(connectionString));
 
-		#endregion
+            for (var i = 0; i < pairs.Length; i++)
+            {
+                if (pairs[i].Trim() == string.Empty)
+                    continue;
 
-		#region Public Properties
+                var pair = pairs[i].Split('=');
 
-		/// <summary>
-		/// Returns the connection string built.
-		/// </summary>
-		/// <returns></returns>
-		public override string ToString()
-		{
-			return _connstring;
-		}
+                if (pair.Length != 2)
+                    throw new ArgumentException("The connection string has an invalid parameter.", nameof(connectionString));
 
-		#endregion
+                var key = pair[0].ToLower().Trim();
+                var value = pair[1].ToLower().Trim();
 
-		#region Public Fields
+                if (InvariantComparer.Compare(key, initialCatalogKey) == 0 || InvariantComparer.Compare(key, databaseKey) == 0)
+                {
+                    Database = value;
+                }
 
-		/// <summary>
-		/// Database name.
-		/// </summary>
-		public string Database = String.Empty;
-		/// <summary>
-		/// User name.
-		/// </summary>
-		public string UserName = String.Empty;
-		/// <summary>
-		/// User password.
-		/// </summary>
-		public string UserPassword = String.Empty;
+                if (InvariantComparer.Compare(key, userIdKey) == 0 || InvariantComparer.Compare(key, uidKey) == 0)
+                {
+                    UserName = value;
+                }
 
-		#endregion
+                if (InvariantComparer.Compare(key, passwordKey) == 0 || InvariantComparer.Compare(key, pwdKey) == 0)
+                {
+                    UserPassword = value;
+                }
+            }
 
-		#region Internal Vars
+            if (Database == string.Empty)
+                throw new ArgumentException("Database parameter is invalid in connection string.", nameof(connectionString));
 
-		/// <summary>
-		/// Class used internally for comparisons.
-		/// </summary>
-		internal static CompareInfo invariantComparer;
+            if (UserName == string.Empty)
+                throw new ArgumentException("UserName parameter is invalid in connection string.", nameof(connectionString));
 
-		#endregion
+            _connectionString = connectionString;
+        }
 
-		#region Internal String Constants
-
-		internal const string Initial_Catalog = "initial catalog";
-		internal const string DB = "database";
-		internal const string User_ID = "user id";
-		internal const string UID = "uid";
-		internal const string Pwd = "pwd";
-		internal const string Password = "password";
-
-		#endregion
-
-		#region Private Vars
-
-		private string _connstring = String.Empty;
-
-		#endregion
-	}
+        public override string ToString()
+        {
+            return _connectionString;
+        }
+    }
 }

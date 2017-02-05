@@ -1,8 +1,7 @@
-source https://api.nuget.org/v3/index.json
+source https://www.nuget.org/api/v2
 framework >= net45
 
-
-group Main
-source https://www.nuget.org/api/v2
-
 nuget log4net 2.0.3
+nuget NUnit  
+nuget NUnit.Runners
+nuget NSubstitute

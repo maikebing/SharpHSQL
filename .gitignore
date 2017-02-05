@@ -1,13 +1,15 @@
 .vs/
 .idea/
+.tests/
 
 *.vssscc
 *.vspscc
 
 *.suo
 *.user
-*.sln.iml
+*.sln/.iml
 
+/tools
 /src/**/[Bb]in/
 /src/**/[Oo]bj/
 [Dd]ebug
@@ -43,3 +45,7 @@ JetBrains.ReSharper.CommandLineTools
 # Paket
 .paket/paket.exe
 packages
+
+# NUnit
+
+TestResult.xml
