@@ -11,9 +11,6 @@ using System.Runtime.CompilerServices;
 "6e98c00c476b62c4394ae9f155dc2f51a41568a4bd0fe8218a27a0040c98c75833d76fac828c64" +
 "fbe53bd179a1b1233906b78cb77d5b253907bc528c372bcb8b280b42f432a4e9907c39a681c67a" +
 "2716a0d1")]
-
-#else
-[assembly: AssemblyConfiguration("RELEASE")]
 #endif
 [assembly: AssemblyTrademark("All trademarks are property of their respective holders.")]
 [assembly: AssemblyCulture("")]		
