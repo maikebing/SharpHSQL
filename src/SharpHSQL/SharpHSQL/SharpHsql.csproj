@@ -14,7 +14,7 @@ Small &amp; embebdded database engine witten in C#. It is a port of the Hyperson
     <RepositoryType>git</RepositoryType>
     <PackageTags>HSQL</PackageTags>
     <PackageReleaseNotes>https://github.com/maikebing/SharpHSQL</PackageReleaseNotes>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>KeyPair.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
