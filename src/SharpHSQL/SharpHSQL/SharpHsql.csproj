@@ -16,6 +16,8 @@ Small &amp; embebdded database engine witten in C#. It is a port of the Hyperson
     <PackageReleaseNotes>https://github.com/maikebing/SharpHSQL</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>KeyPair.snk</AssemblyOriginatorKeyFile>
+    <PackageId>SharpH2SQL</PackageId>
+    <Authors>Mark Tutt</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
