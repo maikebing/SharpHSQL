@@ -1239,7 +1239,7 @@
             A more general logger class is <see cref="T:SharpHsql.LogHelper"/> that uses the <see cref="T:log4net.ILog"/> interface 
             used by applications to log messages into the log4net framework. 
             </remarks>
-            <author>Andrйs G Vettori</author>
+            <author>Andr閟 G Vettori</author>
         </member>
         <member name="M:SharpHsql.EventLogHelper.WriteLogEntry(System.String)">
             <summary>
@@ -1997,7 +1997,7 @@
             Provides static methods that supply helper utilities for logging data whith the ILog object. 
             This class cannot be inherited. 
             </summary>
-            <author>Andrйs G Vettori</author>
+            <author>Andr閟 G Vettori</author>
         </member>
         <member name="F:SharpHsql.LogHelper.TargetNamespace">
             <summary>

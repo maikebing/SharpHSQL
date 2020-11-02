@@ -133,18 +133,19 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Dispose this transaction doing a rollback if needed.
 		/// </summary>
-		public void Dispose()
+		public  new     void Dispose()
 		{
 			this.Dispose(true);
 			GC.SuppressFinalize(this);
 		}
 
-		private void Dispose(bool disposing)
+		protected override void Dispose(bool disposing)
 		{
 			if (disposing && (this._sqlConnection != null))
 			{
 				this.Rollback();
 			}
+			base.Dispose(disposing);
 		}
 
 		#endregion

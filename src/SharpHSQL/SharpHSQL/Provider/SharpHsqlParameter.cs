@@ -186,31 +186,39 @@ namespace System.Data.Hsql
 			this.Value = value;
 		}
 
-		#endregion
+        #endregion
 
-		#region IDbDataParameter Members
+        #region IDbDataParameter Members
 
-		/// <summary>
-		/// Get or set the parameter precision.
-		/// </summary>
-		public byte Precision
-		{
-			get
-			{
-				return _precision;
-			}
-			set
-			{
-				_precision = value;
-			}
-		}
+        /// <summary>
+        /// Get or set the parameter precision.
+        /// </summary>
+#if NETSTANDARD
+        public override byte Precision
+#else
+		public    byte Precision
+#endif
+        {
+            get
+            {
+                return _precision;
+            }
+            set
+            {
+                _precision = value;
+            }
+        }
 
-		/// <summary>
-		/// Get or set the parameter scale.
-		/// </summary>
+        /// <summary>
+        /// Get or set the parameter scale.
+        /// </summary>\
+#if NETSTANDARD
+        public override byte Scale
+#else
 		public byte Scale
-		{
-			get
+#endif
+        {
+            get
 			{
 				return _scale;
 			}
@@ -235,9 +243,9 @@ namespace System.Data.Hsql
 			}
 		}
 
-		#endregion
+#endregion
 
-		#region IDataParameter Members
+#region IDataParameter Members
 
 		/// <summary>
 		/// Get or set the parameter direction.
@@ -362,9 +370,9 @@ namespace System.Data.Hsql
             }
         }
 
-		#endregion
+#endregion
 
-		#region Internal Methods & Properties
+#region Internal Methods & Properties
 
 		/// <summary>
 		/// Flag that indicates if this parameter must be excluded.
@@ -432,9 +440,9 @@ namespace System.Data.Hsql
 			this._inferType = inferType;
 		}
  
-		#endregion
+#endregion
 
-		#region Private Fields
+#region Private Fields
 
 		// Fields
 		private ParameterDirection _direction;
@@ -453,9 +461,9 @@ namespace System.Data.Hsql
 		private DataRowVersion _version;
 		private DbType _dbtype;
 
-		#endregion
+#endregion
 
-		#region ICloneable Members
+#region ICloneable Members
 
 		/// <summary>
 		/// Returns a new cloned instance of the current parameter.
@@ -477,7 +485,7 @@ namespace System.Data.Hsql
 			return Clone();
 		}
 
-		#endregion
+#endregion
 
     }
 }

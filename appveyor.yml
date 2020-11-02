@@ -1,3 +1,0 @@
-before_build:
-    - cmd: .\.paket\paket.bootstrapper.exe
-    - cmd: .\.paket\paket.exe restore

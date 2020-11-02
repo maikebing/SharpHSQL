@@ -101,9 +101,9 @@ namespace SharpHsql
 			try
 			{
 				//If repository is already configured, skip this step.
-				if (!LogManager.GetLoggerRepository(Assembly.GetExecutingAssembly()).Configured)
+				if (!LogManager.GetRepository(Assembly.GetExecutingAssembly()).Configured)
 					//Look in our assembly same folder or Machine.config'
-					DOMConfigurator.ConfigureAndWatch(new FileInfo(Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location) , "log4net.config")));
+					XmlConfigurator.ConfigureAndWatch(new FileInfo(Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location) , "log4net.config")));
 			} 
 			catch(Exception e)
 			{

@@ -1,12 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{C6EB796C-12AB-4931-AC6F-C5D087C505F5}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\paket.dependencies = ..\..\paket.dependencies
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpHsql", "SharpHSQL\SharpHsql.csproj", "{B98F7374-FF00-4BB7-93EC-39763A76BFFF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hsqltest", "hsqltest\hsqltest.csproj", "{264A06D6-76FB-4652-8619-9B651DF182D5}"
@@ -46,6 +41,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{60557E91-4298-4804-A117-C459103C9A21} = {ABB5AC13-6281-4689-9C4D-84D9537C7CEF}
 		{4418022B-AA3E-427B-8817-4C4E5C2581FA} = {ABB5AC13-6281-4689-9C4D-84D9537C7CEF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9448DD8D-69BC-4AD4-8B5D-854C138B3C86}
 	EndGlobalSection
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}

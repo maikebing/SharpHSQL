@@ -459,7 +459,7 @@ namespace System.Data.Hsql
 					return "'" + ((DateTime)value).ToString("yyyy.MM.dd HH:mm:ss.fffffff") + "'";
 				case "String":
 				case "Char":
-					return "'" + value.ToString().Replace('\'', '´') + "'";
+					return "'" + value.ToString().Replace('\'', '"') + "'";
 				case "Byte[]":
 					return "'" + new ByteArray( (byte[])value ).ToString() + "'";
 				case "Double":
