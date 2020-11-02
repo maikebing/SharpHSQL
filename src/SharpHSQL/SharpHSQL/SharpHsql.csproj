@@ -3,9 +3,17 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <Company>NTS</Company>
-    <Description>C# port of Java HSQLDB</Description>
+    <Description>C# port of Java HSQLDB 
+Fork SharpHSQL https://sharphsql.codeplex.com/
+Project Description
+Small &amp; embebdded database engine witten in C#. It is a port of the Hypersonic SQL v1.4 (HSQL) Java project and a continuation of the initial work done by Mark Tutt (http://www.codeproject.com/KB/database/sharphsql.aspx)</Description>
     <Version>2.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/maikebing/SharpHSQL</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/maikebing/SharpHSQL</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>HSQL</PackageTags>
+    <PackageReleaseNotes>https://github.com/maikebing/SharpHSQL</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
